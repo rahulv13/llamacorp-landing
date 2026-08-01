@@ -87,10 +87,10 @@ export default function SelectedWork() {
   );
 
   return (
-    <section className="w-full bg-[#fcfcfc] pt-24 pb-12 overflow-hidden box-border">
+    <section className="w-full bg-[#fcfcfc] pt-10 md:pt-14 lg:pt-16 pb-12 overflow-hidden box-border">
       
       {/* Client Strip */}
-      <div className="relative w-full overflow-hidden mb-16 md:mb-20 py-4 border-y border-black/5 max-w-[1600px] mx-auto">
+      <div className="relative w-full overflow-hidden mb-6 md:mb-8 py-2 md:py-4 border-y border-black/5 max-w-[1600px] mx-auto">
         <div className="absolute inset-y-0 left-0 w-12 md:w-24 bg-gradient-to-r from-[#fcfcfc] to-transparent z-10 pointer-events-none"></div>
         <div className="absolute inset-y-0 right-0 w-12 md:w-24 bg-gradient-to-l from-[#fcfcfc] to-transparent z-10 pointer-events-none"></div>
         <div className="flex animate-marquee whitespace-nowrap items-center w-[max-content]">
@@ -108,7 +108,7 @@ export default function SelectedWork() {
       </div>
 
       {/* Showcase Wall Header */}
-      <div className="w-full max-w-[1600px] mx-auto px-4 mb-6 md:mb-10 flex justify-end">
+      <div className="w-full max-w-[1600px] mx-auto px-4 mb-4 md:mb-6 flex justify-end">
         <a href="#" className="inline-flex items-center gap-2 text-[#111] font-semibold text-[14px] md:text-[15px] hover:text-[#555] transition-colors border-b border-[#111]/20 hover:border-[#111]/50 pb-1">
           View all projects <ArrowUpRight size={18} strokeWidth={2.5} />
         </a>

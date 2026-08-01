@@ -56,8 +56,8 @@ function App() {
     <>
       <MagneticTopNavbar />
 
-      <main className="relative w-full max-w-none px-4 md:px-6 lg:px-8 mx-auto flex flex-col items-center text-center pt-[72px] md:pt-[96px] pb-[80px] md:pb-[120px] min-h-screen overflow-hidden md:overflow-visible box-border">
-        <div className="relative h-12 flex justify-center items-center mb-8 w-full max-w-full overflow-hidden md:overflow-visible" aria-live="polite">
+      <main className="relative w-full max-w-[1200px] px-4 md:px-6 lg:px-8 mx-auto flex flex-col items-center text-center pt-[120px] md:pt-[160px] pb-8 md:pb-10 overflow-hidden md:overflow-visible box-border">
+        <div className="relative h-10 md:h-12 flex justify-center items-center mb-7 md:mb-9 w-full max-w-full overflow-hidden md:overflow-visible" aria-live="polite">
           {testimonials.map((t, index) => {
             const isActive = index === currentIndex;
             const isExiting = index === exitingIndex;
@@ -83,11 +83,11 @@ function App() {
           })}
         </div>
 
-        <h1 className="w-full max-w-[340px] md:max-w-[800px] mx-auto text-[clamp(2.35rem,10vw,3.25rem)] md:text-[clamp(2.375rem,8vw,5rem)] leading-[0.95] md:leading-[1.05] tracking-[-0.05em] break-words font-bold mb-6 text-[#111] px-0">
+        <h1 className="w-full max-w-[340px] md:max-w-[800px] mx-auto text-[clamp(2.35rem,10vw,3.25rem)] md:text-[clamp(2.375rem,8vw,5rem)] leading-[0.95] md:leading-[1.05] tracking-[-0.05em] break-words font-bold mb-6 md:mb-7 text-[#111] px-0">
           AI-driven web design<br className="hidden md:block"/>and development.
         </h1>
         
-        <p className="w-full max-w-[320px] md:max-w-[540px] mx-auto text-[16px] md:text-[1.25rem] leading-6 md:leading-[1.6] text-[#555] mb-12 font-normal px-0">
+        <p className="w-full max-w-[320px] md:max-w-[540px] mx-auto text-[16px] md:text-[1.25rem] leading-6 md:leading-[1.6] text-[#555] mb-7 md:mb-8 font-normal px-0">
           Llamacorp is a premium agency crafting intelligent, high-performance websites and digital products for forward-thinking brands.
         </p>
 
