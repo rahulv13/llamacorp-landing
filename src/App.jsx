@@ -92,8 +92,8 @@ function App() {
         </p>
 
         <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto mx-auto px-0">
-          <a href="#" className="flex justify-center items-center bg-[#111] text-white rounded-full no-underline text-[15px] font-medium transition-all hover:bg-[#222] hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.1)] w-full max-w-[360px] md:w-auto mx-auto min-h-[52px] px-7">Start a Project</a>
-          <a href="#" className="flex justify-center items-center bg-transparent text-[#111] border border-black/10 rounded-full no-underline text-[15px] font-medium transition-all hover:border-[#111] hover:bg-black/5 w-full max-w-[360px] md:w-auto mx-auto min-h-[52px] px-7">Our Work</a>
+          <a href="https://github.com/rahulv13" target="_blank" rel="noopener noreferrer" className="flex justify-center items-center bg-[#111] text-white rounded-full no-underline text-[15px] font-medium transition-all hover:bg-[#222] hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.1)] w-full max-w-[360px] md:w-auto mx-auto min-h-[52px] px-7">Start a Project</a>
+          <a href="https://github.com/rahulv13" target="_blank" rel="noopener noreferrer" className="flex justify-center items-center bg-transparent text-[#111] border border-black/10 rounded-full no-underline text-[15px] font-medium transition-all hover:border-[#111] hover:bg-black/5 w-full max-w-[360px] md:w-auto mx-auto min-h-[52px] px-7">Our Work</a>
         </div>
       </main>
 
