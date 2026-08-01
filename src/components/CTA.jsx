@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { DarkGradientBg } from "./DarkGradientBg";
+import rahulAvatar from "../Rahul.png";
 
 const CTA = () => {
   return (
@@ -34,7 +35,7 @@ const CTA = () => {
             </p>
             
             <button className="group flex items-center justify-center gap-3 bg-white text-[#111] py-4 px-8 rounded-full text-[15px] font-semibold transition-all hover:bg-neutral-100 hover:scale-[1.02] shadow-[0_0_0_rgba(255,255,255,0)] hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] cursor-pointer">
-              <img src="https://i.pravatar.cc/150?img=12" alt="Llamacorp avatar" className="w-6 h-6 rounded-full object-cover" />
+              <img src={rahulAvatar} alt="Llamacorp avatar" className="w-6 h-6 rounded-full object-cover" />
               Start a project
             </button>
             
