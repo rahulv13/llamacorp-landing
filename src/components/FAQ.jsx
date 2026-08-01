@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Plus, Minus } from 'lucide-react';
+import rahulAvatar from '../Rahul.png';
 
 const faqData = [
   {
@@ -62,7 +63,7 @@ const FAQ = () => {
             
             <div className="flex flex-col gap-4 mb-6">
               <div className="flex items-center gap-4">
-                <img src="https://i.pravatar.cc/150?img=12" alt="Llamacorp avatar" className="w-12 h-12 rounded-xl object-cover" />
+                <img src={rahulAvatar} alt="Llamacorp avatar" className="w-12 h-12 rounded-xl object-cover" />
               </div>
               <p className="text-[#333] font-medium text-base leading-snug">
                 Still unsure? Tell us what you’re building and we’ll point you in the right direction 👇🏼
