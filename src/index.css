@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@theme {
+    --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    
+    --color-bg-primary: #fcfcfc;
+    --color-text-primary: #111111;
+    --color-text-secondary: #555555;
+}
+
+@layer base {
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100vw;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: var(--font-inter);
+        background-color: var(--color-bg-primary);
+        color: var(--color-text-primary);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    
+    #root {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+    animation: marquee 40s linear infinite;
+}
+
+@keyframes scroll-up {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+}
+
+@keyframes scroll-down {
+    0% { transform: translateY(-50%); }
+    100% { transform: translateY(0); }
+}
+
+.animate-scroll-up-slow { animation: scroll-up 45s linear infinite; }
+.animate-scroll-down-medium { animation: scroll-down 30s linear infinite; }
+.animate-scroll-up-medium { animation: scroll-up 35s linear infinite; }
+.animate-scroll-down-fast { animation: scroll-down 25s linear infinite; }
+
+.hover-pause:hover {
+    animation-play-state: paused;
+}
