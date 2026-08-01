@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { DarkGradientBg } from "./DarkGradientBg";
 import rahulAvatar from "../Rahul.png";
-import { CtaImageArc } from "./CtaImageArc";
+
 
 const CTA = () => {
   return (
@@ -13,8 +13,6 @@ const CTA = () => {
           className="absolute inset-0 pointer-events-none z-0 opacity-90"
           style={{ background: 'radial-gradient(circle at center, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%)' }}
         />
-        
-        <CtaImageArc />
 
         {/* Main CTA Content */}
         <div className="flex-1 flex flex-col items-center justify-center text-center px-5 max-w-[700px] mx-auto pt-32 pb-20 relative z-30">
