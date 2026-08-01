@@ -56,8 +56,8 @@ function App() {
     <>
       <MagneticTopNavbar />
 
-      <main className="flex-1 flex flex-col items-center justify-center text-center pt-[180px] px-5 pb-[120px] w-full max-w-[900px] mx-auto min-h-screen">
-        <div className="relative h-12 flex justify-center items-center mb-8 w-full" aria-live="polite">
+      <main className="relative w-full max-w-none px-4 md:px-6 lg:px-8 mx-auto flex flex-col items-center text-center pt-[72px] md:pt-[96px] pb-[80px] md:pb-[120px] min-h-screen overflow-hidden md:overflow-visible box-border">
+        <div className="relative h-12 flex justify-center items-center mb-8 w-full max-w-full overflow-hidden md:overflow-visible" aria-live="polite">
           {testimonials.map((t, index) => {
             const isActive = index === currentIndex;
             const isExiting = index === exitingIndex;
@@ -69,31 +69,31 @@ function App() {
               <div 
                 key={index}
                 className={`
-                  absolute bg-white rounded-full py-1.5 pr-4 pl-1.5 flex items-center gap-3 shadow-[0_8px_32px_rgba(0,0,0,0.08)] pointer-events-none w-max max-w-[90vw]
+                  absolute bg-white rounded-full py-1.5 pr-4 pl-1.5 flex items-center gap-3 shadow-[0_8px_32px_rgba(0,0,0,0.08)] pointer-events-none w-max max-w-[calc(100vw-32px)] md:max-w-[90vw]
                   ${isReducedMotion ? 'opacity-100 transform-none pointer-events-auto' : ''}
                   ${!isReducedMotion && isActive ? 'animate-in fade-in slide-in-from-bottom-6 duration-700 pointer-events-auto' : ''}
                   ${!isReducedMotion && isExiting ? 'animate-out fade-out slide-out-to-top-6 duration-500' : ''}
                 `}
                 style={!isReducedMotion && isActive ? { transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)' } : {}}
               >
-                <img src={t.avatar} alt="" className="w-6 h-6 md:w-7 md:h-7 rounded-full object-cover" />
+                <img src={t.avatar} alt="" className="w-6 h-6 md:w-7 md:h-7 rounded-full object-cover shrink-0" />
                 <span className="text-[11px] md:text-[13px] font-medium text-[#555] truncate">{t.text}</span>
               </div>
             );
           })}
         </div>
 
-        <h1 className="text-[clamp(2.5rem,7vw,5rem)] leading-[1.05] font-bold tracking-tight mb-6 text-[#111]">
-          AI-driven web design<br/>and development.
+        <h1 className="w-full max-w-[340px] md:max-w-[800px] mx-auto text-[clamp(2.35rem,10vw,3.25rem)] md:text-[clamp(2.375rem,8vw,5rem)] leading-[0.95] md:leading-[1.05] tracking-[-0.05em] break-words font-bold mb-6 text-[#111] px-0">
+          AI-driven web design<br className="hidden md:block"/>and development.
         </h1>
         
-        <p className="text-[clamp(1rem,4vw,1.25rem)] leading-[1.6] text-[#555] max-w-[540px] mb-12 font-normal tracking-tight px-4 md:px-2.5">
+        <p className="w-full max-w-[320px] md:max-w-[540px] mx-auto text-[16px] md:text-[1.25rem] leading-6 md:leading-[1.6] text-[#555] mb-12 font-normal px-0">
           Llamacorp is a premium agency crafting intelligent, high-performance websites and digital products for forward-thinking brands.
         </p>
 
-        <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto max-w-[300px] md:max-w-none mx-auto">
-          <a href="#" className="bg-[#111] text-white py-3.5 px-7 rounded-full no-underline text-[15px] font-medium transition-all hover:bg-[#222] hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.1)]">Start a Project</a>
-          <a href="#" className="bg-transparent text-[#111] border border-black/10 py-3.5 px-7 rounded-full no-underline text-[15px] font-medium transition-all hover:border-[#111] hover:bg-black/5">Our Work</a>
+        <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto mx-auto px-0">
+          <a href="#" className="flex justify-center items-center bg-[#111] text-white rounded-full no-underline text-[15px] font-medium transition-all hover:bg-[#222] hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.1)] w-full max-w-[360px] md:w-auto mx-auto min-h-[52px] px-7">Start a Project</a>
+          <a href="#" className="flex justify-center items-center bg-transparent text-[#111] border border-black/10 rounded-full no-underline text-[15px] font-medium transition-all hover:border-[#111] hover:bg-black/5 w-full max-w-[360px] md:w-auto mx-auto min-h-[52px] px-7">Our Work</a>
         </div>
       </main>
 

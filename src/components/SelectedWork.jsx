@@ -48,14 +48,14 @@ export default function SelectedWork() {
       key={`${colIdx}-${project.id}-${isDuplicate ? 'dup' : 'orig'}-${idx}`}
       href="#"
       aria-label={`View project: ${project.title}`}
-      className="block relative group overflow-hidden rounded-[8px] bg-[#f4f4f4] border border-black/10 cursor-pointer w-full mb-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+      className="block relative group overflow-hidden rounded-[4px] md:rounded-[8px] bg-white md:bg-[#f4f4f4] border border-black/5 md:border-black/10 cursor-pointer w-full mb-[8px] md:mb-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
     >
-      <div className={`relative w-full bg-[#f4f4f4] ${project.type === 'video' ? project.aspect : ''}`}>
+      <div className={`relative w-full bg-white md:bg-[#f4f4f4] ${project.type === 'video' ? project.aspect : ''}`}>
         {project.type === 'video' ? (
           <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
             <iframe 
               src={project.url} 
-              className="w-full h-full absolute top-0 left-0 pointer-events-none" 
+              className="w-full h-full absolute top-0 left-0 pointer-events-none object-cover" 
               allow="autoplay; fullscreen" 
               title={project.title}
               frameBorder="0"
@@ -66,12 +66,12 @@ export default function SelectedWork() {
             src={project.url} 
             alt={project.title} 
             loading={isDuplicate ? "lazy" : "eager"}
-            className="w-full h-auto block"
+            className="w-full h-auto block object-cover"
           />
         )}
         
         {/* Restrained Overlay */}
-        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out flex flex-col justify-between p-5 md:p-6">
+        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out hidden md:flex flex-col justify-between p-5 md:p-6">
           <div className="flex justify-end">
             <div className="w-9 h-9 rounded-full bg-white text-black flex items-center justify-center shadow-sm">
               <ArrowUpRight size={18} strokeWidth={2} />
@@ -87,18 +87,18 @@ export default function SelectedWork() {
   );
 
   return (
-    <section className="w-full bg-[#fcfcfc] pt-24 pb-12 overflow-hidden">
+    <section className="w-full bg-[#fcfcfc] pt-24 pb-12 overflow-hidden box-border">
       
       {/* Client Strip */}
-      <div className="relative w-full overflow-hidden mb-20 py-4 border-y border-black/5 max-w-[1600px] mx-auto">
-        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#fcfcfc] to-transparent z-10 pointer-events-none"></div>
-        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#fcfcfc] to-transparent z-10 pointer-events-none"></div>
+      <div className="relative w-full overflow-hidden mb-16 md:mb-20 py-4 border-y border-black/5 max-w-[1600px] mx-auto">
+        <div className="absolute inset-y-0 left-0 w-12 md:w-24 bg-gradient-to-r from-[#fcfcfc] to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute inset-y-0 right-0 w-12 md:w-24 bg-gradient-to-l from-[#fcfcfc] to-transparent z-10 pointer-events-none"></div>
         <div className="flex animate-marquee whitespace-nowrap items-center w-[max-content]">
           {[...Array(2)].map((_, i) => (
-            <div key={i} className="flex items-center gap-16 px-8">
+            <div key={i} className="flex items-center gap-10 md:gap-16 px-4 md:px-8">
               {clients.map((name, j) => (
-                <div key={j} className="flex items-center gap-2 text-[#b0b0b0] font-medium text-[1.1rem] tracking-tight">
-                  <div className="w-[12px] h-[12px] rounded-sm border-[1.5px] border-[#d0d0d0] opacity-80"></div>
+                <div key={j} className="flex items-center gap-2 text-[#b0b0b0] font-medium text-[1rem] md:text-[1.1rem] tracking-tight">
+                  <div className="w-[10px] h-[10px] md:w-[12px] md:h-[12px] rounded-sm border-[1.5px] border-[#d0d0d0] opacity-80"></div>
                   {name}
                 </div>
               ))}
@@ -108,25 +108,25 @@ export default function SelectedWork() {
       </div>
 
       {/* Showcase Wall Header */}
-      <div className="w-full max-w-[1600px] mx-auto px-4 mb-10 flex justify-end">
-        <a href="#" className="inline-flex items-center gap-2 text-[#111] font-semibold text-[15px] hover:text-[#555] transition-colors border-b border-[#111]/20 hover:border-[#111]/50 pb-1">
+      <div className="w-full max-w-[1600px] mx-auto px-4 mb-6 md:mb-10 flex justify-end">
+        <a href="#" className="inline-flex items-center gap-2 text-[#111] font-semibold text-[14px] md:text-[15px] hover:text-[#555] transition-colors border-b border-[#111]/20 hover:border-[#111]/50 pb-1">
           View all projects <ArrowUpRight size={18} strokeWidth={2.5} />
         </a>
       </div>
 
       {/* Visual Wall */}
-      <div className="w-full px-4 max-w-[2000px] mx-auto">
-        <div className="relative h-[600px] md:h-[900px] lg:h-[1000px] w-full overflow-hidden rounded-[16px] bg-[#fcfcfc] border border-black/5">
+      <div className="w-full px-[12px] md:px-4 max-w-[2000px] mx-auto">
+        <div className="relative h-[720px] md:h-[900px] lg:h-[1000px] w-full overflow-hidden rounded-[4px] md:rounded-[16px] bg-[#fcfcfc] border border-black/5">
           {/* Gradient masks for top and bottom edges of the wall to make it fade cleanly */}
-          <div className="absolute top-0 left-0 right-0 h-16 md:h-24 bg-gradient-to-b from-[#fcfcfc] to-transparent z-10 pointer-events-none"></div>
-          <div className="absolute bottom-0 left-0 right-0 h-16 md:h-24 bg-gradient-to-t from-[#fcfcfc] to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute top-0 left-0 right-0 h-12 md:h-24 bg-gradient-to-b from-[#fcfcfc] to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute bottom-0 left-0 right-0 h-12 md:h-24 bg-gradient-to-t from-[#fcfcfc] to-transparent z-10 pointer-events-none"></div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 h-full">
-            {/* Desktop and Tablet Animated Columns */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-[8px] md:gap-4 h-full">
+            {/* Animated Columns */}
             {columns.map((col, colIdx) => (
               <div 
                 key={colIdx} 
-                className={`relative h-full w-full overflow-hidden hidden md:block ${colIdx >= 2 ? 'hidden lg:block' : ''}`}
+                className={`relative h-full w-full overflow-hidden ${colIdx >= 2 ? 'hidden lg:block' : 'block'} ${colIdx % 2 !== 0 ? 'pt-16 md:pt-24' : ''}`}
               >
                 {/* 
                   The inner scrolling container. 
@@ -148,11 +148,6 @@ export default function SelectedWork() {
                 </div>
               </div>
             ))}
-            
-            {/* Mobile Static Scrollable Gallery (1 Column) */}
-            <div className="md:hidden flex flex-col gap-4 overflow-y-auto h-full w-full pb-24 scrollbar-hide">
-              {allProjects.map((project, idx) => renderCard(project, idx, 0, false))}
-            </div>
           </div>
         </div>
       </div>

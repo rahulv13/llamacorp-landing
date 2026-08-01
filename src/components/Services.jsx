@@ -35,7 +35,7 @@ export default function Services() {
         <div className="w-full bg-[#f8f8f8] border border-black/[0.06] rounded-[38px] md:rounded-[40px] p-4 flex flex-col lg:flex-row gap-4 group cursor-pointer transition-all duration-500 hover:-translate-y-1 hover:border-black/10 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
           
           {/* Left Inner Panel */}
-          <div className="w-full lg:w-1/2 bg-white rounded-[34px] md:rounded-[36px] border border-black/[0.04] p-10 md:p-14 flex flex-col justify-start shadow-[inset_0_2px_10px_rgba(0,0,0,0.01),0_8px_30px_rgba(0,0,0,0.02)]">
+          <div className="w-full lg:w-1/2 bg-white rounded-[34px] md:rounded-[36px] border border-black/[0.04] p-6 md:p-10 lg:p-14 flex flex-col justify-start shadow-[inset_0_2px_10px_rgba(0,0,0,0.01),0_8px_30px_rgba(0,0,0,0.02)]">
             
             {/* Animated Folder Icon */}
             <div className="mb-8">
@@ -89,7 +89,7 @@ export default function Services() {
         <div className="w-full mt-6 bg-[#f8f8f8] border border-black/[0.06] rounded-[38px] md:rounded-[40px] p-4 flex flex-col lg:flex-row gap-4 group cursor-pointer transition-all duration-500 hover:-translate-y-1 hover:border-black/10 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
           
           {/* Left Inner Panel */}
-          <div className="w-full lg:w-1/2 bg-white rounded-[34px] md:rounded-[36px] border border-black/[0.04] p-10 md:p-14 flex flex-col justify-start shadow-[inset_0_2px_10px_rgba(0,0,0,0.01),0_8px_30px_rgba(0,0,0,0.02)]">
+          <div className="w-full lg:w-1/2 bg-white rounded-[34px] md:rounded-[36px] border border-black/[0.04] p-6 md:p-10 lg:p-14 flex flex-col justify-start shadow-[inset_0_2px_10px_rgba(0,0,0,0.01),0_8px_30px_rgba(0,0,0,0.02)]">
             
             {/* Folder Icon Placeholder */}
             <div className="mb-8">

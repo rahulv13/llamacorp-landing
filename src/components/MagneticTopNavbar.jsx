@@ -67,16 +67,16 @@ export default function MagneticTopNavbar() {
   ];
 
   return (
-    <header className="fixed top-6 left-0 w-full flex justify-center z-[100] px-5 pointer-events-none">
+    <header className="fixed top-4 md:top-6 left-0 w-full flex justify-center z-[100] px-4 md:px-5 pointer-events-none box-border">
       <nav 
-        className="pointer-events-auto bg-white/70 backdrop-blur-xl border border-black/5 text-[#111] rounded-full p-2.5 flex items-center justify-between w-full max-w-[950px] shadow-[0_4px_20px_rgba(0,0,0,0.05)]"
+        className="pointer-events-auto bg-white/70 backdrop-blur-xl border border-black/5 text-[#111] rounded-full p-2 md:p-2.5 flex items-center justify-between w-full max-w-[430px] md:max-w-[950px] shadow-[0_4px_20px_rgba(0,0,0,0.05)]"
         onMouseLeave={() => setHoveredIndex(null)}
       >
         
         {/* Logo */}
-        <div className="flex items-center gap-2 pl-4 pr-8 font-semibold text-[15px] cursor-pointer">
+        <div className="flex items-center gap-2 pl-2 md:pl-4 pr-2 md:pr-8 font-semibold text-[15px] cursor-pointer shrink-0">
           <img src="/logo2.svg" alt="Llamacorp Logo" className="w-8 h-8 object-contain rounded-[5px] overflow-hidden" />
-          Llamacorp
+          <span className="hidden md:inline">Llamacorp</span>
         </div>
 
         {/* Center Links */}
