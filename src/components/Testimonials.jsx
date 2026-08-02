@@ -6,11 +6,11 @@ const testimonialsData = [
     id: 1,
     quote: (
       <>
-        Sesteem did an amazing job designing my website. They totally <strong>got my vision</strong> and made the whole <strong>process easy</strong>. The site <strong>looks fantastic</strong> and <strong>works perfectly</strong>. Highly recommend them!
+        The team delivered exactly what we were looking for. They <strong>understood our requirements</strong>, created a <strong>clean and professional website</strong> for Bansari Chemicals, and made the entire process <strong>smooth from start to finish</strong>. We're very happy with the final result.
       </>
     ),
-    name: "Rostislav Haliplii",
-    title: "Founder @ Profit.com",
+    name: "Bansari",
+    title: "Founder @ Bansari Chemicals",
     avatar: "/assets/testimonial_avatar.png",
     metrics: [
       { label: "Retention Increase", value: "10x" },
