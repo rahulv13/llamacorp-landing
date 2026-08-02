@@ -9,6 +9,19 @@
 }
 
 @layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    #hero, #works, #services, #pricing, #faqs {
+        scroll-margin-top: 80px;
+    }
+    @media (min-width: 768px) {
+        #hero, #works, #services, #pricing, #faqs {
+            scroll-margin-top: 96px;
+        }
+    }
+
     html, body {
         overflow-x: hidden;
         width: 100%;

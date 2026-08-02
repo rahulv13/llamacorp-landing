@@ -35,13 +35,13 @@ const CTA = () => {
               From high-converting websites to AI-powered product experiences, Llamacorp helps ambitious brands move from idea to impact.
             </p>
             
-            <button className="group flex items-center justify-center gap-3 bg-white text-[#111] py-4 px-8 rounded-full text-[15px] font-semibold transition-all hover:bg-neutral-100 hover:scale-[1.02] shadow-[0_0_0_rgba(255,255,255,0)] hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] cursor-pointer">
+            <a href="mailto:llamacorp8@gmail.com?subject=New%20Project%20Inquiry%20from%20Llamacorp&body=Hi%20Llamacorp%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project.%0A%0AName%3A%0ACompany%3A%0AProject%20details%3A%0ABudget%3A%0ATimeline%3A" className="group flex items-center justify-center gap-3 bg-white text-[#111] py-4 px-8 rounded-full text-[15px] font-semibold transition-all hover:bg-neutral-100 hover:scale-[1.02] shadow-[0_0_0_rgba(255,255,255,0)] hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] cursor-pointer no-underline">
               <img src={rahulAvatar} alt="Llamacorp avatar" className="w-6 h-6 rounded-full object-cover" />
               Start a project
-            </button>
+            </a>
             
-            <a href="mailto:hello@llamacorp.in" className="text-white/60 hover:text-white transition-colors text-[15px] font-medium mt-3">
-              Or email us at hello@llamacorp.in →
+            <a href="mailto:llamacorp8@gmail.com" className="text-white/60 hover:text-white transition-colors text-[15px] font-medium mt-3">
+              Or email us at llamacorp8@gmail.com →
             </a>
 
             <div className="flex items-center gap-2 mt-8 text-white/50 text-sm font-medium">

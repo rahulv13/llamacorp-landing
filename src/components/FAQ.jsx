@@ -41,7 +41,7 @@ const FAQ = () => {
   };
 
   return (
-    <div className="w-full bg-[#f9f9f8] pt-12 md:pt-20">
+    <div id="faqs" className="w-full bg-[#f9f9f8] pt-12 md:pt-20">
       <section className="w-full bg-white rounded-t-[40px] md:rounded-t-[60px] px-5 py-16 md:py-24 shadow-[0_-8px_40px_rgba(0,0,0,0.02)] flex justify-center">
         <div className="max-w-[1200px] w-full flex flex-col lg:flex-row gap-16 lg:gap-24">
         
@@ -71,7 +71,7 @@ const FAQ = () => {
             </div>
             
             <div className="flex flex-col gap-3">
-              <button className="w-full bg-white border border-black/10 text-[#111] py-3.5 rounded-2xl text-[15px] font-medium hover:bg-black/5 hover:border-black/20 transition-all flex items-center justify-center gap-2">
+              <a href="mailto:llamacorp8@gmail.com?subject=New%20Project%20Inquiry%20from%20Llamacorp&body=Hi%20Llamacorp%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project.%0A%0AName%3A%0ACompany%3A%0AProject%20details%3A%0ABudget%3A%0ATimeline%3A" className="w-full bg-white border border-black/10 text-[#111] py-3.5 rounded-2xl text-[15px] font-medium hover:bg-black/5 hover:border-black/20 transition-all flex items-center justify-center gap-2">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M6 6V19.5C6 19.7761 5.77614 20 5.5 20H2.5C1.94772 20 1.5 19.5523 1.5 19V6H6Z" fill="#FB413B"/>
                   <path d="M22.5 6V19C22.5 19.5523 22.0523 20 21.5 20H18.5C18.2239 20 18 19.7761 18 19.5V6H22.5Z" fill="url(#paint0_linear_1_175)"/>
@@ -90,8 +90,8 @@ const FAQ = () => {
                   </defs>
                 </svg>
                 Email Llamacorp
-              </button>
-              <button className="w-full bg-white border border-black/10 text-[#111] py-3.5 rounded-2xl text-[15px] font-medium hover:bg-black/5 hover:border-black/20 transition-all flex items-center justify-center gap-2">
+              </a>
+              <a href="https://wa.me/919769285318?text=Hi%20Llamacorp%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener noreferrer" aria-label="Chat with Llamacorp on WhatsApp" className="w-full bg-white border border-black/10 text-[#111] py-3.5 rounded-2xl text-[15px] font-medium hover:bg-black/5 hover:border-black/20 transition-all flex items-center justify-center gap-2 no-underline">
                 <svg width="20" height="20" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <rect width="60" height="60" rx="13.28" fill="url(#faq_whatsapp_gradient)"/>
                   <path d="M25.0719 21.0675L26.2879 24.7153C26.5024 25.359 26.376 26.0674 25.9522 26.5972L25.0888 27.6765C24.8167 28.0166 24.7965 28.4956 25.0411 28.8559C27.5412 32.5386 29.2614 34.3751 32.5056 35.5374C32.8824 35.6724 33.3009 35.5504 33.5615 35.2465L35.0778 33.4774C35.6924 32.7604 36.7249 32.571 37.554 33.0232L40.4537 34.6049C41.1664 34.9936 41.5944 35.7819 41.4069 36.5718C40.5955 39.9893 38.3135 40.9391 35.6319 40.7476C28.6319 40.2476 19.132 30.2476 19.1319 24.7476C19.1319 23.2247 19.4218 21.9917 20.4431 20.8279C21.1318 20.043 22.1964 19.7476 23.2406 19.7476C24.0715 19.7476 24.8092 20.2793 25.0719 21.0675Z" fill="white"/>
@@ -104,7 +104,7 @@ const FAQ = () => {
                   </defs>
                 </svg>
                 Chat on WhatsApp
-              </button>
+              </a>
             </div>
           </div>
         </div>

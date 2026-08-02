@@ -8,7 +8,7 @@ const Pricing = () => {
   const [isAddonActive, setIsAddonActive] = useState(false);
 
   return (
-    <section className="py-24 px-5 bg-[#fafaf9]">
+    <section id="pricing" className="py-24 px-5 bg-[#fafaf9]">
       <div className="max-w-[1000px] mx-auto flex flex-col items-center">
         {/* Header */}
         <div className="text-center mb-16 flex flex-col items-center">
@@ -47,9 +47,9 @@ const Pricing = () => {
                 <p className="text-sm font-medium text-[#777] mb-8">Timeline: 2–4 weeks</p>
                 
                 <div className="mt-auto hidden md:block">
-                  <button className="w-full md:w-auto bg-[#111] text-white py-4 px-8 rounded-full font-medium transition-colors hover:bg-black/80">
+                  <a href="mailto:llamacorp8@gmail.com?subject=New%20Project%20Inquiry%20from%20Llamacorp&body=Hi%20Llamacorp%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project.%0A%0AName%3A%0ACompany%3A%0AProject%20details%3A%0ABudget%3A%0ATimeline%3A" className="inline-block text-center w-full md:w-auto bg-[#111] text-white py-4 px-8 rounded-full font-medium transition-colors hover:bg-black/80">
                     Start a project
-                  </button>
+                  </a>
                   <p className="text-[13px] text-center md:text-left text-[#777] mt-3 ml-2 hover:text-black cursor-pointer transition-colors">
                     Need a custom scope? Let's talk &rarr;
                   </p>
@@ -85,9 +85,9 @@ const Pricing = () => {
                   </div>
                 </div>
                 <div className="mt-8 md:hidden">
-                  <button className="w-full bg-[#111] text-white py-4 px-8 rounded-full font-medium transition-colors hover:bg-black/80">
+                  <a href="mailto:llamacorp8@gmail.com?subject=New%20Project%20Inquiry%20from%20Llamacorp&body=Hi%20Llamacorp%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project.%0A%0AName%3A%0ACompany%3A%0AProject%20details%3A%0ABudget%3A%0ATimeline%3A" className="block text-center w-full bg-[#111] text-white py-4 px-8 rounded-full font-medium transition-colors hover:bg-black/80">
                     Start a project
-                  </button>
+                  </a>
                   <p className="text-[13px] text-center text-[#777] mt-4 hover:text-black cursor-pointer transition-colors">
                     Need a custom scope? Let's talk &rarr;
                   </p>
@@ -135,9 +135,9 @@ const Pricing = () => {
               </ul>
               
               <div>
-                <button className="w-full bg-[#111] text-white py-3.5 px-6 rounded-full font-medium transition-colors hover:bg-black/80">
+                <a href="mailto:llamacorp8@gmail.com?subject=New%20Project%20Inquiry%20from%20Llamacorp&body=Hi%20Llamacorp%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project.%0A%0AName%3A%0ACompany%3A%0AProject%20details%3A%0ABudget%3A%0ATimeline%3A" className="block text-center w-full bg-[#111] text-white py-3.5 px-6 rounded-full font-medium transition-colors hover:bg-black/80">
                   Start a project
-                </button>
+                </a>
                 <p className="text-[13px] text-center text-[#777] mt-3 hover:text-black cursor-pointer transition-colors">
                   Need a custom scope? Let's talk &rarr;
                 </p>
@@ -177,9 +177,9 @@ const Pricing = () => {
               </ul>
               
               <div>
-                <button className="w-full bg-[#111] text-white py-3.5 px-6 rounded-full font-medium transition-colors hover:bg-black/80">
+                <a href="mailto:llamacorp8@gmail.com?subject=New%20Project%20Inquiry%20from%20Llamacorp&body=Hi%20Llamacorp%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project.%0A%0AName%3A%0ACompany%3A%0AProject%20details%3A%0ABudget%3A%0ATimeline%3A" className="block text-center w-full bg-[#111] text-white py-3.5 px-6 rounded-full font-medium transition-colors hover:bg-black/80">
                   Start a project
-                </button>
+                </a>
                 <p className="text-[13px] text-center text-[#777] mt-3 hover:text-black cursor-pointer transition-colors">
                   Need a custom scope? Let's talk &rarr;
                 </p>

@@ -14,7 +14,7 @@ export default function Services() {
   }, []);
 
   return (
-    <section className="w-full bg-[#fcfcfc] py-24 px-5">
+    <section id="services" className="w-full bg-[#fcfcfc] py-24 px-5">
       <div className="max-w-[1500px] mx-auto">
         
         {/* Section Header */}

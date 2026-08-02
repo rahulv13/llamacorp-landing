@@ -87,7 +87,7 @@ export default function SelectedWork() {
   );
 
   return (
-    <section className="w-full bg-[#fcfcfc] pt-10 md:pt-14 lg:pt-16 pb-12 overflow-hidden box-border">
+    <section id="works" className="w-full bg-[#fcfcfc] pt-10 md:pt-14 lg:pt-16 pb-12 overflow-hidden box-border">
       
       {/* Client Strip */}
       <div className="relative w-full overflow-hidden mb-6 md:mb-8 py-2 md:py-4 border-y border-black/5 max-w-[1600px] mx-auto">
