@@ -61,9 +61,10 @@ const CTA = () => {
             </div>
             
             <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6 text-sm text-white/50 font-medium">
-              <a href="#" className="hover:text-white transition-colors">Work</a>
-              <a href="#" className="hover:text-white transition-colors">Services</a>
-              <a href="#" className="hover:text-white transition-colors">FAQ</a>
+              <a href="/work" className="hover:text-white transition-colors">Work</a>
+              <a href="/#services" className="hover:text-white transition-colors">Services</a>
+              <a href="/blog" className="hover:text-white transition-colors">Blog</a>
+              <a href="/#faqs" className="hover:text-white transition-colors">FAQ</a>
               <a href="#" className="hover:text-white transition-colors">Privacy</a>
               
               <div className="flex items-center justify-center gap-4 ml-0 md:ml-2 border-l-0 md:border-l border-white/10 pl-0 md:pl-6 w-full md:w-auto mt-2 md:mt-0">

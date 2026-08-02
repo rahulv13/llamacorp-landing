@@ -34,11 +34,12 @@ export default function MagneticTopNavbar() {
     { label: 'Works', index: 0, href: '/work' },
     { label: 'Services', index: 1, href: '/#services' },
     { label: 'Pricing', index: 2, href: '/#pricing' },
-    { label: 'FAQs', index: 3, href: '/#faqs' },
+    { label: 'Blog', index: 3, href: '/blog' },
+    { label: 'FAQs', index: 4, href: '/#faqs' },
   ];
 
   const rightActions = [
-    { type: 'icon', label: 'WhatsApp', bg: 'bg-transparent', index: 4, href: 'https://wa.me/919769285318?text=Hi%20Llamacorp%2C%20I%27d%20like%20to%20discuss%20a%20project.', target: '_blank', rel: 'noopener noreferrer', ariaLabel: 'Chat with Llamacorp on WhatsApp', icon: (
+    { type: 'icon', label: 'WhatsApp', bg: 'bg-transparent', index: 5, href: 'https://wa.me/919769285318?text=Hi%20Llamacorp%2C%20I%27d%20like%20to%20discuss%20a%20project.', target: '_blank', rel: 'noopener noreferrer', ariaLabel: 'Chat with Llamacorp on WhatsApp', icon: (
       <svg className="w-full h-full" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="60" height="60" rx="13.28" fill="url(#paint0_linear_2303_1997)"/>
         <path d="M25.0719 21.0675L26.2879 24.7153C26.5024 25.359 26.376 26.0674 25.9522 26.5972L25.0888 27.6765C24.8167 28.0166 24.7965 28.4956 25.0411 28.8559C27.5412 32.5386 29.2614 34.3751 32.5056 35.5374C32.8824 35.6724 33.3009 35.5504 33.5615 35.2465L35.0778 33.4774C35.6924 32.7604 36.7249 32.571 37.554 33.0232L40.4537 34.6049C41.1664 34.9936 41.5944 35.7819 41.4069 36.5718C40.5955 39.9893 38.3135 40.9391 35.6319 40.7476C28.6319 40.2476 19.132 30.2476 19.1319 24.7476C19.1319 23.2247 19.4218 21.9917 20.4431 20.8279C21.1318 20.043 22.1964 19.7476 23.2406 19.7476C24.0715 19.7476 24.8092 20.2793 25.0719 21.0675Z" fill="white"/>
@@ -51,7 +52,7 @@ export default function MagneticTopNavbar() {
         </defs>
       </svg>
     )},
-    { type: 'icon', label: 'Telegram', bg: 'bg-transparent', index: 5, href: 'https://t.me/+919769285318', target: '_blank', rel: 'noopener noreferrer', ariaLabel: 'Chat with Llamacorp on Telegram', icon: (
+    { type: 'icon', label: 'Telegram', bg: 'bg-transparent', index: 6, href: 'https://t.me/+919769285318', target: '_blank', rel: 'noopener noreferrer', ariaLabel: 'Chat with Llamacorp on Telegram', icon: (
       <svg className="w-full h-full" width="1150" height="1150" viewBox="0 0 1150 1150" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0 400C0 259.987 0 189.98 27.2484 136.502C51.2167 89.4619 89.4619 51.2167 136.502 27.2484C189.98 0 259.987 0 400 0H750C890.013 0 960.02 0 1013.5 27.2484C1060.54 51.2167 1098.78 89.4619 1122.75 136.502C1150 189.98 1150 259.987 1150 400V750C1150 890.013 1150 960.02 1122.75 1013.5C1098.78 1060.54 1060.54 1098.78 1013.5 1122.75C960.02 1150 890.013 1150 750 1150H400C259.987 1150 189.98 1150 136.502 1122.75C89.4619 1098.78 51.2167 1060.54 27.2484 1013.5C0 960.02 0 890.013 0 750V400Z" fill="white"/>
         <path fillRule="evenodd" clipRule="evenodd" d="M260.278 568.931C427.902 495.9 539.678 447.753 595.605 424.491C755.289 358.073 788.469 346.535 810.096 346.154C814.853 346.071 825.488 347.249 832.378 352.84C838.195 357.56 839.795 363.936 840.561 368.411C841.327 372.887 842.281 383.081 841.522 391.047C832.869 481.968 795.426 702.61 776.378 804.443C768.317 847.532 752.447 861.98 737.082 863.394C703.69 866.467 678.335 841.327 645.993 820.127C595.386 786.953 566.796 766.302 517.673 733.93C460.902 696.519 497.704 675.958 530.057 642.354C538.525 633.56 685.647 499.74 688.495 487.601C688.851 486.083 689.182 480.423 685.82 477.435C682.457 474.447 677.495 475.468 673.914 476.281C668.839 477.433 587.993 530.869 431.376 636.59C408.428 652.348 387.643 660.025 369.02 659.623C348.489 659.18 308.997 648.015 279.638 638.472C243.629 626.766 215.009 620.578 217.501 600.699C218.799 590.344 233.058 579.755 260.278 568.931Z" fill="url(#paint0_linear_9_480)"/>
@@ -63,7 +64,7 @@ export default function MagneticTopNavbar() {
         </defs>
       </svg>
     )},
-    { type: 'button', label: "Let's Work", index: 6, href: "mailto:llamacorp8@gmail.com?subject=New%20Project%20Inquiry%20from%20Llamacorp&body=Hi%20Llamacorp%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project.%0A%0AName%3A%0ACompany%3A%0AProject%20details%3A%0ABudget%3A%0ATimeline%3A" }
+    { type: 'button', label: "Let's Work", index: 7, href: "mailto:llamacorp8@gmail.com?subject=New%20Project%20Inquiry%20from%20Llamacorp&body=Hi%20Llamacorp%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project.%0A%0AName%3A%0ACompany%3A%0AProject%20details%3A%0ABudget%3A%0ATimeline%3A" }
   ];
 
   return (
