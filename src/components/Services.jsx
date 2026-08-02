@@ -25,7 +25,7 @@ export default function Services() {
             <span className="w-1.5 h-1.5 rounded-full bg-white/50"></span>
           </div>
           
-          <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-bold text-[#111] tracking-tight leading-[1.1] max-w-[800px]">
+          <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-bold text-[#111] tracking-tight leading-[1.1] max-w-[1000px]">
             Short Overview of What We Can <br className="hidden md:block" />
             Do for <span className="italic font-medium">Your Business</span>
           </h2>
@@ -52,7 +52,7 @@ export default function Services() {
             <div className="flex flex-wrap gap-3">
               <div className="flex items-center gap-2 bg-[#f8f8f8] text-[#444] px-3.5 py-2 rounded-xl text-[13px] font-semibold border border-black/5 shadow-sm">
                 <Calendar size={14} className="text-[#777]" />
-                2–4 week launch
+                2-4 week launch
               </div>
               <div className="flex items-center gap-2 bg-[#f8f8f8] text-[#444] px-3.5 py-2 rounded-xl text-[13px] font-semibold border border-black/5 shadow-sm">
                 <PenTool size={14} className="text-[#777]" />

@@ -21,7 +21,7 @@ const Pricing = () => {
             Choose the right way to build.
           </h2>
           <p className="text-lg text-[#555] max-w-[600px] leading-relaxed">
-            Flexible engagement models for ambitious brands—from focused launches to ongoing product partnerships.
+            Flexible engagement models for ambitious brands - from focused launches to ongoing product partnerships.
           </p>
         </div>
 
@@ -44,7 +44,7 @@ const Pricing = () => {
                     Starting at {isAddonActive ? "₹1,29,000" : "₹99,000"}
                   </span>
                 </div>
-                <p className="text-sm font-medium text-[#777] mb-8">Timeline: 2–4 weeks</p>
+                <p className="text-sm font-medium text-[#777] mb-8">Timeline: 2-4 weeks</p>
                 
                 <div className="mt-auto hidden md:block">
                   <a href="mailto:llamacorp8@gmail.com?subject=New%20Project%20Inquiry%20from%20Llamacorp&body=Hi%20Llamacorp%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project.%0A%0AName%3A%0ACompany%3A%0AProject%20details%3A%0ABudget%3A%0ATimeline%3A" className="inline-block text-center w-full md:w-auto bg-[#111] text-white py-4 px-8 rounded-full font-medium transition-colors hover:bg-black/80">
