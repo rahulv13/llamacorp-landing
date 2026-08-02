@@ -31,10 +31,10 @@ export default function MagneticTopNavbar() {
   };
 
   const centerLinks = [
-    { label: 'Works', index: 0, href: '#works' },
-    { label: 'Services', index: 1, href: '#services' },
-    { label: 'Pricing', index: 2, href: '#pricing' },
-    { label: 'FAQs', index: 3, href: '#faqs' },
+    { label: 'Works', index: 0, href: '/work' },
+    { label: 'Services', index: 1, href: '/#services' },
+    { label: 'Pricing', index: 2, href: '/#pricing' },
+    { label: 'FAQs', index: 3, href: '/#faqs' },
   ];
 
   const rightActions = [
@@ -74,7 +74,7 @@ export default function MagneticTopNavbar() {
       >
         
         {/* Logo */}
-        <a href="#hero" onMouseEnter={() => setHoveredIndex(null)} className="flex items-center gap-2 pl-2 md:pl-4 pr-2 md:pr-8 font-semibold text-[15px] cursor-pointer shrink-0 no-underline text-[#111]">
+        <a href="/" onMouseEnter={() => setHoveredIndex(null)} className="flex items-center gap-2 pl-2 md:pl-4 pr-2 md:pr-8 font-semibold text-[15px] cursor-pointer shrink-0 no-underline text-[#111]">
           <img src="/logo2.svg" alt="Llamacorp Logo" className="w-8 h-8 object-contain rounded-[5px] overflow-hidden" />
           <span className="hidden md:inline">Llamacorp</span>
         </a>
