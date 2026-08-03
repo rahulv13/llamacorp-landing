@@ -1,0 +1,123 @@
+openapi: 3.0.0
+info:
+  title: Llamacorp CMS API
+  version: 1.0.0
+  description: API documentation for Llamacorp CMS Backend
+servers:
+  - url: http://localhost:5000/api
+    description: Development server
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []
+paths:
+  /auth/login:
+    post:
+      summary: Login user
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Successful login
+  /blogs:
+    get:
+      summary: Get all blogs
+      tags: [Blogs]
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: limit
+          schema:
+            type: integer
+        - in: query
+          name: search
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of blogs
+    post:
+      summary: Create a blog
+      tags: [Blogs]
+      responses:
+        '201':
+          description: Blog created
+  /media/upload:
+    post:
+      summary: Upload an image to Cloudinary
+      tags: [Media]
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Image uploaded
+  /dashboard:
+    get:
+      summary: Get dashboard statistics
+      tags: [Dashboard]
+      responses:
+        '200':
+          description: Dashboard stats
+  /categories:
+    get:
+      summary: Get all categories
+      tags: [Categories]
+      responses:
+        '200':
+          description: List of categories
+    post:
+      summary: Create a category
+      tags: [Categories]
+      responses:
+        '201':
+          description: Category created
+  /tags:
+    get:
+      summary: Get all tags
+      tags: [Tags]
+      responses:
+        '200':
+          description: List of tags
+    post:
+      summary: Create a tag
+      tags: [Tags]
+      responses:
+        '201':
+          description: Tag created
+  /authors:
+    get:
+      summary: Get all authors
+      tags: [Authors]
+      responses:
+        '200':
+          description: List of authors
+    post:
+      summary: Create an author
+      tags: [Authors]
+      responses:
+        '201':
+          description: Author created

@@ -1,0 +1,11 @@
+# LlamaCorp
+
+LlamaCorp is an AI-driven web design and development agency based in Mumbai, India. We specialize in crafting intelligent, high-performance websites from prompt to production in days.
+
+## Services
+- **Web Design & Development:** Generative UI, bespoke business websites, and SaaS platforms.
+- **Social Media Management:** AI-assisted content strategy and audience engagement.
+- **SEO Optimization:** Data-driven search engine ranking and organic traffic growth.
+- **Brand Strategy:** Cohesive identity design and brand storytelling.
+
+Our goal is to leverage artificial intelligence to deliver exceptional digital experiences for our clients.

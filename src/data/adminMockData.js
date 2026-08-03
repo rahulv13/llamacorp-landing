@@ -1,0 +1,98 @@
+export const overviewStats = {
+  totalBlogs: 142,
+  publishedBlogs: 118,
+  drafts: 15,
+  scheduled: 9,
+  featured: 3,
+  totalViews: '2.4M',
+  newsletterSubscribers: '45.2K',
+  commentsAwaiting: 24,
+};
+
+export const mockBlogs = [
+  {
+    id: 1,
+    title: 'The Future of Web Design: Glassmorphism and Beyond',
+    slug: 'future-of-web-design',
+    category: 'Web Design',
+    author: 'Sarah Jenkins',
+    authorAvatar: 'https://i.pravatar.cc/150?u=sarah',
+    status: 'Published',
+    views: '124K',
+    publishDate: 'Aug 12, 2026',
+    readTime: '6 min',
+    featured: true,
+    lastUpdated: 'Aug 12, 2026',
+    image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=600&auto=format&fit=crop',
+  },
+  {
+    id: 2,
+    title: 'How to Optimize React Applications for Speed',
+    slug: 'optimize-react-apps',
+    category: 'Development',
+    author: 'Alex Chen',
+    authorAvatar: 'https://i.pravatar.cc/150?u=alex',
+    status: 'Draft',
+    views: '-',
+    publishDate: '-',
+    readTime: '8 min',
+    featured: false,
+    lastUpdated: 'Aug 14, 2026',
+    image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=600&auto=format&fit=crop',
+  },
+  {
+    id: 3,
+    title: 'Mastering Framer Motion Animations',
+    slug: 'mastering-framer-motion',
+    category: 'UI/UX',
+    author: 'Sarah Jenkins',
+    authorAvatar: 'https://i.pravatar.cc/150?u=sarah',
+    status: 'Scheduled',
+    views: '-',
+    publishDate: 'Aug 20, 2026',
+    readTime: '5 min',
+    featured: false,
+    lastUpdated: 'Aug 10, 2026',
+    image: 'https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=600&auto=format&fit=crop',
+  },
+  {
+    id: 4,
+    title: 'The Ultimate Guide to SEO in 2026',
+    slug: 'ultimate-guide-seo-2026',
+    category: 'SEO',
+    author: 'Michael Torres',
+    authorAvatar: 'https://i.pravatar.cc/150?u=michael',
+    status: 'Published',
+    views: '89K',
+    publishDate: 'Jul 28, 2026',
+    readTime: '12 min',
+    featured: true,
+    lastUpdated: 'Aug 01, 2026',
+    image: 'https://images.unsplash.com/photo-1432821596592-e2c18b78144f?q=80&w=600&auto=format&fit=crop',
+  },
+  {
+    id: 5,
+    title: 'Building Scalable APIs with Node.js',
+    slug: 'building-scalable-apis-nodejs',
+    category: 'Development',
+    author: 'Alex Chen',
+    authorAvatar: 'https://i.pravatar.cc/150?u=alex',
+    status: 'Published',
+    views: '45K',
+    publishDate: 'Jul 15, 2026',
+    readTime: '10 min',
+    featured: false,
+    lastUpdated: 'Jul 15, 2026',
+    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop',
+  }
+];
+
+export const mockCategories = [
+  'All', 'Web Design', 'Development', 'UI/UX', 'Branding', 'SEO', 'AI', 'Case Studies'
+];
+
+export const mockAuthors = [
+  { id: 1, name: 'Sarah Jenkins' },
+  { id: 2, name: 'Alex Chen' },
+  { id: 3, name: 'Michael Torres' },
+];
