@@ -10,22 +10,45 @@ exports.uploadImage = async (req, res) => {
             return res.status(400).json({ success: false, message: 'Please upload an image' });
         }
 
-        const media = await Media.create({
-            publicId: req.file.filename,
-            secureUrl: req.file.path,
-            filename: req.file.originalname,
-            width: req.file.width, // multer-storage-cloudinary might not provide this directly without extra setup, but we'll try
-            height: req.file.height,
-            bytes: req.file.size,
-            format: 'webp',
-            createdBy: req.user.id
-        });
+        const uploadStream = cloudinary.uploader.upload_stream(
+            {
+                folder: 'llamacorp',
+                format: 'webp',
+                transformation: [
+                    { width: 1920, crop: 'limit' },
+                    { quality: 'auto' },
+                ]
+            },
+            async (error, result) => {
+                if (error) {
+                    return res.status(500).json({ success: false, message: 'Cloudinary upload failed', error: error.message });
+                }
 
-        res.status(201).json({
-            success: true,
-            data: media,
-            url: media.secureUrl // For TipTap
-        });
+                try {
+                    const media = await Media.create({
+                        publicId: result.public_id,
+                        secureUrl: result.secure_url,
+                        filename: req.file.originalname,
+                        width: result.width,
+                        height: result.height,
+                        bytes: result.bytes,
+                        format: result.format,
+                        createdBy: req.user.id
+                    });
+
+                    return res.status(201).json({
+                        success: true,
+                        data: media,
+                        url: media.secureUrl // For TipTap
+                    });
+                } catch (dbErr) {
+                    return res.status(500).json({ success: false, message: 'Server Error saving to DB', error: dbErr.message });
+                }
+            }
+        );
+
+        uploadStream.end(req.file.buffer);
+
     } catch (err) {
         res.status(500).json({ success: false, message: 'Server Error', error: err.message });
     }
