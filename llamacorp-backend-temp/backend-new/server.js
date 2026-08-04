@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const path = require('path');
 const swaggerUi = require('swagger-ui-express');
+const compression = require('compression');
 const YAML = require('yamljs');
 
 const dbConnect = require('./config/db');
@@ -17,6 +18,7 @@ const app = express();
 dbConnect();
 
 // Middleware
+app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
@@ -35,6 +37,7 @@ try {
 }
 
 // Routes
+app.use('/', require('./routes/seo'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/blogs', require('./routes/blogs'));
 app.use('/api/dashboard', require('./routes/dashboard'));

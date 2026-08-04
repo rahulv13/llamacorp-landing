@@ -1,4 +1,5 @@
 const Blog = require('../models/Blog');
+const seoService = require('../services/seoService');
 const { validationResult } = require('express-validator');
 
 // @desc    Get all blogs (public, but supports admin filters)
@@ -74,6 +75,7 @@ exports.createBlog = async (req, res) => {
 
     try {
         const blog = await Blog.create(req.body);
+        seoService.invalidateCache();
         res.status(201).json({ success: true, data: blog });
     } catch (err) {
         console.error('Error creating blog:', err);
@@ -95,6 +97,7 @@ exports.updateBlog = async (req, res) => {
         }
 
         blog = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+        seoService.invalidateCache();
         res.status(200).json({ success: true, data: blog });
     } catch (err) {
         res.status(500).json({ success: false, message: 'Server Error', error: err.message });
@@ -115,6 +118,7 @@ exports.deleteBlog = async (req, res) => {
         blog.deletedAt = Date.now();
         await blog.save();
 
+        seoService.invalidateCache();
         res.status(200).json({ success: true, message: 'Blog moved to trash' });
     } catch (err) {
         res.status(500).json({ success: false, message: 'Server Error', error: err.message });
@@ -134,6 +138,7 @@ exports.publishBlog = async (req, res) => {
         if (!blog.publishedAt) blog.publishedAt = Date.now();
         await blog.save();
 
+        seoService.invalidateCache();
         res.status(200).json({ success: true, data: blog });
     } catch (err) {
         res.status(500).json({ success: false, message: 'Server Error', error: err.message });
@@ -151,6 +156,7 @@ exports.draftBlog = async (req, res) => {
         blog.status = 'draft';
         await blog.save();
 
+        seoService.invalidateCache();
         res.status(200).json({ success: true, data: blog });
     } catch (err) {
         res.status(500).json({ success: false, message: 'Server Error', error: err.message });
