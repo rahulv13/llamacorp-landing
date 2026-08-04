@@ -11,8 +11,10 @@ import AdminBlogList from './pages/admin/AdminBlogList';
 import AdminBlogCreate from './pages/admin/AdminBlogCreate';
 import AdminPlaceholder from './pages/admin/AdminPlaceholder';
 import AdminAuthors from './pages/admin/AdminAuthors';
+import AdminCategories from './pages/admin/AdminCategories';
 import AdminLogin from './pages/admin/AdminLogin';
 import { AdminProvider } from './context/AdminContext';
+import { Toaster } from 'sonner';
 
 import './index.css';
 
@@ -21,6 +23,7 @@ function App() {
     <HelmetProvider>
       <AdminProvider>
         <Router>
+          <Toaster richColors position="bottom-right" />
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<Home />} />
@@ -33,9 +36,10 @@ function App() {
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/blogs" element={<AdminBlogList />} />
           <Route path="/admin/blogs/create" element={<AdminBlogCreate />} />
+          <Route path="/admin/blogs/edit/:id" element={<AdminBlogCreate />} />
           
           {/* Admin Placeholder Routes */}
-          <Route path="/admin/categories" element={<AdminPlaceholder title="Categories" description="Manage your blog categories here." />} />
+          <Route path="/admin/categories" element={<AdminCategories />} />
           <Route path="/admin/authors" element={<AdminAuthors />} />
           <Route path="/admin/tags" element={<AdminPlaceholder title="Tags" description="Manage blog tags for better categorization." />} />
           <Route path="/admin/media" element={<AdminPlaceholder title="Media Library" description="Centralized media management." />} />

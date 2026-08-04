@@ -57,7 +57,7 @@ export default function AdminBlogList() {
   const filteredBlogs = blogs.filter(blog => {
     const matchesSearch = blog.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
                           (blog.author?.name || '').toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = statusFilter === 'All' || blog.status === statusFilter;
+    const matchesStatus = statusFilter === 'All' || (blog.status && blog.status.toLowerCase() === statusFilter.toLowerCase());
     return matchesSearch && matchesStatus;
   });
 
@@ -210,11 +210,11 @@ export default function AdminBlogList() {
                   </td>
                   <td className="p-4">
                     <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border ${
-                      blog.status === 'Published' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
-                      blog.status === 'Draft' ? 'bg-amber-50 text-amber-700 border-amber-200' :
+                      blog.status?.toLowerCase() === 'published' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
+                      blog.status?.toLowerCase() === 'draft' ? 'bg-amber-50 text-amber-700 border-amber-200' :
                       'bg-blue-50 text-blue-700 border-blue-200'
                     }`}>
-                      {blog.status}
+                      {blog.status ? blog.status.charAt(0).toUpperCase() + blog.status.slice(1) : ''}
                     </span>
                   </td>
                   <td className="p-4">

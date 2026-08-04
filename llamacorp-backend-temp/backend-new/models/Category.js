@@ -32,7 +32,7 @@ const categorySchema = new mongoose.Schema(
 );
 
 // Auto-generate unique slug before saving
-categorySchema.pre('save', async function (next) {
+categorySchema.pre('save', async function () {
     if (!this.slug || this.isModified('name')) {
         let baseSlug = slugify(this.name, { lower: true, strict: true });
         let slug = baseSlug;
@@ -50,7 +50,6 @@ categorySchema.pre('save', async function (next) {
         }
         this.slug = slug;
     }
-    next();
 });
 
 module.exports = mongoose.model('Category', categorySchema);

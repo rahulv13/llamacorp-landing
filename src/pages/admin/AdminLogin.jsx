@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Loader2 } from "lucide-react";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 import { z } from "zod";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -335,7 +335,6 @@ export default function AdminLogin() {
           </p>
         </div>
       </div>
-      <Toaster richColors position="bottom-right" />
     </div>
   );
 }

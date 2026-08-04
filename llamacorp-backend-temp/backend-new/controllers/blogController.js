@@ -32,7 +32,8 @@ exports.getBlogs = async (req, res) => {
             .sort({ createdAt: -1 })
             .skip(startIndex)
             .limit(limit)
-            .populate('author', 'name avatar role');
+            .populate('author', 'name avatar role')
+            .populate('category', 'name slug color');
 
         const total = await Blog.countDocuments(query);
 
@@ -52,7 +53,9 @@ exports.getBlogs = async (req, res) => {
 // @access  Public
 exports.getBlogBySlug = async (req, res) => {
     try {
-        const blog = await Blog.findOne({ slug: req.params.slug, deleted: false }).populate('author', 'name avatar bio');
+        const blog = await Blog.findOne({ slug: req.params.slug, deleted: false })
+            .populate('author', 'name avatar bio')
+            .populate('category', 'name slug color');
         if (!blog) {
             return res.status(404).json({ success: false, message: 'Blog not found' });
         }
@@ -73,6 +76,7 @@ exports.createBlog = async (req, res) => {
         const blog = await Blog.create(req.body);
         res.status(201).json({ success: true, data: blog });
     } catch (err) {
+        console.error('Error creating blog:', err);
         res.status(500).json({ success: false, message: 'Server Error', error: err.message });
     }
 };

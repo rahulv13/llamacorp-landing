@@ -30,8 +30,8 @@ const blogSchema = new mongoose.Schema(
             type: [String],
         },
         category: {
-            type: String,
-            default: 'Uncategorized',
+            type: mongoose.Schema.ObjectId,
+            ref: 'Category',
         },
         tags: {
             type: [String],
@@ -105,7 +105,7 @@ const blogSchema = new mongoose.Schema(
 blogSchema.index({ title: 'text', excerpt: 'text', content: 'text', tags: 'text' });
 
 // Auto-calculate read time and generate unique slug before saving
-blogSchema.pre('save', async function (next) {
+blogSchema.pre('save', async function () {
     // Reading Time
     if (this.isModified('content') || !this.readingTime) {
         const stats = readingTime(this.content || '');
@@ -136,8 +136,6 @@ blogSchema.pre('save', async function (next) {
         this.publishedAt = Date.now();
         this.published = true;
     }
-
-    next();
 });
 
 module.exports = mongoose.model('Blog', blogSchema);

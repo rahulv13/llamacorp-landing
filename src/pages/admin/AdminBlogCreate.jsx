@@ -5,7 +5,7 @@ import {
   AlignLeft, Type, List, Link as LinkIcon, 
   CheckSquare, Video, Code, Table, Grid, Plus
 } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'sonner';
 import { marked } from 'marked';
@@ -16,6 +16,7 @@ export default function AdminBlogCreate() {
   const [isPublishing, setIsPublishing] = useState(false);
   const { adminUser } = useAdmin();
   const navigate = useNavigate();
+  const { id } = useParams();
 
   // Form State
   const [title, setTitle] = useState('');
@@ -23,6 +24,7 @@ export default function AdminBlogCreate() {
   const [category, setCategory] = useState('');
   const [author, setAuthor] = useState('');
   const [authorsList, setAuthorsList] = useState([]);
+  const [categoriesList, setCategoriesList] = useState([]);
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState('');
 
@@ -32,7 +34,30 @@ export default function AdminBlogCreate() {
 
   useEffect(() => {
     fetchAuthors();
-  }, []);
+    fetchCategories();
+    if (id) {
+      fetchBlogForEdit(id);
+    }
+  }, [id]);
+
+  const fetchBlogForEdit = async (blogId) => {
+    try {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/blogs?limit=1000`);
+      const blog = res.data.data.find(b => b._id === blogId);
+      if (blog) {
+        setTitle(blog.title);
+        setContent(blog.content);
+        setCategory(blog.category?._id || blog.category || '');
+        setAuthor(blog.author?._id || blog.author || '');
+        if (blog.coverImage && blog.coverImage !== 'no-photo.jpg') {
+          setImagePreview(blog.coverImage);
+        }
+      }
+    } catch (error) {
+      console.error('Failed to fetch blog for edit:', error);
+      toast.error('Could not load blog details');
+    }
+  };
 
   const fetchAuthors = async () => {
     try {
@@ -40,6 +65,15 @@ export default function AdminBlogCreate() {
       setAuthorsList(res.data.data);
     } catch (error) {
       console.error('Failed to fetch authors:', error);
+    }
+  };
+
+  const fetchCategories = async () => {
+    try {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/categories`);
+      setCategoriesList(res.data.data);
+    } catch (error) {
+      console.error('Failed to fetch categories:', error);
     }
   };
 
@@ -77,25 +111,32 @@ export default function AdminBlogCreate() {
         });
         
         if (uploadRes.data.success) {
-          uploadedImageUrl = uploadRes.data.data.url;
+          uploadedImageUrl = uploadRes.data.url || uploadRes.data.data.secureUrl;
         }
       }
 
-      // 2. Create Blog
+      // 2. Create or Update Blog
       const blogData = {
         title,
         content,
         category,
         author,
-        status,
-        coverImage: uploadedImageUrl
+        status: status.toLowerCase(),
+        ...(uploadedImageUrl ? { coverImage: uploadedImageUrl } : {})
       };
 
-      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/blogs`, blogData, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      if (id) {
+        await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/blogs/${id}`, blogData, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        toast.success(`Blog ${status === 'Published' ? 'published' : 'saved'} successfully!`);
+      } else {
+        await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/blogs`, blogData, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        toast.success(`Blog ${status === 'Published' ? 'published' : 'saved'} successfully!`);
+      }
 
-      toast.success(`Blog ${status === 'Published' ? 'published' : 'saved'} successfully!`);
       navigate('/admin/blogs');
 
     } catch (error) {
@@ -109,7 +150,7 @@ export default function AdminBlogCreate() {
   return (
     <div className="flex h-screen bg-[#F8F9FA] overflow-hidden text-[#111] font-sans">
       <Helmet>
-        <title>Create Post - Llamacorp Admin</title>
+        <title>{id ? 'Edit Post' : 'Create Post'} - Llamacorp Admin</title>
       </Helmet>
 
       {/* Main Editor Area */}
@@ -215,9 +256,9 @@ export default function AdminBlogCreate() {
                   className="w-full bg-gray-50 border border-black/5 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-black/10"
                 >
                   <option value="">Select a category</option>
-                  <option value="Web Design">Web Design</option>
-                  <option value="Development">Development</option>
-                  <option value="UI/UX">UI/UX</option>
+                  {categoriesList.map(c => (
+                    <option key={c._id} value={c._id}>{c.name}</option>
+                  ))}
                 </select>
               </div>
 

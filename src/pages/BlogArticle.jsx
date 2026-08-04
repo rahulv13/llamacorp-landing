@@ -1,19 +1,47 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { ArrowLeft, Clock, Calendar, Share2 } from 'lucide-react';
+import axios from 'axios';
+import { marked } from 'marked';
 import MagneticTopNavbar from '../components/MagneticTopNavbar';
 import CTA from '../components/CTA';
-import { getPostBySlug, getLatestPosts } from '../data/blogData';
 
 export default function BlogArticle() {
   const { slug } = useParams();
-  const post = getPostBySlug(slug);
-  const relatedPosts = getLatestPosts(3).filter(p => p.id !== post?.id).slice(0, 3);
+  const [post, setPost] = useState(null);
+  const [relatedPosts, setRelatedPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    const fetchPost = async () => {
+      setIsLoading(true);
+      try {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/blogs/${slug}`);
+        setPost(res.data.data);
+        
+        // Fetch related posts (latest 3)
+        const relatedRes = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/blogs?limit=4`);
+        setRelatedPosts(relatedRes.data.data.filter(p => p._id !== res.data.data._id).slice(0, 3));
+      } catch (err) {
+        console.error('Error fetching post:', err);
+        setPost(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchPost();
   }, [slug]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center text-center px-4">
+        <MagneticTopNavbar />
+        <h1 className="text-2xl font-semibold mb-4">Loading article...</h1>
+      </div>
+    );
+  }
 
   if (!post) {
     return (
@@ -28,18 +56,20 @@ export default function BlogArticle() {
     );
   }
 
+  const coverImage = post.coverImage && post.coverImage !== 'no-photo.jpg' 
+    ? post.coverImage 
+    : 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80';
+
   // Generate structured data for SEO
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": post.title,
-    "image": [
-      window.location.origin + post.image
-    ],
-    "datePublished": post.date,
+    "image": [ coverImage ],
+    "datePublished": new Date(post.createdAt).toISOString(),
     "author": [{
         "@type": "Person",
-        "name": post.author,
+        "name": post.author?.name || 'Author',
         "url": "#"
       }]
   };
@@ -48,10 +78,10 @@ export default function BlogArticle() {
     <>
       <Helmet>
         <title>{post.title} - Llamacorp</title>
-        <meta name="description" content={post.excerpt} />
+        <meta name="description" content={post.excerpt || post.content.substring(0, 150).replace(/<[^>]+>/g, '') + '...'} />
         <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={post.excerpt} />
-        <meta property="og:image" content={window.location.origin + post.image} />
+        <meta property="og:description" content={post.excerpt || post.content.substring(0, 150).replace(/<[^>]+>/g, '') + '...'} />
+        <meta property="og:image" content={coverImage} />
         <meta property="og:type" content="article" />
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
@@ -73,10 +103,10 @@ export default function BlogArticle() {
         <header className="max-w-4xl mx-auto px-4 md:px-8 mb-12">
           <div className="flex flex-wrap items-center gap-4 text-sm text-[#777] mb-6">
             <span className="bg-black/5 px-3 py-1 rounded-full text-[#111] font-semibold text-xs uppercase tracking-wider">
-              {post.category}
+              {post.category?.name || post.category || 'Uncategorized'}
             </span>
-            <span className="flex items-center gap-1.5"><Calendar size={14} /> {post.date}</span>
-            <span className="flex items-center gap-1.5"><Clock size={14} /> {post.readTime}</span>
+            <span className="flex items-center gap-1.5"><Calendar size={14} /> {new Date(post.createdAt).toLocaleDateString()}</span>
+            <span className="flex items-center gap-1.5"><Clock size={14} /> {post.readingTime || '5 min read'}</span>
           </div>
 
           <h1 className="text-4xl md:text-6xl font-bold text-[#111] leading-tight mb-8">
@@ -85,10 +115,10 @@ export default function BlogArticle() {
 
           <div className="flex items-center justify-between border-y border-black/5 py-6">
             <div className="flex items-center gap-4">
-              <img src={post.authorAvatar} alt={post.author} className="w-12 h-12 rounded-full object-cover" />
+              <img src={post.author?.avatar || 'https://ui-avatars.com/api/?name=' + (post.author?.name || 'Author')} alt={post.author?.name || 'Author'} className="w-12 h-12 rounded-full object-cover" />
               <div>
-                <div className="font-semibold text-[#111]">{post.author}</div>
-                <div className="text-xs text-[#777]">Design Director @ Llamacorp</div>
+                <div className="font-semibold text-[#111]">{post.author?.name || 'Author'}</div>
+                <div className="text-xs text-[#777]">{post.author?.role || 'Contributor'} @ Llamacorp</div>
               </div>
             </div>
 
@@ -110,7 +140,7 @@ export default function BlogArticle() {
         {/* Hero Image */}
         <div className="max-w-6xl mx-auto px-4 md:px-8 mb-16">
           <div className="w-full aspect-[21/9] rounded-[32px] overflow-hidden bg-black/5">
-            <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
+            <img src={coverImage} alt={post.title} className="w-full h-full object-cover" />
           </div>
         </div>
 
@@ -122,10 +152,7 @@ export default function BlogArticle() {
             <div className="sticky top-32">
               <h4 className="text-sm font-bold uppercase tracking-wider text-[#777] mb-4">Table of Contents</h4>
               <ul className="space-y-3 border-l border-black/10">
-                <li className="pl-4 border-l-2 border-[#111] text-[#111] font-medium text-[15px] cursor-pointer">Introduction</li>
-                <li className="pl-4 text-[#777] hover:text-[#111] text-[15px] cursor-pointer transition-colors">Key Characteristics</li>
-                <li className="pl-4 text-[#777] hover:text-[#111] text-[15px] cursor-pointer transition-colors">Implementation in CSS</li>
-                <li className="pl-4 text-[#777] hover:text-[#111] text-[15px] cursor-pointer transition-colors">Conclusion</li>
+                <li className="pl-4 border-l-2 border-[#111] text-[#111] font-medium text-[15px] cursor-pointer">Read Full Article</li>
               </ul>
             </div>
           </aside>
@@ -141,14 +168,14 @@ export default function BlogArticle() {
             prose-blockquote:border-l-4 prose-blockquote:border-[#111] prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-[#555] prose-blockquote:my-8
             prose-img:rounded-[24px] prose-img:my-10
             prose-pre:bg-[#111] prose-pre:text-white prose-pre:rounded-xl prose-pre:p-6"
-            dangerouslySetInnerHTML={{ __html: post.content }}
+            dangerouslySetInnerHTML={{ __html: post.content ? marked(post.content) : '' }}
           />
         </div>
 
         {/* Tags */}
         <div className="max-w-4xl mx-auto px-4 md:px-8 mt-12 lg:pl-[19rem]">
           <div className="flex flex-wrap gap-2">
-            {post.tags.map(tag => (
+            {(post.tags || []).map(tag => (
               <span key={tag} className="px-3 py-1 rounded-full bg-black/5 text-[#555] text-sm font-medium">
                 #{tag}
               </span>
@@ -162,30 +189,32 @@ export default function BlogArticle() {
         </div>
 
         {/* Related Articles */}
-        <section className="max-w-7xl mx-auto px-4 md:px-8 mb-12">
-          <h3 className="text-2xl font-bold text-[#111] mb-8">Related Articles</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {relatedPosts.map((relatedPost) => (
-              <Link to={`/blog/${relatedPost.slug}`} key={relatedPost.id} className="group block bg-white rounded-[24px] border border-black/5 overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300">
-                <div className="relative h-48 overflow-hidden">
-                  <img src={relatedPost.image} alt={relatedPost.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-[#111]">
-                    {relatedPost.category}
+        {relatedPosts.length > 0 && (
+          <section className="max-w-7xl mx-auto px-4 md:px-8 mb-12">
+            <h3 className="text-2xl font-bold text-[#111] mb-8">Related Articles</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {relatedPosts.map((relatedPost) => (
+                <Link to={`/blog/${relatedPost.slug}`} key={relatedPost._id} className="group block bg-white rounded-[24px] border border-black/5 overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300">
+                  <div className="relative h-48 overflow-hidden">
+                    <img src={relatedPost.coverImage && relatedPost.coverImage !== 'no-photo.jpg' ? relatedPost.coverImage : 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80'} alt={relatedPost.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-[#111]">
+                      {relatedPost.category?.name || relatedPost.category || 'Uncategorized'}
+                    </div>
                   </div>
-                </div>
-                <div className="p-6">
-                  <h4 className="text-lg font-bold text-[#111] leading-tight mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
-                    {relatedPost.title}
-                  </h4>
-                  <div className="flex items-center justify-between text-xs text-[#777]">
-                    <span className="font-medium text-[#111]">{relatedPost.author}</span>
-                    <span>{relatedPost.readTime}</span>
+                  <div className="p-6">
+                    <h4 className="text-lg font-bold text-[#111] leading-tight mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
+                      {relatedPost.title}
+                    </h4>
+                    <div className="flex items-center justify-between text-xs text-[#777]">
+                      <span className="font-medium text-[#111]">{relatedPost.author?.name || 'Author'}</span>
+                      <span>{relatedPost.readingTime || '5 min read'}</span>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
       </main>
 
