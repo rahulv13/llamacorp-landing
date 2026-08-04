@@ -106,10 +106,10 @@ export default function Testimonials() {
       return 'scale-100 opacity-100 blur-0 shadow-xl z-20 translate-x-0 pointer-events-auto';
     }
     if (isPrev) {
-      return 'scale-90 opacity-40 blur-[2px] shadow-sm z-10 -translate-x-[30%] md:-translate-x-[70%] pointer-events-none cursor-pointer';
+      return 'scale-90 opacity-20 blur-[3px] shadow-sm z-10 -translate-x-[30%] md:-translate-x-[70%] pointer-events-none cursor-pointer';
     }
     if (isNext) {
-      return 'scale-90 opacity-40 blur-[2px] shadow-sm z-10 translate-x-[30%] md:translate-x-[70%] pointer-events-none cursor-pointer';
+      return 'scale-90 opacity-20 blur-[3px] shadow-sm z-10 translate-x-[30%] md:translate-x-[70%] pointer-events-none cursor-pointer';
     }
     // Hidden cards
     return 'scale-75 opacity-0 blur-md shadow-none z-0 translate-x-0 pointer-events-none';

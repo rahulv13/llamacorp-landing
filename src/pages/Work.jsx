@@ -150,7 +150,7 @@ const ScrollImage = ({ src }) => {
   }, [src]);
 
   return (
-    <div ref={containerRef} className="w-full h-[400px] md:h-[600px] overflow-hidden relative group cursor-ns-resize bg-[#fafafa]">
+    <div ref={containerRef} className="w-full aspect-[4/3] sm:aspect-[16/10] xl:aspect-auto xl:h-[600px] overflow-hidden relative group cursor-ns-resize bg-[#fafafa]">
       <img
         ref={imgRef}
         src={src}
@@ -199,7 +199,7 @@ const AutoplayVideo = ({ src }) => {
   }, []);
 
   return (
-    <div className="w-full h-[400px] md:h-[600px] overflow-hidden relative bg-[#fafafa]">
+    <div className="w-full aspect-[4/3] sm:aspect-[16/10] xl:aspect-auto xl:h-[600px] overflow-hidden relative bg-[#fafafa]">
       <motion.video
         ref={videoRef}
         src={src}
@@ -221,7 +221,7 @@ const AnimatedWebP = ({ src }) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   return (
-    <div className="w-full h-[400px] md:h-[600px] overflow-hidden relative bg-[#fafafa]">
+    <div className="w-full aspect-[4/3] sm:aspect-[16/10] xl:aspect-auto xl:h-[600px] overflow-hidden relative bg-[#fafafa]">
       <motion.img
         src={src}
         alt="Preview"
@@ -329,22 +329,22 @@ export default function Work() {
                   {/* Browser Mockup */}
                   <motion.div 
                     whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.4, ease: "easeOut" } }}
-                    className="w-full xl:w-[70%] bg-white rounded-[24px] border border-black/5 shadow-[0_12px_40px_rgba(0,0,0,0.06)] overflow-hidden transition-shadow duration-500 group-hover:shadow-[0_24px_80px_rgba(0,0,0,0.12)] will-change-transform"
+                    className="w-full xl:w-[70%] bg-white rounded-[16px] md:rounded-[20px] xl:rounded-[24px] border border-black/5 shadow-[0_12px_40px_rgba(0,0,0,0.06)] overflow-hidden transition-shadow duration-500 group-hover:shadow-[0_24px_80px_rgba(0,0,0,0.12)] will-change-transform mx-auto"
                   >
                     {/* Browser Top Bar */}
-                    <div className="bg-[#f8f8f8] border-b border-black/5 px-4 py-3 flex items-center justify-between">
-                      <div className="flex gap-2">
-                        <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
-                        <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
-                        <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+                    <div className="bg-[#f8f8f8] border-b border-black/5 px-2 sm:px-3 md:px-4 py-2 md:py-3 flex items-center justify-between">
+                      <div className="flex gap-1.5 md:gap-2 pl-1">
+                        <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#ff5f56]"></div>
+                        <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#ffbd2e]"></div>
+                        <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#27c93f]"></div>
                       </div>
-                      <div className="flex-1 flex justify-center px-4">
-                        <div className="bg-white/80 border border-black/5 rounded-md px-32 py-1.5 flex items-center gap-2 max-w-sm w-full shadow-sm text-[#777]">
-                          <Globe size={12} />
-                          <span className="text-[11px] font-medium truncate">llamacorp.com/{project.title.toLowerCase().replace(/\s+/g, '-')}</span>
+                      <div className="flex-1 flex justify-center px-2 sm:px-4 min-w-0">
+                        <div className="bg-white/80 border border-black/5 rounded-md px-3 md:px-8 lg:px-32 py-1 md:py-1.5 flex items-center justify-center gap-1.5 md:gap-2 w-full max-w-[160px] sm:max-w-[220px] md:max-w-sm shadow-sm text-[#777] min-w-0">
+                          <Globe className="w-2.5 h-2.5 md:w-3 md:h-3 flex-shrink-0" />
+                          <span className="text-[9px] sm:text-[10px] md:text-[11px] font-medium truncate">llamacorp.com/{project.title.toLowerCase().replace(/\s+/g, '-')}</span>
                         </div>
                       </div>
-                      <div className="w-12"></div> {/* Spacer for symmetry */}
+                      <div className="w-8 md:w-12 flex-shrink-0"></div> {/* Spacer for symmetry */}
                     </div>
                     
                     {/* Browser Media Content */}

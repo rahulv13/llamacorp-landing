@@ -54,24 +54,28 @@ const FAQ = () => {
             Questions before we build?<br />We’ve got answers.
           </h2>
           
-          <div className="bg-white border border-black/5 rounded-[28px] p-8 shadow-[0_8px_32px_rgba(0,0,0,0.04)] w-full max-w-[420px] relative">
-            {/* Decorative dots */}
-            <div className="absolute top-4 left-4 w-1 h-1 rounded-full bg-black/10"></div>
-            <div className="absolute top-4 right-4 w-1 h-1 rounded-full bg-black/10"></div>
-            <div className="absolute bottom-4 left-4 w-1 h-1 rounded-full bg-black/10"></div>
-            <div className="absolute bottom-4 right-4 w-1 h-1 rounded-full bg-black/10"></div>
+          <div className="group bg-white rounded-[36px] p-8 w-full max-w-[420px] relative transition-all duration-500 hover:-translate-y-1 shadow-[0_4px_16px_rgba(0,0,0,0.03),0_8px_32px_rgba(0,0,0,0.04),inset_0_0_2px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.04),0_16px_48px_rgba(0,0,0,0.06),inset_0_0_2px_rgba(0,0,0,0.04)] border border-white/80 ring-1 ring-black/[0.03]">
+            {/* Edge Lighting & Reflections via pseudo-element */}
+            <div className="absolute inset-0 rounded-[36px] pointer-events-none shadow-[inset_0_2px_3px_rgba(255,255,255,1),inset_1px_0_2px_rgba(255,255,255,0.7),inset_0_-1px_3px_rgba(0,0,0,0.02),inset_-1px_0_2px_rgba(0,0,0,0.01)]" />
+
+            {/* Decorative dots - extremely subtle with faint highlight */}
+            <div className="absolute top-5 left-5 w-1 h-1 rounded-full bg-black/[0.03] shadow-[0_1px_0_rgba(255,255,255,1)]" />
+            <div className="absolute top-5 right-5 w-1 h-1 rounded-full bg-black/[0.03] shadow-[0_1px_0_rgba(255,255,255,1)]" />
+            <div className="absolute bottom-5 left-5 w-1 h-1 rounded-full bg-black/[0.03] shadow-[0_1px_0_rgba(255,255,255,1)]" />
+            <div className="absolute bottom-5 right-5 w-1 h-1 rounded-full bg-black/[0.03] shadow-[0_1px_0_rgba(255,255,255,1)]" />
             
-            <div className="flex flex-col gap-4 mb-6">
+            <div className="flex flex-col gap-4 mb-7 relative z-10">
               <div className="flex items-center gap-4">
-                <img src={rahulAvatar} alt="Llamacorp avatar" className="w-12 h-12 rounded-xl object-cover" />
+                {/* Avatar with premium elevation */}
+                <img src={rahulAvatar} alt="Llamacorp avatar" className="w-12 h-12 rounded-xl object-cover border border-black/5 shadow-[0_2px_8px_rgba(0,0,0,0.06),0_1px_2px_rgba(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,0.8)]" />
               </div>
-              <p className="text-[#333] font-medium text-base leading-snug">
+              <p className="text-[#333] font-medium text-base leading-snug tracking-tight">
                 Still unsure? Tell us what you’re building and we’ll point you in the right direction 👇🏼
               </p>
             </div>
             
-            <div className="flex flex-col gap-3">
-              <a href="mailto:llamacorp8@gmail.com?subject=New%20Project%20Inquiry%20from%20Llamacorp&body=Hi%20Llamacorp%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project.%0A%0AName%3A%0ACompany%3A%0AProject%20details%3A%0ABudget%3A%0ATimeline%3A" className="w-full bg-white border border-black/10 text-[#111] py-3.5 rounded-2xl text-[15px] font-medium hover:bg-black/5 hover:border-black/20 transition-all flex items-center justify-center gap-2">
+            <div className="flex flex-col gap-3 relative z-10">
+              <a href="mailto:llamacorp8@gmail.com?subject=New%20Project%20Inquiry%20from%20Llamacorp&body=Hi%20Llamacorp%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project.%0A%0AName%3A%0ACompany%3A%0AProject%20details%3A%0ABudget%3A%0ATimeline%3A" className="w-full bg-white border border-black/[0.06] text-[#111] py-3.5 rounded-2xl text-[15px] font-medium shadow-[0_1px_3px_rgba(0,0,0,0.02),0_1px_2px_rgba(0,0,0,0.03)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.04),0_2px_4px_rgba(0,0,0,0.03),inset_0_1px_1px_rgba(255,255,255,1)] hover:-translate-y-0.5 hover:bg-[#fcfcfd] hover:border-black/[0.08] transition-all duration-300 flex items-center justify-center gap-2">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M6 6V19.5C6 19.7761 5.77614 20 5.5 20H2.5C1.94772 20 1.5 19.5523 1.5 19V6H6Z" fill="#FB413B"/>
                   <path d="M22.5 6V19C22.5 19.5523 22.0523 20 21.5 20H18.5C18.2239 20 18 19.7761 18 19.5V6H22.5Z" fill="url(#paint0_linear_1_175)"/>
@@ -91,7 +95,7 @@ const FAQ = () => {
                 </svg>
                 Email Llamacorp
               </a>
-              <a href="https://wa.me/919769285318?text=Hi%20Llamacorp%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener noreferrer" aria-label="Chat with Llamacorp on WhatsApp" className="w-full bg-white border border-black/10 text-[#111] py-3.5 rounded-2xl text-[15px] font-medium hover:bg-black/5 hover:border-black/20 transition-all flex items-center justify-center gap-2 no-underline">
+              <a href="https://wa.me/919769285318?text=Hi%20Llamacorp%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener noreferrer" aria-label="Chat with Llamacorp on WhatsApp" className="w-full bg-white border border-black/[0.06] text-[#111] py-3.5 rounded-2xl text-[15px] font-medium shadow-[0_1px_3px_rgba(0,0,0,0.02),0_1px_2px_rgba(0,0,0,0.03)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.04),0_2px_4px_rgba(0,0,0,0.03),inset_0_1px_1px_rgba(255,255,255,1)] hover:-translate-y-0.5 hover:bg-[#fcfcfd] hover:border-black/[0.08] transition-all duration-300 flex items-center justify-center gap-2 no-underline">
                 <svg width="20" height="20" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <rect width="60" height="60" rx="13.28" fill="url(#faq_whatsapp_gradient)"/>
                   <path d="M25.0719 21.0675L26.2879 24.7153C26.5024 25.359 26.376 26.0674 25.9522 26.5972L25.0888 27.6765C24.8167 28.0166 24.7965 28.4956 25.0411 28.8559C27.5412 32.5386 29.2614 34.3751 32.5056 35.5374C32.8824 35.6724 33.3009 35.5504 33.5615 35.2465L35.0778 33.4774C35.6924 32.7604 36.7249 32.571 37.554 33.0232L40.4537 34.6049C41.1664 34.9936 41.5944 35.7819 41.4069 36.5718C40.5955 39.9893 38.3135 40.9391 35.6319 40.7476C28.6319 40.2476 19.132 30.2476 19.1319 24.7476C19.1319 23.2247 19.4218 21.9917 20.4431 20.8279C21.1318 20.043 22.1964 19.7476 23.2406 19.7476C24.0715 19.7476 24.8092 20.2793 25.0719 21.0675Z" fill="white"/>

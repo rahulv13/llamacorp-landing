@@ -37,7 +37,7 @@ export default function PricingSeo() {
   const [isAnnual, setIsAnnual] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#000] text-zinc-100 font-sans selection:bg-zinc-800 selection:text-white">
+    <div className="min-h-screen bg-[#fafafa] text-zinc-900 font-sans selection:bg-zinc-800 selection:text-white">
       <Navbar className="fixed top-0 left-0 right-0 z-50 px-6 py-6 flex justify-between items-center mix-blend-difference" />
 
       <section className="pt-48 pb-20 px-6 max-w-7xl mx-auto flex flex-col items-center text-center">
@@ -61,28 +61,43 @@ export default function PricingSeo() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="text-xl text-zinc-400 max-w-2xl font-light mb-12"
+          className="text-xl text-zinc-500 max-w-2xl font-light mb-12"
         >
           Dominate search results and drive organic traffic with our proven SEO strategies.
         </motion.p>
 
-        <motion.div
+                <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="bg-zinc-900/50 p-1.5 rounded-full flex items-center gap-1 border border-zinc-800/50"
+          className="bg-black/5 p-1.5 rounded-full flex items-center gap-1 shadow-[inset_0_1px_3px_rgba(0,0,0,0.06)] relative"
         >
           <button
             onClick={() => setIsAnnual(false)}
-            className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${!isAnnual ? 'bg-zinc-800 text-white shadow-sm' : 'text-zinc-400 hover:text-zinc-300'}`}
+            className={`relative px-6 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${!isAnnual ? 'text-zinc-900' : 'text-zinc-500 hover:text-zinc-700'}`}
           >
-            Monthly
+            {!isAnnual && (
+              <motion.div
+                layoutId="pricing-thumb"
+                className="absolute inset-0 bg-white rounded-full shadow-[0_1px_3px_rgba(0,0,0,0.1),0_1px_2px_rgba(0,0,0,0.06)]"
+                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+              />
+            )}
+            <span className="relative z-10">Monthly</span>
           </button>
           <button
             onClick={() => setIsAnnual(true)}
-            className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 ${isAnnual ? 'bg-zinc-800 text-white shadow-sm' : 'text-zinc-400 hover:text-zinc-300'}`}
+            className={`relative px-6 py-2 rounded-full text-sm font-medium transition-colors duration-300 flex items-center gap-2 ${isAnnual ? 'text-zinc-900' : 'text-zinc-500 hover:text-zinc-700'}`}
           >
-            Annual <span className="text-[10px] uppercase tracking-wider bg-white/10 px-2 py-0.5 rounded-full text-emerald-400">Save 20%</span>
+            {isAnnual && (
+              <motion.div
+                layoutId="pricing-thumb"
+                className="absolute inset-0 bg-white rounded-full shadow-[0_1px_3px_rgba(0,0,0,0.1),0_1px_2px_rgba(0,0,0,0.06)]"
+                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+              />
+            )}
+            <span className="relative z-10">Annual</span>
+            <span className={`relative z-10 text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full transition-colors ${isAnnual ? 'bg-emerald-100 text-emerald-700' : 'bg-black/5 text-zinc-500'}`}>Save 20%</span>
           </button>
         </motion.div>
       </section>
@@ -96,7 +111,7 @@ export default function PricingSeo() {
       </section>
 
       <section className="py-32 px-6">
-        <div className="max-w-5xl mx-auto bg-gradient-to-br from-zinc-900 to-black border border-zinc-800 rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden">
+        <div className="max-w-5xl mx-auto bg-gradient-to-br from-zinc-900 to-black border border-zinc-800 rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden text-white">
           <div className="absolute inset-0 opacity-[0.02] pointer-events-none"
             style={{ backgroundImage: 'linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)', backgroundSize: '4rem 4rem' }}>
           </div>

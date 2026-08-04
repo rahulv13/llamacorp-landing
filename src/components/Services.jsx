@@ -32,10 +32,14 @@ export default function Services() {
         </div>
 
         {/* Featured Service Outer Container */}
-        <div className="w-full bg-[#f8f8f8] border border-black/[0.06] rounded-[38px] md:rounded-[40px] p-4 flex flex-col lg:flex-row gap-4 group cursor-pointer transition-all duration-500 hover:-translate-y-1 hover:border-black/10 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
+        <div className="w-full bg-gradient-to-b from-[#fdfdfd] to-[#f4f4f4] border border-white/80 ring-1 ring-black/[0.04] shadow-[0_8px_32px_rgba(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,1),inset_0_-1px_2px_rgba(0,0,0,0.03)] rounded-[38px] md:rounded-[40px] p-4 flex flex-col lg:flex-row gap-4 group cursor-pointer transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,1),inset_0_-1px_2px_rgba(0,0,0,0.03)] relative overflow-hidden">
+          {/* Edge Lighting for Outer Container */}
+          <div className="absolute inset-0 rounded-[38px] md:rounded-[40px] pointer-events-none shadow-[inset_0_2px_3px_rgba(255,255,255,1),inset_1px_0_2px_rgba(255,255,255,0.7)] z-20" />
           
           {/* Left Inner Panel */}
-          <div className="w-full lg:w-1/2 bg-white rounded-[34px] md:rounded-[36px] border border-black/[0.04] p-6 md:p-10 lg:p-14 flex flex-col justify-start shadow-[inset_0_2px_10px_rgba(0,0,0,0.01),0_8px_30px_rgba(0,0,0,0.02)]">
+          <div className="w-full lg:w-1/2 bg-white rounded-[34px] md:rounded-[36px] border border-white/80 ring-1 ring-black/[0.03] p-6 md:p-10 lg:p-14 flex flex-col justify-start shadow-[0_4px_16px_rgba(0,0,0,0.02),0_8px_32px_rgba(0,0,0,0.03),inset_0_0_2px_rgba(0,0,0,0.04)] relative z-10">
+            {/* Inner Edge Lighting */}
+            <div className="absolute inset-0 rounded-[34px] md:rounded-[36px] pointer-events-none shadow-[inset_0_2px_3px_rgba(255,255,255,1),inset_1px_0_2px_rgba(255,255,255,0.7),inset_0_-1px_3px_rgba(0,0,0,0.02),inset_-1px_0_2px_rgba(0,0,0,0.01)]" />
             
             {/* Animated Folder Icon */}
             <div className="mb-8">
@@ -76,7 +80,9 @@ export default function Services() {
           </div>
 
           {/* Right Inner Panel (Image Visual) */}
-          <div className="w-full lg:w-1/2 rounded-[34px] md:rounded-[36px] overflow-hidden relative border border-black/[0.04] min-h-[550px] lg:min-h-[750px] shadow-[inset_0_2px_10px_rgba(0,0,0,0.05)] bg-[#1a1a1a]">
+          <div className="w-full lg:w-1/2 rounded-[34px] md:rounded-[36px] overflow-hidden relative ring-1 ring-black/[0.04] min-h-[550px] lg:min-h-[750px] shadow-[0_4px_16px_rgba(0,0,0,0.02),0_8px_32px_rgba(0,0,0,0.03)] bg-[#1a1a1a] z-10">
+            {/* Inner Edge Lighting for image */}
+            <div className="absolute inset-0 rounded-[34px] md:rounded-[36px] pointer-events-none shadow-[inset_0_2px_3px_rgba(255,255,255,0.15),inset_0_-1px_3px_rgba(0,0,0,0.2)] z-20" />
             <img 
               src="/assets/service.avif" 
               alt="Services Overview UI" 
@@ -86,10 +92,14 @@ export default function Services() {
         </div>
 
         {/* Second Featured Service Outer Container */}
-        <div className="w-full mt-6 bg-[#f8f8f8] border border-black/[0.06] rounded-[38px] md:rounded-[40px] p-4 flex flex-col lg:flex-row gap-4 group cursor-pointer transition-all duration-500 hover:-translate-y-1 hover:border-black/10 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
+        <div className="w-full mt-6 bg-gradient-to-b from-[#fdfdfd] to-[#f4f4f4] border border-white/80 ring-1 ring-black/[0.04] shadow-[0_8px_32px_rgba(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,1),inset_0_-1px_2px_rgba(0,0,0,0.03)] rounded-[38px] md:rounded-[40px] p-4 flex flex-col lg:flex-row gap-4 group cursor-pointer transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,1),inset_0_-1px_2px_rgba(0,0,0,0.03)] relative overflow-hidden">
+          {/* Edge Lighting for Outer Container */}
+          <div className="absolute inset-0 rounded-[38px] md:rounded-[40px] pointer-events-none shadow-[inset_0_2px_3px_rgba(255,255,255,1),inset_1px_0_2px_rgba(255,255,255,0.7)] z-20" />
           
           {/* Left Inner Panel */}
-          <div className="w-full lg:w-1/2 bg-white rounded-[34px] md:rounded-[36px] border border-black/[0.04] p-6 md:p-10 lg:p-14 flex flex-col justify-start shadow-[inset_0_2px_10px_rgba(0,0,0,0.01),0_8px_30px_rgba(0,0,0,0.02)]">
+          <div className="w-full lg:w-1/2 bg-white rounded-[34px] md:rounded-[36px] border border-white/80 ring-1 ring-black/[0.03] p-6 md:p-10 lg:p-14 flex flex-col justify-start shadow-[0_4px_16px_rgba(0,0,0,0.02),0_8px_32px_rgba(0,0,0,0.03),inset_0_0_2px_rgba(0,0,0,0.04)] relative z-10">
+            {/* Inner Edge Lighting */}
+            <div className="absolute inset-0 rounded-[34px] md:rounded-[36px] pointer-events-none shadow-[inset_0_2px_3px_rgba(255,255,255,1),inset_1px_0_2px_rgba(255,255,255,0.7),inset_0_-1px_3px_rgba(0,0,0,0.02),inset_-1px_0_2px_rgba(0,0,0,0.01)]" />
             
             {/* Folder Icon Placeholder */}
             <div className="mb-8">
@@ -136,7 +146,9 @@ export default function Services() {
           </div>
 
           {/* Right Inner Panel (Image Visual) */}
-          <div className="w-full lg:w-1/2 rounded-[34px] md:rounded-[36px] overflow-hidden relative border border-black/[0.04] min-h-[550px] lg:min-h-[750px] shadow-[inset_0_2px_10px_rgba(0,0,0,0.05)] bg-[#1a1a1a]">
+          <div className="w-full lg:w-1/2 rounded-[34px] md:rounded-[36px] overflow-hidden relative ring-1 ring-black/[0.04] min-h-[550px] lg:min-h-[750px] shadow-[0_4px_16px_rgba(0,0,0,0.02),0_8px_32px_rgba(0,0,0,0.03)] bg-[#1a1a1a] z-10">
+            {/* Inner Edge Lighting for image */}
+            <div className="absolute inset-0 rounded-[34px] md:rounded-[36px] pointer-events-none shadow-[inset_0_2px_3px_rgba(255,255,255,0.15),inset_0_-1px_3px_rgba(0,0,0,0.2)] z-20" />
             <img 
               src="/assets/11.avif" 
               alt="Services Overview UI" 
@@ -150,7 +162,9 @@ export default function Services() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
 
             {/* Card 1: Branding & Logos */}
-            <div className="flex flex-col bg-white rounded-[32px] p-6 md:p-8 border border-gray-100 shadow-sm relative overflow-hidden min-h-[400px] hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+            <div className="flex flex-col group bg-white rounded-[36px] p-6 md:p-8 border border-white/80 ring-1 ring-black/[0.03] shadow-[0_4px_16px_rgba(0,0,0,0.03),0_8px_32px_rgba(0,0,0,0.04),inset_0_0_2px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.04),0_16px_48px_rgba(0,0,0,0.06),inset_0_0_2px_rgba(0,0,0,0.04)] relative overflow-hidden min-h-[400px] hover:-translate-y-1 transition-all duration-500 z-10">
+              {/* Edge Lighting */}
+              <div className="absolute inset-0 rounded-[36px] pointer-events-none shadow-[inset_0_2px_3px_rgba(255,255,255,1),inset_1px_0_2px_rgba(255,255,255,0.7),inset_0_-1px_3px_rgba(0,0,0,0.02),inset_-1px_0_2px_rgba(0,0,0,0.01)] z-20" />
               <div className="z-10">
                 <h3 className="text-2xl font-bold text-gray-900 mb-3 font-['Plus_Jakarta_Sans'] tracking-tight">
                   Branding & Logos
@@ -174,7 +188,9 @@ export default function Services() {
             </div>
 
             {/* Card 2: 2D & 3D Illustrations */}
-            <div className="flex flex-col bg-white rounded-[32px] p-6 md:p-8 border border-gray-100 shadow-sm relative overflow-hidden min-h-[400px] hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+            <div className="flex flex-col group bg-white rounded-[36px] p-6 md:p-8 border border-white/80 ring-1 ring-black/[0.03] shadow-[0_4px_16px_rgba(0,0,0,0.03),0_8px_32px_rgba(0,0,0,0.04),inset_0_0_2px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.04),0_16px_48px_rgba(0,0,0,0.06),inset_0_0_2px_rgba(0,0,0,0.04)] relative overflow-hidden min-h-[400px] hover:-translate-y-1 transition-all duration-500 z-10">
+              {/* Edge Lighting */}
+              <div className="absolute inset-0 rounded-[36px] pointer-events-none shadow-[inset_0_2px_3px_rgba(255,255,255,1),inset_1px_0_2px_rgba(255,255,255,0.7),inset_0_-1px_3px_rgba(0,0,0,0.02),inset_-1px_0_2px_rgba(0,0,0,0.01)] z-20" />
               <div className="z-10">
                 <h3 className="text-2xl font-bold text-gray-900 mb-3 font-['Plus_Jakarta_Sans'] tracking-tight">
                   2D & 3D Illustrations
@@ -205,7 +221,9 @@ export default function Services() {
             </div>
 
             {/* Card 3: Motion Design */}
-            <div className="flex flex-col bg-white rounded-[32px] p-6 md:p-8 border border-gray-100 shadow-sm relative overflow-hidden min-h-[400px] hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+            <div className="flex flex-col group bg-white rounded-[36px] p-6 md:p-8 border border-white/80 ring-1 ring-black/[0.03] shadow-[0_4px_16px_rgba(0,0,0,0.03),0_8px_32px_rgba(0,0,0,0.04),inset_0_0_2px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.04),0_16px_48px_rgba(0,0,0,0.06),inset_0_0_2px_rgba(0,0,0,0.04)] relative overflow-hidden min-h-[400px] hover:-translate-y-1 transition-all duration-500 z-10">
+              {/* Edge Lighting */}
+              <div className="absolute inset-0 rounded-[36px] pointer-events-none shadow-[inset_0_2px_3px_rgba(255,255,255,1),inset_1px_0_2px_rgba(255,255,255,0.7),inset_0_-1px_3px_rgba(0,0,0,0.02),inset_-1px_0_2px_rgba(0,0,0,0.01)] z-20" />
               <div className="z-10 relative pointer-events-none">
                 <h3 className="text-2xl font-bold text-gray-900 mb-3 font-['Plus_Jakarta_Sans'] tracking-tight">
                   Motion Design

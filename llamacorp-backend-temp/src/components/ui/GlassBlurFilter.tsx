@@ -20,10 +20,12 @@ export const GlassBlurFilter = () => (
         <feDisplacementMap
           in="SourceGraphic"
           in2="turbulence"
-          scale="200"
+          scale="12"
           xChannelSelector="R"
           yChannelSelector="G"
+          result="displacement"
         />
+        <feGaussianBlur in="displacement" stdDeviation="1" />
       </filter>
     </defs>
   </svg>
