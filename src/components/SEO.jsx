@@ -1,11 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 
-export default function SEO({ title, description, canonical, image = 'https://llamacorp.in/og-image.jpg', children }) {
+export default function SEO({ title, description, canonical, image = 'https://www.llamacorp.in/og-image.jpg', children }) {
   const siteName = 'Llamacorp';
   // Allow fullTitle to be just the title if no prefix needed, or automatically append siteName
   const fullTitle = title ? `${title} | ${siteName}` : 'AI Web Design & Development Agency | Llamacorp';
   
-  const siteUrl = 'https://llamacorp.in';
+  const siteUrl = 'https://www.llamacorp.in';
   const url = canonical ? `${siteUrl}${canonical.startsWith('/') ? canonical : `/${canonical}`}` : siteUrl;
 
   return (
