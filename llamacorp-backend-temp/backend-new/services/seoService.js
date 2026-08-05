@@ -37,7 +37,7 @@ exports.getSitemapXml = async () => {
         return sitemapCache.xml;
     }
 
-    const siteUrl = (process.env.SITE_URL || 'http://localhost:5173').replace(/\/+$/, '');
+    const siteUrl = (process.env.SITE_URL || 'https://www.llamacorp.in').replace(/\/+$/, '');
 
     // Static pages with priorities
     const staticPages = [
@@ -100,7 +100,7 @@ ${urls}
 };
 
 exports.getRobotsTxt = () => {
-    const siteUrl = (process.env.SITE_URL || 'http://localhost:5173').replace(/\/+$/, '');
+    const siteUrl = (process.env.SITE_URL || 'https://www.llamacorp.in').replace(/\/+$/, '');
     
     return `User-agent: *
 Allow: /

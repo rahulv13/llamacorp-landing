@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://llamacorp.vercel.app/sitemap.xml
+Sitemap: https://www.llamacorp.in/sitemap.xml
