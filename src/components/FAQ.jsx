@@ -133,9 +133,11 @@ const FAQ = () => {
                 className="bg-white border border-black/10 rounded-2xl overflow-hidden transition-all duration-300"
               >
                 <button 
+                  id={`faq-button-${index}`}
                   onClick={() => toggleFAQ(index)}
                   className="w-full text-left px-6 py-6 md:px-8 md:py-8 flex justify-between items-center focus:outline-none"
                   aria-expanded={isOpen}
+                  aria-controls={`faq-answer-${index}`}
                 >
                   <span className="text-[#111] font-medium text-[17px] pr-8">{faq.question}</span>
                   <div className={`flex-shrink-0 text-[#111] transition-transform duration-300 ${isOpen ? 'rotate-180' : 'rotate-0'}`}>
@@ -143,6 +145,9 @@ const FAQ = () => {
                   </div>
                 </button>
                 <div 
+                  id={`faq-answer-${index}`}
+                  role="region"
+                  aria-labelledby={`faq-button-${index}`}
                   className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
                 >
                   <div className="overflow-hidden">

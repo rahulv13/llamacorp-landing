@@ -167,7 +167,7 @@ export default function Testimonials() {
                 {/* Profile */}
                 <div className="flex flex-col items-center justify-center mb-8 md:mb-10">
                   <img src={testimonial.avatar} alt={testimonial.name} className="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover mb-4 shadow-sm" />
-                  <h5 className="text-[1.1rem] font-bold text-[#111] mb-1">{testimonial.name}</h5>
+                  <div className="text-[1.1rem] font-bold text-[#111] mb-1">{testimonial.name}</div>
                   <p className="text-[0.95rem] text-[#666]">{testimonial.title}</p>
                 </div>
 

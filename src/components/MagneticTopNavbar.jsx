@@ -135,6 +135,7 @@ export default function MagneticTopNavbar() {
           <button 
             className="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-black/5 ml-1"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle mobile menu"
           >
             {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>

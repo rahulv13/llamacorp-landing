@@ -1,0 +1,15 @@
+# Llamacorp
+
+AI-powered web design and development agency.
+
+## Website
+
+https://llamacorp.in
+
+## Important Pages
+
+https://llamacorp.in/
+https://llamacorp.in/work
+https://llamacorp.in/services
+https://llamacorp.in/blog
+https://llamacorp.in/contact

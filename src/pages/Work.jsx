@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowUpRight, CheckCircle2, Globe, Layout } from 'lucide-react';
+import SEO from '../components/SEO';
 import MagneticTopNavbar from '../components/MagneticTopNavbar';
 
 const stats = [
@@ -245,6 +246,11 @@ export default function Work() {
 
   return (
     <div className="bg-[#fcfcfc] min-h-screen text-[#111] font-sans selection:bg-[#111] selection:text-white">
+      <SEO 
+        title="Our Work" 
+        description="Explore premium websites and SaaS products built by Llamacorp for modern businesses." 
+        canonical="/work" 
+      />
       <MagneticTopNavbar />
 
       <main className="pt-32 pb-24 px-4 md:px-8 max-w-[1400px] mx-auto">

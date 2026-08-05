@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../components/SEO';
 import { ArrowLeft, Clock, Calendar, Share2 } from 'lucide-react';
 import axios from 'axios';
 import { marked } from 'marked';
@@ -76,17 +76,17 @@ export default function BlogArticle() {
 
   return (
     <>
-      <Helmet>
-        <title>{post.title} - Llamacorp</title>
-        <meta name="description" content={post.excerpt || post.content.substring(0, 150).replace(/<[^>]+>/g, '') + '...'} />
-        <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={post.excerpt || post.content.substring(0, 150).replace(/<[^>]+>/g, '') + '...'} />
-        <meta property="og:image" content={coverImage} />
+      <SEO 
+        title={post.title}
+        description={post.excerpt || post.content.substring(0, 150).replace(/<[^>]+>/g, '') + '...'}
+        image={coverImage}
+        canonical={`/blog/${slug}`}
+      >
         <meta property="og:type" content="article" />
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
         </script>
-      </Helmet>
+      </SEO>
 
       <MagneticTopNavbar />
 

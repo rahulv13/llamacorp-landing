@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../components/SEO';
 import { Search, ArrowRight, Clock, Calendar, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -48,10 +48,11 @@ export default function BlogIndex() {
 
   return (
     <>
-      <Helmet>
-        <title>Blog - Llamacorp | Insights, Ideas & Digital Stories</title>
-        <meta name="description" content="Stay updated with our latest articles on web design, development, branding, UI/UX, AI, business growth, and digital experiences." />
-      </Helmet>
+      <SEO 
+        title="Blog - Insights, Ideas & Digital Stories" 
+        description="Stay updated with our latest articles on web design, development, branding, UI/UX, AI, business growth, and digital experiences." 
+        canonical="/blog" 
+      />
 
       <MagneticTopNavbar />
 
