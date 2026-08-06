@@ -46,6 +46,11 @@ app.use('/api/categories', require('./routes/categories'));
 app.use('/api/tags', require('./routes/tags'));
 app.use('/api/authors', require('./routes/authors'));
 
+// Health Check
+app.get('/health', (_req, res) => {
+    res.status(200).json({ success: true, status: 'ok', timestamp: new Date().toISOString() });
+});
+
 // Error Handling Middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);

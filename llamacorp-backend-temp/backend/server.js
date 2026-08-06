@@ -34,6 +34,11 @@ app.use('/api/content', require('./routes/content'));
 app.use('/api/contacts', require('./routes/contacts'));
 app.use('/api/services', require('./routes/services'));
 
+// Health Check
+app.get('/health', (_req, res) => {
+  res.status(200).json({ success: true, status: 'ok', timestamp: new Date().toISOString() });
+});
+
 // Basic Route
 app.get('/', (req, res) => {
   res.send('llamacorp API is running...');
