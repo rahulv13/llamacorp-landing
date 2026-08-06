@@ -108,7 +108,6 @@ Allow: /
 Disallow: /admin/
 Disallow: /dashboard/
 Disallow: /login/
-Disallow: /api/
 Disallow: /private/
 
 Sitemap: ${siteUrl}/sitemap.xml
