@@ -46,6 +46,11 @@ app.use('/api/categories', require('./routes/categories'));
 app.use('/api/tags', require('./routes/tags'));
 app.use('/api/authors', require('./routes/authors'));
 
+// Basic Route for Uptime Monitoring
+app.get('/', (req, res) => {
+    res.status(200).send('Llamacorp API is running');
+});
+
 // Health Check
 app.get('/health', (_req, res) => {
     res.status(200).json({ success: true, status: 'ok', timestamp: new Date().toISOString() });
