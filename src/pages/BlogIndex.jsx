@@ -4,7 +4,7 @@ import SEO from '../components/SEO';
 import { Search, ArrowRight, Clock, Calendar, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import MagneticTopNavbar from '../components/MagneticTopNavbar';
+
 import CTA from '../components/CTA';
 
 export default function BlogIndex() {
@@ -54,7 +54,7 @@ export default function BlogIndex() {
         canonical="/blog" 
       />
 
-      <MagneticTopNavbar />
+
 
       <main className="pt-32 pb-20 px-4 md:px-8 max-w-7xl mx-auto min-h-screen">
         

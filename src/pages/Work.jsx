@@ -1,130 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import { ArrowLeft, ArrowUpRight, CheckCircle2, Globe, Layout } from 'lucide-react';
 import SEO from '../components/SEO';
-import MagneticTopNavbar from '../components/MagneticTopNavbar';
+
+import { projects, categories } from '../data/projects';
+import ProjectDetail from '../components/ProjectDetail';
 
 const stats = [
   { label: 'Projects Completed', value: '40+' },
   { label: 'Industries', value: '12' },
   { label: 'Client Satisfaction', value: '99%' },
-];
-
-const categories = ['All', 'Web Design', 'Development', 'Branding', 'E-commerce'];
-
-const projects = [
-  {
-    id: 1,
-    title: "Metloop Landing Page",
-    client: "Metloop",
-    industry: "Technology",
-    year: "2026",
-    description: "Designed a high-converting landing page focusing on premium branding and clear user flows.",
-    services: ["UI/UX Design", "Web Development"],
-    tech: ["React", "Tailwind CSS"],
-    mediaType: "image-scroll",
-    url: "/assets/Mindloop.gif",
-    category: "Web Design",
-    link: "https://motion-site-sand.vercel.app/"
-  },
-  {
-    id: 2,
-    title: "Art Landing",
-    client: "Art Co",
-    industry: "Creative",
-    year: "2026",
-    description: "An elegant, motion-rich experience showcasing digital artwork and immersive storytelling.",
-    services: ["Web Design", "Motion Graphics"],
-    tech: ["Next.js", "Framer Motion"],
-    mediaType: "video",
-    url: "https://pub-86dc5b5484314368ac5436a674b0d919.r2.dev/a/mezzanine%20(1).mp4",
-    category: "Web Design",
-    link: "https://art-landing.vercel.app/"
-  },
-  {
-    id: 3,
-    title: "Galaxy Home",
-    client: "Galaxy Tech",
-    industry: "Consumer Electronics",
-    year: "2026",
-    description: "A futuristic product launch page with 3D elements and engaging scroll interactions.",
-    services: ["Product Design", "3D Web"],
-    tech: ["Three.js", "React"],
-    mediaType: "video",
-    url: "https://pub-86dc5b5484314368ac5436a674b0d919.r2.dev/uploaded/galaxyhome.mp4",
-    category: "Development",
-    link: "https://galaxy-website-theta.vercel.app/"
-  },
-  {
-    id: 4,
-    title: "Wisa Landing",
-    client: "Wisa",
-    industry: "Fintech",
-    year: "2026",
-    description: "A modern, scrolling landing page built to establish trust and simplify complex financial products.",
-    services: ["UX Design", "Frontend Dev"],
-    tech: ["Vue.js", "Tailwind"],
-    mediaType: "image-loop",
-    url: "https://pub-86dc5b5484314368ac5436a674b0d919.r2.dev/hero%20sections/animated%20(47).webp",
-    category: "Web Design",
-    link: "https://wisa-seven.vercel.app/"
-  },
-  {
-    id: 5,
-    title: "Luxury Home",
-    client: "Estate Lux",
-    industry: "Real Estate",
-    year: "2026",
-    description: "A premium real estate portal presenting high-end properties with large, immersive visuals.",
-    services: ["Web Design", "Development"],
-    tech: ["React", "Next.js"],
-    mediaType: "image-loop",
-    url: "https://pub-86dc5b5484314368ac5436a674b0d919.r2.dev/hero%20sections/animated%20(8).webp",
-    category: "E-commerce",
-    link: "https://real-estate-nu-pied.vercel.app/"
-  },
-  {
-    id: 6,
-    title: "Botanic Perfume",
-    client: "Botanic",
-    industry: "Beauty",
-    year: "2026",
-    description: "An elegant e-commerce experience for a luxury fragrance brand with fluid animations.",
-    services: ["E-commerce", "Branding"],
-    tech: ["Shopify", "Tailwind CSS"],
-    mediaType: "image-loop",
-    url: "https://pub-86dc5b5484314368ac5436a674b0d919.r2.dev/hero%20sections/animated%20(36).webp",
-    category: "E-commerce",
-    link: "#"
-  },
-  {
-    id: 7,
-    title: "Luxury Brand",
-    client: "Aura",
-    industry: "Fashion",
-    year: "2026",
-    description: "A sophisticated brand showcase with seamless video integration and editorial typography.",
-    services: ["Web Design", "Art Direction"],
-    tech: ["React", "Framer Motion"],
-    mediaType: "video",
-    url: "https://pub-86dc5b5484314368ac5436a674b0d919.r2.dev/fe42Area.mp4",
-    category: "Branding",
-    link: "https://cursor-tracker-steel.vercel.app/"
-  },
-  {
-    id: 8,
-    title: "Duolingo Landing Page",
-    client: "Duolingo",
-    industry: "Education",
-    year: "2026",
-    description: "A fun and highly interactive landing page designed to increase user acquisition through gamified elements.",
-    services: ["UI/UX Design", "Web Development"],
-    tech: ["React", "Tailwind CSS"],
-    mediaType: "image-scroll",
-    url: "/assets/Duolingo.gif",
-    category: "Web Design",
-    link: "https://duolingo-landing-page.vercel.app/"
-  }
 ];
 
 const ScrollImage = ({ src }) => {
@@ -239,6 +124,7 @@ const AnimatedWebP = ({ src }) => {
 
 export default function Work() {
   const [activeCategory, setActiveCategory] = useState('All');
+  const [activeProject, setActiveProject] = useState(null);
 
   const filteredProjects = projects.filter(
     (p) => activeCategory === 'All' || p.category === activeCategory
@@ -251,9 +137,10 @@ export default function Work() {
         description="Explore premium websites and SaaS products built by Llamacorp for modern businesses." 
         canonical="/work" 
       />
-      <MagneticTopNavbar />
 
-      <main className="pt-32 pb-24 px-4 md:px-8 max-w-[1400px] mx-auto">
+
+      <LayoutGroup>
+        <main className="pt-32 pb-24 px-4 md:px-8 max-w-[1400px] mx-auto">
         
         {/* Hero Section */}
         <section className="flex flex-col items-center text-center mt-12 md:mt-24 mb-20 md:mb-32">
@@ -334,8 +221,10 @@ export default function Work() {
                   
                   {/* Browser Mockup */}
                   <motion.div 
+                    layoutId={`project-image-container-${project.id}`}
+                    onClick={() => setActiveProject(project)}
                     whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.4, ease: "easeOut" } }}
-                    className="w-full xl:w-[70%] bg-white rounded-[16px] md:rounded-[20px] xl:rounded-[24px] border border-black/5 shadow-[0_12px_40px_rgba(0,0,0,0.06)] overflow-hidden transition-shadow duration-500 group-hover:shadow-[0_24px_80px_rgba(0,0,0,0.12)] will-change-transform mx-auto"
+                    className="w-full xl:w-[70%] bg-white rounded-[16px] md:rounded-[20px] xl:rounded-[24px] border border-black/5 shadow-[0_12px_40px_rgba(0,0,0,0.06)] overflow-hidden transition-shadow duration-500 group-hover:shadow-[0_24px_80px_rgba(0,0,0,0.12)] will-change-transform mx-auto cursor-pointer"
                   >
                     {/* Browser Top Bar */}
                     <div className="bg-[#f8f8f8] border-b border-black/5 px-2 sm:px-3 md:px-4 py-2 md:py-3 flex items-center justify-between">
@@ -354,10 +243,11 @@ export default function Work() {
                     </div>
                     
                     {/* Browser Media Content */}
-                    {project.mediaType === 'image-scroll' && <ScrollImage src={project.url} />}
-                    {project.mediaType === 'video' && <AutoplayVideo src={project.url} />}
-                    {project.mediaType === 'image-loop' && <AnimatedWebP src={project.url} />}
-
+                    <motion.div layoutId={`project-media-${project.id}`} className="w-full h-full pointer-events-none">
+                      {project.mediaType === 'image-scroll' && <ScrollImage src={project.url} />}
+                      {project.mediaType === 'video' && <AutoplayVideo src={project.url} />}
+                      {project.mediaType === 'image-loop' && <AnimatedWebP src={project.url} />}
+                    </motion.div>
                   </motion.div>
 
                   {/* Project Details */}
@@ -411,9 +301,9 @@ export default function Work() {
                       <a href={project.link} target="_blank" rel="noopener noreferrer" className="flex-1 flex justify-center items-center gap-2 bg-[#111] text-white rounded-full py-3.5 px-6 font-medium text-[15px] transition-all hover:bg-[#333] hover:-translate-y-0.5 hover:shadow-lg group/btn">
                         View Live <ArrowUpRight size={18} className="transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
                       </a>
-                      <a href="#" className="flex-1 flex justify-center items-center bg-transparent text-[#111] border border-black/10 rounded-full py-3.5 px-6 font-medium text-[15px] transition-all hover:bg-black/5">
+                      <button onClick={() => setActiveProject(project)} className="flex-1 flex justify-center items-center bg-transparent text-[#111] border border-black/10 rounded-full py-3.5 px-6 font-medium text-[15px] transition-all hover:bg-black/5">
                         Case Study
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -448,6 +338,13 @@ export default function Work() {
           </motion.div>
         </section>
       </main>
+
+        <AnimatePresence>
+          {activeProject && (
+            <ProjectDetail project={activeProject} onClose={() => setActiveProject(null)} />
+          )}
+        </AnimatePresence>
+      </LayoutGroup>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import SEO from '../components/SEO';
-import MagneticTopNavbar from '../components/MagneticTopNavbar';
+import { ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
 import SelectedWork from '../components/SelectedWork';
 import Services from '../components/Services';
 import Testimonials from '../components/Testimonials';
@@ -60,7 +60,7 @@ export default function Home() {
         description="Llamacorp is a premium AI-powered web design and development agency building high-performance websites for startups and businesses."
         canonical="/" 
       />
-      <MagneticTopNavbar />
+
 
       <main id="hero" className="relative w-full max-w-[1200px] px-4 md:px-6 lg:px-8 mx-auto flex flex-col items-center text-center pt-[120px] md:pt-[160px] pb-8 md:pb-10 overflow-hidden md:overflow-visible box-border">
         <div className="relative h-10 md:h-12 flex justify-center items-center mb-7 md:mb-9 w-full max-w-full overflow-hidden md:overflow-visible" aria-live="polite">
