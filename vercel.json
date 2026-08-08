@@ -16,7 +16,7 @@
       "destination": "/index.html"
     },
     {
-      "source": "/((?!assets/|favicon\\.svg|vite\\.svg|robots\\.txt|sitemap\\.xml).*)$",
+      "source": "/(.*)",
       "destination": "/api/seo"
     }
   ]
