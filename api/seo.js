@@ -33,11 +33,11 @@ export default async function handler(req, res) {
       canonical = `${siteUrl}/`;
     } else {
       // Remove trailing slash if present
-      canonical = `${siteUrl}${urlPath.replace(/\\/$/, '')}`;
+      canonical = `${siteUrl}${urlPath.replace(/\/$/, '')}`;
     }
 
     // Check if it's a dynamic blog post
-    const blogMatch = urlPath.match(/^\\/blog\\/([^/]+)$/);
+    const blogMatch = urlPath.match(/^\/blog\/([^/]+)$/);
     if (blogMatch) {
       const slug = blogMatch[1];
       try {
