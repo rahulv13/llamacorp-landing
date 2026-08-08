@@ -1,12 +1,23 @@
 {
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/sitemap.xml",
       "destination": "/api/sitemap"
     },
     {
-      "source": "/(.*)",
+      "source": "/raw-index",
       "destination": "/index.html"
+    },
+    {
+      "source": "/((?!assets/|favicon\\.svg|vite\\.svg|robots\\.txt|sitemap\\.xml).*)$",
+      "destination": "/api/seo"
     }
   ]
 }
