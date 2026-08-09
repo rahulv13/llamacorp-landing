@@ -5,14 +5,14 @@ export default async function handler(req, res) {
     
     // Static pages
     const staticPages = [
-      { path: '', priority: '1.0' },
-      { path: '/work', priority: '0.5' },
-      { path: '/services', priority: '0.9' },
-      { path: '/pricing', priority: '0.9' },
-      { path: '/blog', priority: '0.8' },
-      { path: '/faq', priority: '0.6' },
-      { path: '/contact', priority: '0.5' },
-      { path: '/about', priority: '0.5' }
+      { path: '/', priority: '1.0', changefreq: 'weekly' },
+      { path: '/work', priority: '0.5', changefreq: 'monthly' },
+      { path: '/services', priority: '0.9', changefreq: 'monthly' },
+      { path: '/pricing', priority: '0.9', changefreq: 'monthly' },
+      { path: '/blog', priority: '0.8', changefreq: 'weekly' },
+      { path: '/faq', priority: '0.6', changefreq: 'monthly' },
+      { path: '/contact', priority: '0.5', changefreq: 'yearly' },
+      { path: '/about', priority: '0.5', changefreq: 'yearly' }
     ];
 
     let urls = '';
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
   <url>
     <loc>${siteUrl}${page.path}</loc>
     <lastmod>${deploymentDate}</lastmod>
-    <changefreq>daily</changefreq>
+    <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>
   </url>`;
     }
@@ -32,7 +32,9 @@ export default async function handler(req, res) {
       const response = await fetch(`${backendUrl}/blogs`);
       if (response.ok) {
         const { data: blogs } = await response.json();
-        for (const blog of blogs) {
+        // Filter out test blogs
+        const validBlogs = blogs.filter(b => b.slug !== 'test-blog' && b.slug !== 'seo-article-test');
+        for (const blog of validBlogs) {
           const lastModDate = blog.updatedAt ? new Date(blog.updatedAt).toISOString() : new Date(blog.createdAt).toISOString();
           urls += `
   <url>
