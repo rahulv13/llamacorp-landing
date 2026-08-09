@@ -4,7 +4,7 @@ export default async function handler(req, res) {
     const siteUrl = 'https://www.llamacorp.in';
     
     // Default fallback HTML (if we can't fetch index.html)
-    let baseHtml = `<!doctype html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Llamacorp | Build Your Digital Future</title><!-- SEO_TAGS_START --><!-- SEO_TAGS_END --></head><body><div id="root"></div><script type="module" src="/src/main.jsx"></script></body></html>`;
+    let baseHtml = `<!doctype html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Llamacorp | Build Your Digital Future</title></head><body><div id="root"></div><script type="module" src="/src/main.jsx"></script></body></html>`;
     
     try {
       // On Vercel, req.headers.host contains the current deployment hostname
@@ -67,19 +67,56 @@ export default async function handler(req, res) {
       description = 'Explore our web design, development, and SEO services.';
     }
 
+    let structuredData = null;
+
+    if (blogMatch && urlPath !== '/blog') {
+      structuredData = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": title,
+        "description": description,
+        "url": canonical
+      };
+    } else if (urlPath === '/services') {
+      structuredData = {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Llamacorp Services",
+        "description": description,
+        "url": canonical,
+        "provider": {
+          "@type": "Organization",
+          "name": "Llamacorp",
+          "url": siteUrl
+        }
+      };
+    } else if (urlPath === '/' || urlPath === '') {
+      structuredData = {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Llamacorp",
+        "url": siteUrl,
+        "description": description
+      };
+    }
+
+    const jsonLdTag = structuredData 
+      ? `\n    <script type="application/ld+json">\n    ${JSON.stringify(structuredData)}\n    </script>` 
+      : '';
+
     const seoTags = `
     <title>${title}</title>
     <meta name="description" content="${description}" />
     <link rel="canonical" href="${canonical}" />
     <meta property="og:url" content="${canonical}" />
     <meta property="og:title" content="${title}" />
-    <meta property="og:description" content="${description}" />
+    <meta property="og:description" content="${description}" />${jsonLdTag}
     `;
 
-    // Inject tags into HTML by replacing the marker
+    // Inject tags into HTML by placing them right before the closing </head> tag
     const modifiedHtml = baseHtml.replace(
-      /<!-- SEO_TAGS_START -->.*<!-- SEO_TAGS_END -->/s,
-      `<!-- SEO_TAGS_START -->\n${seoTags}\n    <!-- SEO_TAGS_END -->`
+      '</head>',
+      `${seoTags}\n</head>`
     );
 
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
