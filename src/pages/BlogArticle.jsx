@@ -77,10 +77,10 @@ export default function BlogArticle() {
   return (
     <>
       <SEO 
-        title={post.title}
-        description={post.excerpt || post.content.substring(0, 150).replace(/<[^>]+>/g, '') + '...'}
+        title={post.metaTitle || post.title}
+        description={post.metaDescription || post.excerpt || (post.content ? post.content.substring(0, 150).replace(/<[^>]+>/g, '') + '...' : '')}
         image={coverImage}
-        canonical={`/blog/${slug}`}
+        canonical={post.canonicalUrl || `/blog/${slug}`}
       >
         <meta property="og:type" content="article" />
         <script type="application/ld+json">
