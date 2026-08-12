@@ -36,6 +36,13 @@ export default async function handler(req, res) {
       canonical = `${siteUrl}${urlPath.replace(/\/$/, '')}`;
     }
 
+    // Strip existing title, description, canonical, and og tags from baseHtml to prevent duplicates
+    let cleanedHtml = baseHtml
+      .replace(/<title>.*?<\/title>/gi, '')
+      .replace(/<meta\s+name=["']description["'][^>]*>/gi, '')
+      .replace(/<link\s+rel=["']canonical["'][^>]*>/gi, '')
+      .replace(/<meta\s+property=["']og:(url|title|description)["'][^>]*>/gi, '');
+
     // Check if it's a dynamic blog post
     const blogMatch = urlPath.match(/^\/blog\/([^/]+)$/);
     if (blogMatch) {
@@ -45,12 +52,17 @@ export default async function handler(req, res) {
         if (blogRes.ok) {
           const { data: blog } = await blogRes.json();
           if (blog) {
-            title = `${blog.title} | Llamacorp`;
+            title = blog.metaTitle || `${blog.title} | Llamacorp`;
+            
+            if (blog.canonicalUrl) {
+              canonical = blog.canonicalUrl;
+            }
+
             // create a short snippet from content if excerpt doesn't exist
-            description = blog.excerpt || (blog.content ? blog.content.substring(0, 150).replace(/<[^>]+>/g, '') + '...' : description);
+            description = blog.metaDescription || blog.excerpt || (blog.content ? blog.content.substring(0, 150).replace(/<[^>]+>/g, '') + '...' : description);
             
             // Clean up description newlines and quotes
-            description = description.replace(/[\\n\\r]+/g, ' ').replace(/"/g, '&quot;');
+            description = description.replace(/[\n\r]+/g, ' ').replace(/"/g, '&quot;');
           }
         }
       } catch (err) {
@@ -114,7 +126,7 @@ export default async function handler(req, res) {
     `;
 
     // Inject tags into HTML by placing them right before the closing </head> tag
-    const modifiedHtml = baseHtml.replace(
+    const modifiedHtml = cleanedHtml.replace(
       '</head>',
       `${seoTags}\n</head>`
     );
