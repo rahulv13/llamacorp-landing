@@ -32,10 +32,11 @@ export default function MagneticTopNavbar() {
 
   const centerLinks = [
     { label: 'Works', index: 0, href: '/work' },
-    { label: 'Services', index: 1, href: '/#services' },
-    { label: 'Pricing', index: 2, href: '/#pricing' },
-    { label: 'Blog', index: 3, href: '/blog' },
-    { label: 'FAQs', index: 4, href: '/#faqs' },
+    { label: 'About', index: 1, href: '/about' },
+    { label: 'Services', index: 2, href: '/#services' },
+    { label: 'Pricing', index: 3, href: '/#pricing' },
+    { label: 'Blog', index: 4, href: '/blog' },
+    { label: 'FAQs', index: 5, href: '/#faqs' },
   ];
 
   const rightActions = [

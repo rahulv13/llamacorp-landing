@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Work from './pages/Work';
 import BlogIndex from './pages/BlogIndex';
 import BlogArticle from './pages/BlogArticle';
+import About from './pages/About';
 import MagneticTopNavbar from './components/MagneticTopNavbar';
 import PageTransitionSystem from './components/PageTransitionSystem';
 
@@ -30,6 +31,7 @@ function App() {
           <PageTransitionSystem>
             {/* Public Routes */}
             <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
             <Route path="/work" element={<Work />} />
             <Route path="/blog" element={<BlogIndex />} />
             <Route path="/blog/:slug" element={<BlogArticle />} />
