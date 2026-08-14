@@ -89,7 +89,7 @@ export default function DarkFounderSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-              className="spline-wrapper -translate-y-[15px] translate-x-[20px]"
+              className="spline-wrapper -translate-y-[15px] -translate-x-[40px] md:-translate-x-[60px]"
             >
               <spline-viewer 
                 url="https://prod.spline.design/KaHc3cFTzewyKyFs/scene.splinecode"
