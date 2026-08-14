@@ -36,7 +36,7 @@ export default function StatsAndTestimonials() {
              </div>
           </div>
           <div>
-            <h2 className="text-5xl md:text-[80px] font-bold tracking-tight text-[#111] leading-none mb-4">150+</h2>
+            <h2 className="text-5xl md:text-[80px] font-bold tracking-tight text-[#111] leading-none mb-4">10+</h2>
             <p className="text-[#111] font-bold text-[16px] max-w-[200px]">Projects delivered for global brands</p>
           </div>
         </div>
@@ -47,7 +47,7 @@ export default function StatsAndTestimonials() {
            <HoverTestimonialsRow testimonials={testimonials.slice(0, 4)} />
 
            <p className="text-[#111] font-bold text-[16px] leading-snug">
-             Join 150+ brands and start scaling faster with AI-powered development
+             Join 10+ brands and start scaling faster with AI-powered development
            </p>
            <button className="bg-[#111] hover:bg-black text-white text-[15px] font-semibold px-8 py-4 rounded-full transition-all hover:shadow-lg w-max">
              Start a Project

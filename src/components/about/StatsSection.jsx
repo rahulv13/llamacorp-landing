@@ -30,7 +30,7 @@ function useCounter(end, duration = 2000, start = 0) {
 }
 
 export default function StatsSection({ id }) {
-  const stat1 = useCounter(150, 2500);
+  const stat1 = useCounter(10, 2500);
   const stat2 = useCounter(98, 2000);
   const stat3 = useCounter(24, 1500); // For 24/7
   const stat4 = useCounter(5, 1000); // For 5★

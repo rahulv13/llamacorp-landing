@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { m } from 'framer-motion';
 import { NoiseBackground } from '../ui/NoiseBackground';
+import rahulAvatar from "../../Rahul.png";
 
 
 export default function ParticleFooter() {
@@ -67,9 +68,12 @@ export default function ParticleFooter() {
           viewport={{ once: true, amount: 0.8 }}
           transition={{ delay: 0.1 }}
         >
-          <a href="#start" className="inline-flex items-center gap-2 bg-white text-[#111111] px-6 py-3.5 rounded-full font-bold text-[14px] hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.1)]">
-            <span className="text-xl leading-none">✨</span>
-            Start Building Today
+          <a 
+            href="mailto:llamacorp8@gmail.com?subject=New%20Project%20Inquiry%20from%20Llamacorp&body=Hi%20Llamacorp%2C%0A%0AI%27d%20like%20to%20discuss%20a%20project.%0A%0AName%3A%0ACompany%3A%0AProject%20details%3A%0ABudget%3A%0ATimeline%3A" 
+            className="group flex items-center justify-center gap-3 bg-white text-[#111] py-4 px-8 rounded-full text-[15px] font-semibold transition-all hover:bg-neutral-100 hover:scale-[1.02] shadow-[0_0_0_rgba(255,255,255,0)] hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] cursor-pointer no-underline"
+          >
+            <img src={rahulAvatar} alt="Llamacorp avatar" className="w-6 h-6 rounded-full object-cover" />
+            Start a project
           </a>
         </m.div>
       </div>
