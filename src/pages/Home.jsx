@@ -63,17 +63,31 @@ export default function Home() {
 
 
       <main id="hero" className="relative w-full max-w-[1200px] px-4 md:px-6 lg:px-8 mx-auto flex flex-col items-center text-center pt-[120px] md:pt-[160px] pb-8 md:pb-10 overflow-hidden md:overflow-visible box-border">
-        <a 
-          href="mailto:llamacorp8@gmail.com?subject=Discovery%20Call" 
-          className="inline-flex items-center p-[2px] pr-[8px] gap-[7px] rounded-[9px] bg-[#C4E88B] border-2 border-[rgba(90,130,45,0.45)] shadow-[0_1px_3px_rgba(40,70,20,0.08)] hover:shadow-[0_4px_12px_rgba(40,70,20,0.15)] hover:-translate-y-[1px] transition-all duration-[180ms] mb-7 md:mb-9 mx-auto cursor-pointer no-underline group"
-        >
-          <div className="bg-[#e4f4c8] text-[#161616] text-[12px] font-medium tracking-[-0.04em] leading-[20px] px-[9px] h-[22px] flex items-center justify-center rounded-[6px]">
-            New
-          </div>
-          <div className="text-[13px] font-medium text-[#161616] tracking-[-0.04em] leading-[20px] whitespace-nowrap">
-            Book a free discovery call today
-          </div>
-        </a>
+        <div className="relative h-10 md:h-12 flex justify-center items-center mb-7 md:mb-9 w-full max-w-full overflow-hidden md:overflow-visible" aria-live="polite">
+          {testimonials.map((t, index) => {
+            const isActive = index === currentIndex;
+            const isExiting = index === exitingIndex;
+            
+            if (!isActive && !isExiting && !isReducedMotion) return null;
+            if (isReducedMotion && index !== 0) return null;
+
+            return (
+              <div 
+                key={index}
+                className={`
+                  absolute bg-white rounded-full py-1.5 pr-4 pl-1.5 flex items-center gap-3 shadow-[0_8px_32px_rgba(0,0,0,0.08)] pointer-events-none w-max max-w-[calc(100vw-32px)] md:max-w-[90vw]
+                  ${isReducedMotion ? 'opacity-100 transform-none pointer-events-auto' : ''}
+                  ${!isReducedMotion && isActive ? 'animate-in fade-in slide-in-from-bottom-6 duration-700 pointer-events-auto' : ''}
+                  ${!isReducedMotion && isExiting ? 'animate-out fade-out slide-out-to-top-6 duration-500' : ''}
+                `}
+                style={!isReducedMotion && isActive ? { transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)' } : {}}
+              >
+                <img src={t.avatar} alt="" className="w-6 h-6 md:w-7 md:h-7 rounded-full object-cover shrink-0" />
+                <span className="text-[11px] md:text-[13px] font-medium text-[#555] truncate">{t.text}</span>
+              </div>
+            );
+          })}
+        </div>
 
         <h1 className="w-full max-w-[340px] md:max-w-[800px] mx-auto text-[clamp(2.35rem,10vw,3.25rem)] md:text-[clamp(2.375rem,8vw,5rem)] leading-[0.95] md:leading-[1.05] tracking-[-0.05em] break-words font-bold mb-6 md:mb-7 text-[#111] px-0">
           AI-driven web design<br className="hidden md:block"/>and development.
