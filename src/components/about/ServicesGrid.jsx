@@ -36,7 +36,7 @@ const ServiceCard = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.7, ease: "easeOut", delay: index * 0.12 }}
-      className="bg-white rounded-3xl border border-black/5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden"
+      className="bg-white rounded-[32px] border border-[#E5E5E5] shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden"
     >
       
       {/* Top Visual Area */}
@@ -138,7 +138,7 @@ export default function ServicesGrid() {
       </div>
 
       {/* Services Container Frame (Matches Pricing Plans) */}
-      <div className="w-full bg-[#f3f3f2] border border-black/5 p-4 md:p-6 rounded-[32px] shadow-[inset_0_2px_10px_rgba(0,0,0,0.02)] relative z-10">
+      <div className="w-full bg-[#EAEAEA] border border-[#D1D1D1] p-[10px] md:p-[14px] rounded-[40px] relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           {services.map((service, index) => (
             <ServiceCard key={index} index={index} {...service} />

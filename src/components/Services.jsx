@@ -14,7 +14,7 @@ export default function Services() {
   }, []);
 
   return (
-    <section id="services" className="w-full bg-[#fcfcfc] py-24 px-5">
+    <section id="services" className="w-full bg-[#F5F5F3] py-24 px-5">
       <div className="max-w-[1500px] mx-auto">
         
         {/* Section Header */}
@@ -32,14 +32,10 @@ export default function Services() {
         </div>
 
         {/* Featured Service Outer Container */}
-        <div className="w-full bg-gradient-to-b from-[#fdfdfd] to-[#f4f4f4] border border-white/80 ring-1 ring-black/[0.04] shadow-[0_8px_32px_rgba(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,1),inset_0_-1px_2px_rgba(0,0,0,0.03)] rounded-[38px] md:rounded-[40px] p-4 flex flex-col lg:flex-row gap-4 group cursor-pointer transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,1),inset_0_-1px_2px_rgba(0,0,0,0.03)] relative overflow-hidden">
-          {/* Edge Lighting for Outer Container */}
-          <div className="absolute inset-0 rounded-[38px] md:rounded-[40px] pointer-events-none shadow-[inset_0_2px_3px_rgba(255,255,255,1),inset_1px_0_2px_rgba(255,255,255,0.7)] z-20" />
+        <div className="w-full bg-[#EAEAEA] border border-[#D1D1D1] rounded-[38px] md:rounded-[40px] p-[10px] md:p-[14px] flex flex-col lg:flex-row gap-4 group cursor-pointer transition-all duration-500 hover:-translate-y-1 hover:shadow-xl relative overflow-hidden">
           
           {/* Left Inner Panel */}
-          <div className="w-full lg:w-1/2 bg-white rounded-[34px] md:rounded-[36px] border border-white/80 ring-1 ring-black/[0.03] p-6 md:p-10 lg:p-14 flex flex-col justify-start shadow-[0_4px_16px_rgba(0,0,0,0.02),0_8px_32px_rgba(0,0,0,0.03),inset_0_0_2px_rgba(0,0,0,0.04)] relative z-10">
-            {/* Inner Edge Lighting */}
-            <div className="absolute inset-0 rounded-[34px] md:rounded-[36px] pointer-events-none shadow-[inset_0_2px_3px_rgba(255,255,255,1),inset_1px_0_2px_rgba(255,255,255,0.7),inset_0_-1px_3px_rgba(0,0,0,0.02),inset_-1px_0_2px_rgba(0,0,0,0.01)]" />
+          <div className="w-full lg:w-1/2 bg-white rounded-[30px] md:rounded-[32px] border border-[#E5E5E5] p-6 md:p-10 lg:p-14 flex flex-col justify-start shadow-sm relative z-10">
             
             {/* Animated Folder Icon */}
             <div className="mb-8">
@@ -92,14 +88,10 @@ export default function Services() {
         </div>
 
         {/* Second Featured Service Outer Container */}
-        <div className="w-full mt-6 bg-gradient-to-b from-[#fdfdfd] to-[#f4f4f4] border border-white/80 ring-1 ring-black/[0.04] shadow-[0_8px_32px_rgba(0,0,0,0.04),inset_0_1px_1px_rgba(255,255,255,1),inset_0_-1px_2px_rgba(0,0,0,0.03)] rounded-[38px] md:rounded-[40px] p-4 flex flex-col lg:flex-row gap-4 group cursor-pointer transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,1),inset_0_-1px_2px_rgba(0,0,0,0.03)] relative overflow-hidden">
-          {/* Edge Lighting for Outer Container */}
-          <div className="absolute inset-0 rounded-[38px] md:rounded-[40px] pointer-events-none shadow-[inset_0_2px_3px_rgba(255,255,255,1),inset_1px_0_2px_rgba(255,255,255,0.7)] z-20" />
+        <div className="w-full mt-6 bg-[#EAEAEA] border border-[#D1D1D1] rounded-[38px] md:rounded-[40px] p-[10px] md:p-[14px] flex flex-col lg:flex-row gap-4 group cursor-pointer transition-all duration-500 hover:-translate-y-1 hover:shadow-xl relative overflow-hidden">
           
           {/* Left Inner Panel */}
-          <div className="w-full lg:w-1/2 bg-white rounded-[34px] md:rounded-[36px] border border-white/80 ring-1 ring-black/[0.03] p-6 md:p-10 lg:p-14 flex flex-col justify-start shadow-[0_4px_16px_rgba(0,0,0,0.02),0_8px_32px_rgba(0,0,0,0.03),inset_0_0_2px_rgba(0,0,0,0.04)] relative z-10">
-            {/* Inner Edge Lighting */}
-            <div className="absolute inset-0 rounded-[34px] md:rounded-[36px] pointer-events-none shadow-[inset_0_2px_3px_rgba(255,255,255,1),inset_1px_0_2px_rgba(255,255,255,0.7),inset_0_-1px_3px_rgba(0,0,0,0.02),inset_-1px_0_2px_rgba(0,0,0,0.01)]" />
+          <div className="w-full lg:w-1/2 bg-white rounded-[30px] md:rounded-[32px] border border-[#E5E5E5] p-6 md:p-10 lg:p-14 flex flex-col justify-start shadow-sm relative z-10">
             
             {/* Folder Icon Placeholder */}
             <div className="mb-8">
@@ -158,13 +150,11 @@ export default function Services() {
         </div>
 
         {/* Secondary Services 3-Column Grid (User Provided) */}
-        <div className="w-full mt-8 max-w-[1500px] mx-auto p-4 md:p-6 bg-[#f9f9f9] rounded-[40px] border border-white shadow-[inset_0_-4px_4px_-2px_rgba(0,0,0,0.12),_inset_0_4px_4px_-2px_rgba(0,0,0,0.12),_inset_0_0_3px_0_rgba(0,0,0,0.24),_0_0_0_1px_rgba(0,0,0,0.08),_0_7px_11.4px_-7px_rgba(31,28,28,0.15),_0_16px_24px_-7px_rgba(31,28,28,0.08)]">
+        <div className="w-full mt-8 max-w-[1500px] mx-auto p-[10px] md:p-[14px] bg-[#EAEAEA] rounded-[40px] border border-[#D1D1D1]">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
 
             {/* Card 1: Branding & Logos */}
-            <div className="flex flex-col group bg-white rounded-[36px] p-6 md:p-8 border border-white/80 ring-1 ring-black/[0.03] shadow-[0_4px_16px_rgba(0,0,0,0.03),0_8px_32px_rgba(0,0,0,0.04),inset_0_0_2px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.04),0_16px_48px_rgba(0,0,0,0.06),inset_0_0_2px_rgba(0,0,0,0.04)] relative overflow-hidden min-h-[400px] hover:-translate-y-1 transition-all duration-500 z-10">
-              {/* Edge Lighting */}
-              <div className="absolute inset-0 rounded-[36px] pointer-events-none shadow-[inset_0_2px_3px_rgba(255,255,255,1),inset_1px_0_2px_rgba(255,255,255,0.7),inset_0_-1px_3px_rgba(0,0,0,0.02),inset_-1px_0_2px_rgba(0,0,0,0.01)] z-20" />
+            <div className="flex flex-col group bg-white rounded-[32px] p-6 md:p-8 border border-[#E5E5E5] shadow-sm hover:-translate-y-1 hover:shadow-md relative overflow-hidden min-h-[400px] transition-all duration-500 z-10">
               <div className="z-10">
                 <h3 className="text-2xl font-bold text-gray-900 mb-3 font-['Plus_Jakarta_Sans'] tracking-tight">
                   Branding & Logos
@@ -188,9 +178,7 @@ export default function Services() {
             </div>
 
             {/* Card 2: 2D & 3D Illustrations */}
-            <div className="flex flex-col group bg-white rounded-[36px] p-6 md:p-8 border border-white/80 ring-1 ring-black/[0.03] shadow-[0_4px_16px_rgba(0,0,0,0.03),0_8px_32px_rgba(0,0,0,0.04),inset_0_0_2px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.04),0_16px_48px_rgba(0,0,0,0.06),inset_0_0_2px_rgba(0,0,0,0.04)] relative overflow-hidden min-h-[400px] hover:-translate-y-1 transition-all duration-500 z-10">
-              {/* Edge Lighting */}
-              <div className="absolute inset-0 rounded-[36px] pointer-events-none shadow-[inset_0_2px_3px_rgba(255,255,255,1),inset_1px_0_2px_rgba(255,255,255,0.7),inset_0_-1px_3px_rgba(0,0,0,0.02),inset_-1px_0_2px_rgba(0,0,0,0.01)] z-20" />
+            <div className="flex flex-col group bg-white rounded-[32px] p-6 md:p-8 border border-[#E5E5E5] shadow-sm hover:-translate-y-1 hover:shadow-md relative overflow-hidden min-h-[400px] transition-all duration-500 z-10">
               <div className="z-10">
                 <h3 className="text-2xl font-bold text-gray-900 mb-3 font-['Plus_Jakarta_Sans'] tracking-tight">
                   2D & 3D Illustrations
@@ -221,9 +209,7 @@ export default function Services() {
             </div>
 
             {/* Card 3: Motion Design */}
-            <div className="flex flex-col group bg-white rounded-[36px] p-6 md:p-8 border border-white/80 ring-1 ring-black/[0.03] shadow-[0_4px_16px_rgba(0,0,0,0.03),0_8px_32px_rgba(0,0,0,0.04),inset_0_0_2px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.04),0_16px_48px_rgba(0,0,0,0.06),inset_0_0_2px_rgba(0,0,0,0.04)] relative overflow-hidden min-h-[400px] hover:-translate-y-1 transition-all duration-500 z-10">
-              {/* Edge Lighting */}
-              <div className="absolute inset-0 rounded-[36px] pointer-events-none shadow-[inset_0_2px_3px_rgba(255,255,255,1),inset_1px_0_2px_rgba(255,255,255,0.7),inset_0_-1px_3px_rgba(0,0,0,0.02),inset_-1px_0_2px_rgba(0,0,0,0.01)] z-20" />
+            <div className="flex flex-col group bg-white rounded-[32px] p-6 md:p-8 border border-[#E5E5E5] shadow-sm hover:-translate-y-1 hover:shadow-md relative overflow-hidden min-h-[400px] transition-all duration-500 z-10">
               <div className="z-10 relative pointer-events-none">
                 <h3 className="text-2xl font-bold text-gray-900 mb-3 font-['Plus_Jakarta_Sans'] tracking-tight">
                   Motion Design
