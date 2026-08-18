@@ -31,7 +31,7 @@ export default function SEO({ title, description, canonical, image = 'https://ww
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:url" content={url} />
+      {customCanonicalUrl && <meta name="twitter:url" content={customCanonicalUrl} />}
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description || 'Premium AI-powered web design and development agency.'} />
       <meta name="twitter:image" content={image} />
