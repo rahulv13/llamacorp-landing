@@ -8,9 +8,10 @@ export default function SEO({ title, description, canonical, image = 'https://ww
   const fullTitle = title ? `${title} | ${siteName}` : 'AI Web Design & Development Agency | Llamacorp';
   
   const siteUrl = 'https://www.llamacorp.in';
-  // Always use the real browser location for canonical to prevent stale tags during page transitions
-  const currentPath = location.pathname;
-  const url = `${siteUrl}${currentPath}`;
+  
+  // If a specific canonical is provided (e.g. for a blog post with a custom canonical), use it.
+  // Otherwise, we let GlobalCanonical handle the default current URL instantly outside the transition system.
+  const customCanonicalUrl = canonical ? (canonical.startsWith('http') ? canonical : `${siteUrl}${canonical.startsWith('/') ? canonical : `/${canonical}`}`) : null;
 
   return (
     <Helmet>
@@ -19,11 +20,11 @@ export default function SEO({ title, description, canonical, image = 'https://ww
       <meta name="description" content={description || 'Llamacorp is a premium AI-powered web design and development agency building high-performance websites for startups and businesses.'} />
       <meta name="keywords" content="web development, web design, AI agency, React development, MERN stack, SaaS" />
       <meta name="robots" content="index,follow" />
-      <link rel="canonical" href={url} />
+      {customCanonicalUrl && <link rel="canonical" href={customCanonicalUrl} />}
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content="website" />
-      <meta property="og:url" content={url} />
+      {customCanonicalUrl && <meta property="og:url" content={customCanonicalUrl} />}
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description || 'Premium AI-powered web design and development agency.'} />
       <meta property="og:image" content={image} />

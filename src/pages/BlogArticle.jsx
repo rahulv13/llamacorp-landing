@@ -39,7 +39,6 @@ export default function BlogArticle() {
       <div className="min-h-screen flex flex-col items-center justify-center text-center px-4">
         <SEO 
           title="Loading Article..."
-          canonical={`/blog/${slug}`}
         />
         <h1 className="text-2xl font-semibold mb-4">Loading article...</h1>
       </div>
@@ -51,7 +50,6 @@ export default function BlogArticle() {
       <div className="min-h-screen flex flex-col items-center justify-center text-center px-4">
         <SEO 
           title="Article Not Found"
-          canonical={`/blog/${slug}`}
         />
         <h1 className="text-4xl font-bold mb-4">Article Not Found</h1>
         <p className="text-lg text-[#555] mb-8">The article you're looking for doesn't exist or has been moved.</p>
@@ -86,7 +84,7 @@ export default function BlogArticle() {
         title={post.metaTitle || post.title}
         description={post.metaDescription || post.excerpt || (post.content ? post.content.substring(0, 150).replace(/<[^>]+>/g, '') + '...' : '')}
         image={coverImage}
-        canonical={post.canonicalUrl || `/blog/${slug}`}
+        canonical={post.canonicalUrl}
       >
         <meta property="og:type" content="article" />
         <script type="application/ld+json">

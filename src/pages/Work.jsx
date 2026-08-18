@@ -133,9 +133,8 @@ export default function Work() {
   return (
     <div className="bg-[#fcfcfc] min-h-screen text-[#111] font-sans selection:bg-[#111] selection:text-white">
       <SEO 
-        title="Our Work" 
-        description="Explore premium websites and SaaS products built by Llamacorp for modern businesses." 
-        canonical="/work" 
+        title="Our Work - Case Studies & Portfolio" 
+        description="Explore Llamacorp's latest web design and development projects. See how we help startups and enterprises achieve digital excellence."
       />
 
 

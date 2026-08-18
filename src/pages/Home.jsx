@@ -58,7 +58,6 @@ export default function Home() {
       <SEO 
         title="AI Web Design & Development Agency" 
         description="Llamacorp is a premium AI-powered web design and development agency building high-performance websites for startups and businesses."
-        canonical="/" 
       />
 
 

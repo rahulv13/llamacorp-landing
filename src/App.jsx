@@ -7,6 +7,7 @@ import BlogArticle from './pages/BlogArticle';
 import About from './pages/About';
 import MagneticTopNavbar from './components/MagneticTopNavbar';
 import PageTransitionSystem from './components/PageTransitionSystem';
+import GlobalCanonical from './components/GlobalCanonical';
 
 // Admin Pages
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -26,6 +27,7 @@ function App() {
     <HelmetProvider>
       <AdminProvider>
         <Router>
+          <GlobalCanonical />
           <Toaster richColors position="bottom-right" />
           <MagneticTopNavbar />
           <PageTransitionSystem>

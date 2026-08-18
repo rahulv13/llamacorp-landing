@@ -50,8 +50,7 @@ export default function BlogIndex() {
     <>
       <SEO 
         title="Blog - Insights, Ideas & Digital Stories" 
-        description="Stay updated with our latest articles on web design, development, branding, UI/UX, AI, business growth, and digital experiences." 
-        canonical="/blog" 
+        description="Stay updated with our latest articles on web design, development, branding, UI/UX, AI, business growth, and digital experiences."
       />
 
 
