@@ -1,12 +1,16 @@
 import { Helmet } from 'react-helmet-async';
+import { useLocation } from 'react-router-dom';
 
 export default function SEO({ title, description, canonical, image = 'https://www.llamacorp.in/og-image.jpg', children }) {
+  const location = useLocation();
   const siteName = 'Llamacorp';
   // Allow fullTitle to be just the title if no prefix needed, or automatically append siteName
   const fullTitle = title ? `${title} | ${siteName}` : 'AI Web Design & Development Agency | Llamacorp';
   
   const siteUrl = 'https://www.llamacorp.in';
-  const url = canonical ? `${siteUrl}${canonical.startsWith('/') ? canonical : `/${canonical}`}` : siteUrl;
+  // Always use the real browser location for canonical to prevent stale tags during page transitions
+  const currentPath = location.pathname;
+  const url = `${siteUrl}${currentPath}`;
 
   return (
     <Helmet>
