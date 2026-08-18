@@ -117,12 +117,12 @@ export default async function handler(req, res) {
       : '';
 
     const seoTags = `
-    <title>${title}</title>
-    <meta name="description" content="${description}" />
-    <link rel="canonical" href="${canonical}" />
-    <meta property="og:url" content="${canonical}" />
-    <meta property="og:title" content="${title}" />
-    <meta property="og:description" content="${description}" />${jsonLdTag}
+    <title data-rh="true">${title}</title>
+    <meta data-rh="true" name="description" content="${description}" />
+    <link data-rh="true" rel="canonical" href="${canonical}" />
+    <meta data-rh="true" property="og:url" content="${canonical}" />
+    <meta data-rh="true" property="og:title" content="${title}" />
+    <meta data-rh="true" property="og:description" content="${description}" />${jsonLdTag}
     `;
 
     // Inject tags into HTML by placing them right before the closing </head> tag
