@@ -96,7 +96,22 @@ exports.updateBlog = async (req, res) => {
             return res.status(404).json({ success: false, message: 'Blog not found' });
         }
 
-        blog = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+        // Push current content to versions if content is changing
+        if (req.body.content && JSON.stringify(req.body.content) !== JSON.stringify(blog.content)) {
+            blog.versions.push({
+                content: blog.content,
+                savedAt: Date.now()
+            });
+        }
+
+        // Update fields
+        Object.keys(req.body).forEach(key => {
+            if (key !== 'versions') {
+                blog[key] = req.body[key];
+            }
+        });
+
+        await blog.save();
         seoService.invalidateCache();
         res.status(200).json({ success: true, data: blog });
     } catch (err) {

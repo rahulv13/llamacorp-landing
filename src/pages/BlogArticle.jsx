@@ -4,8 +4,28 @@ import SEO from '../components/SEO';
 import { ArrowLeft, Clock, Calendar, Share2 } from 'lucide-react';
 import axios from 'axios';
 import { marked } from 'marked';
+import { generateHTML } from '@tiptap/html';
+import StarterKit from '@tiptap/starter-kit';
+import LinkExtension from '@tiptap/extension-link';
+import ImageExtension from '@tiptap/extension-image';
+import TableExtension from '@tiptap/extension-table';
+import TableRow from '@tiptap/extension-table-row';
+import TableCell from '@tiptap/extension-table-cell';
+import TableHeader from '@tiptap/extension-table-header';
+import TaskList from '@tiptap/extension-task-list';
+import TaskItem from '@tiptap/extension-task-item';
+import Underline from '@tiptap/extension-underline';
+import TextAlign from '@tiptap/extension-text-align';
+import Youtube from '@tiptap/extension-youtube';
+import CalloutNode from '../components/admin/editor-nodes/CalloutNode';
 
 import CTA from '../components/CTA';
+
+const extensions = [
+  StarterKit, LinkExtension, ImageExtension, TableExtension, 
+  TableRow, TableCell, TableHeader, TaskList, TaskItem, 
+  Underline, TextAlign.configure({ types: ['heading', 'paragraph'] }), Youtube, CalloutNode
+];
 
 export default function BlogArticle() {
   const { slug } = useParams();
@@ -172,7 +192,13 @@ export default function BlogArticle() {
             prose-blockquote:border-l-4 prose-blockquote:border-[#111] prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-[#555] prose-blockquote:my-8
             prose-img:rounded-[24px] prose-img:my-10
             prose-pre:bg-[#111] prose-pre:text-white prose-pre:rounded-xl prose-pre:p-6"
-            dangerouslySetInnerHTML={{ __html: post.content ? marked(post.content) : '' }}
+            dangerouslySetInnerHTML={{ 
+              __html: post.content 
+                ? (post.contentType === 'tiptap' && typeof post.content === 'object'
+                    ? generateHTML(post.content, extensions)
+                    : (typeof post.content === 'string' ? marked(post.content) : ''))
+                : '' 
+            }}
           />
         </div>
 

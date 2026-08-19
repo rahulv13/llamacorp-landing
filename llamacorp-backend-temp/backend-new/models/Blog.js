@@ -18,8 +18,13 @@ const blogSchema = new mongoose.Schema(
             type: String,
             maxlength: [500, 'Excerpt cannot be more than 500 characters'],
         },
-        content: {
+        contentType: {
             type: String,
+            enum: ['markdown', 'html', 'tiptap'],
+            default: 'markdown',
+        },
+        content: {
+            type: mongoose.Schema.Types.Mixed,
             required: [true, 'Please add some text'],
         },
         coverImage: {
@@ -83,6 +88,28 @@ const blogSchema = new mongoose.Schema(
         canonicalUrl: {
             type: String,
         },
+        ogTitle: {
+            type: String,
+        },
+        ogDescription: {
+            type: String,
+        },
+        twitterImage: {
+            type: String,
+        },
+        focusKeyword: {
+            type: String,
+        },
+        robots: {
+            type: String,
+        },
+        schemaType: {
+            type: String,
+        },
+        versions: [{
+            content: mongoose.Schema.Types.Mixed,
+            savedAt: { type: Date, default: Date.now }
+        }],
         publishedAt: {
             type: Date,
         },

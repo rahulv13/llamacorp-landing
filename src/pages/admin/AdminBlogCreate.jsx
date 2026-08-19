@@ -9,7 +9,29 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'sonner';
 import { marked } from 'marked';
+import { generateHTML } from '@tiptap/html';
+import StarterKit from '@tiptap/starter-kit';
+import LinkExtension from '@tiptap/extension-link';
+import ImageExtension from '@tiptap/extension-image';
+import TableExtension from '@tiptap/extension-table';
+import TableRow from '@tiptap/extension-table-row';
+import TableCell from '@tiptap/extension-table-cell';
+import TableHeader from '@tiptap/extension-table-header';
+import TaskList from '@tiptap/extension-task-list';
+import TaskItem from '@tiptap/extension-task-item';
+import Underline from '@tiptap/extension-underline';
+import TextAlign from '@tiptap/extension-text-align';
+import Youtube from '@tiptap/extension-youtube';
+import CalloutNode from '../../components/admin/editor-nodes/CalloutNode';
 import { useAdmin } from '../../context/AdminContext';
+import RichTextEditor from '../../components/admin/RichTextEditor';
+
+// Extensions array for HTML generation
+const extensions = [
+  StarterKit, LinkExtension, ImageExtension, TableExtension, 
+  TableRow, TableCell, TableHeader, TaskList, TaskItem, 
+  Underline, TextAlign.configure({ types: ['heading', 'paragraph'] }), Youtube, CalloutNode
+];
 
 export default function AdminBlogCreate() {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
@@ -21,8 +43,16 @@ export default function AdminBlogCreate() {
   // Form State
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [contentType, setContentType] = useState('tiptap'); // Default to Tiptap
   const [category, setCategory] = useState('');
   const [author, setAuthor] = useState('');
+  const [versions, setVersions] = useState([]);
+  
+  // SEO & Stats
+  const [seo, setSeo] = useState({
+    title: '', description: '', canonical: '', focusKeyword: '', robots: 'index, follow'
+  });
+  const [stats, setStats] = useState({ words: 0, characters: 0 });
   const [authorsList, setAuthorsList] = useState([]);
   const [categoriesList, setCategoriesList] = useState([]);
   const [imageFile, setImageFile] = useState(null);
@@ -47,8 +77,11 @@ export default function AdminBlogCreate() {
       if (blog) {
         setTitle(blog.title);
         setContent(blog.content);
+        setContentType(blog.contentType || 'markdown');
         setCategory(blog.category?._id || blog.category || '');
         setAuthor(blog.author?._id || blog.author || '');
+        if (blog.seo) setSeo(blog.seo);
+        if (blog.versions) setVersions(blog.versions);
         if (blog.coverImage && blog.coverImage !== 'no-photo.jpg') {
           setImagePreview(blog.coverImage);
         }
@@ -77,6 +110,18 @@ export default function AdminBlogCreate() {
     }
   };
 
+  // Debounced Auto-Save
+  useEffect(() => {
+    if (!title || !content || !category || !author) return;
+
+    const timer = setTimeout(() => {
+      // Auto-save as draft
+      handlePublish('Draft', true); // Pass true to indicate it's an auto-save (silent toast)
+    }, 10000);
+
+    return () => clearTimeout(timer);
+  }, [title, content, category, author, seo]); // Trigger on any of these changes
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -87,13 +132,13 @@ export default function AdminBlogCreate() {
     }
   };
 
-  const handlePublish = async (status = 'Published') => {
+  const handlePublish = async (status = 'Draft', isAutoSave = false) => {
     if (!title || !content || !category || !author) {
-      toast.error('Title, content, category, and author are required');
+      if (!isAutoSave) toast.error('Title, content, category, and author are required');
       return;
     }
 
-    setIsPublishing(true);
+    if (!isAutoSave) setIsPublishing(true);
     try {
       const token = localStorage.getItem('adminToken');
       let uploadedImageUrl = '';
@@ -119,8 +164,10 @@ export default function AdminBlogCreate() {
       const blogData = {
         title,
         content,
+        contentType,
         category,
         author,
+        seo,
         status: status.toLowerCase(),
         ...(uploadedImageUrl ? { coverImage: uploadedImageUrl } : {})
       };
@@ -129,15 +176,20 @@ export default function AdminBlogCreate() {
         await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/blogs/${id}`, blogData, {
           headers: { Authorization: `Bearer ${token}` }
         });
-        toast.success(`Blog ${status === 'Published' ? 'published' : 'saved'} successfully!`);
+        if (!isAutoSave) toast.success(`Blog ${status === 'Published' ? 'published' : 'saved'} successfully!`);
       } else {
-        await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/blogs`, blogData, {
+        const res = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5001/api'}/blogs`, blogData, {
           headers: { Authorization: `Bearer ${token}` }
         });
-        toast.success(`Blog ${status === 'Published' ? 'published' : 'saved'} successfully!`);
+        if (!isAutoSave) {
+          toast.success(`Blog ${status === 'Published' ? 'published' : 'saved'} successfully!`);
+          navigate(`/admin/blogs/edit/${res.data.data._id}`);
+        }
       }
 
-      navigate('/admin/blogs');
+      if (!isAutoSave && status === 'Published') {
+        navigate('/admin/blogs');
+      }
 
     } catch (error) {
       console.error(error);
@@ -277,22 +329,88 @@ export default function AdminBlogCreate() {
               </div>
             </div>
 
-            {/* Markdown Editor */}
-            <div className="relative group">
-              <textarea 
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                placeholder="Start writing in Markdown... (Use # for headings, ** for bold, etc)"
-                className="w-full min-h-[400px] text-lg text-[#555] leading-relaxed resize-none focus:outline-none bg-transparent"
-              />
+            {/* Rich Text Editor / Markdown Fallback */}
+            <div className="relative group mt-6">
+              {contentType === 'markdown' ? (
+                <textarea 
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                  placeholder="Start writing in Markdown... (Use # for headings, ** for bold, etc)"
+                  className="w-full min-h-[400px] text-lg text-[#555] leading-relaxed resize-none focus:outline-none bg-transparent"
+                />
+              ) : (
+                <RichTextEditor 
+                  content={content} 
+                  onChange={setContent} 
+                  onStatsChange={setStats}
+                />
+              )}
             </div>
+
+            {/* SEO Panel */}
+            <div className="mt-16 pt-8 border-t border-black/5">
+              <h3 className="text-lg font-bold mb-6">SEO Settings</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-xs font-semibold text-[#777] uppercase tracking-wider mb-2">Meta Title</label>
+                  <input type="text" value={seo.title} onChange={e => setSeo({...seo, title: e.target.value})} className="w-full bg-gray-50 border border-black/5 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-black/10" placeholder={title} />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-[#777] uppercase tracking-wider mb-2">Focus Keyword</label>
+                  <input type="text" value={seo.focusKeyword} onChange={e => setSeo({...seo, focusKeyword: e.target.value})} className="w-full bg-gray-50 border border-black/5 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-black/10" placeholder="e.g. web development" />
+                </div>
+                <div className="md:col-span-2">
+                  <label className="block text-xs font-semibold text-[#777] uppercase tracking-wider mb-2">Meta Description</label>
+                  <textarea value={seo.description} onChange={e => setSeo({...seo, description: e.target.value})} className="w-full bg-gray-50 border border-black/5 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-black/10" rows={2}></textarea>
+                </div>
+              </div>
+            </div>
+
+            {/* Version History Panel */}
+            {versions.length > 0 && (
+              <div className="mt-12 pt-8 border-t border-black/5">
+                <h3 className="text-lg font-bold mb-6 flex items-center justify-between">
+                  Version History
+                  <span className="text-sm font-normal text-gray-500 bg-gray-100 px-2 py-1 rounded-lg">{versions.length} versions saved</span>
+                </h3>
+                <div className="space-y-3 max-h-60 overflow-y-auto custom-scrollbar pr-2">
+                  {versions.slice().reverse().map((v, i) => (
+                    <div key={i} className="flex items-center justify-between p-4 bg-gray-50 border border-black/5 rounded-xl hover:bg-gray-100 transition-colors">
+                      <div>
+                        <p className="text-sm font-semibold text-[#333]">Version {versions.length - i}</p>
+                        <p className="text-xs text-gray-500">{new Date(v.savedAt).toLocaleString()}</p>
+                      </div>
+                      <button 
+                        onClick={() => {
+                          if (window.confirm('Are you sure you want to restore this version? Current changes will be lost.')) {
+                            setContent(v.content);
+                            toast.success('Version restored');
+                          }
+                        }}
+                        className="px-3 py-1.5 bg-white border border-black/10 rounded-lg text-xs font-medium hover:bg-black hover:text-white transition-colors shadow-sm"
+                      >
+                        Restore
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
           </div>
         </div>
         
-        {/* Formatting Toolbar (Fixed at bottom - Visual only for Markdown hints) */}
-        <div className="h-14 bg-white border-t border-black/5 flex items-center justify-center gap-2 px-6 shrink-0 shadow-[0_-10px_20px_rgba(0,0,0,0.02)]">
-          <p className="text-xs text-gray-400">Editor supports standard Markdown formatting.</p>
+        {/* Formatting Toolbar (Fixed at bottom) */}
+        <div className="h-14 bg-white border-t border-black/5 flex items-center justify-between px-6 shrink-0 shadow-[0_-10px_20px_rgba(0,0,0,0.02)]">
+          <div className="flex gap-4 text-xs font-medium text-gray-500">
+            <span>{stats.words} words</span>
+            <span>{stats.characters} chars</span>
+            <span>~{Math.ceil(stats.words / 200)} min read</span>
+          </div>
+          <div className="flex gap-2">
+            <button onClick={() => setContentType('markdown')} className={`px-2 py-1 rounded ${contentType === 'markdown' ? 'bg-black/10 text-black' : 'text-gray-400 hover:text-black'}`}>Markdown</button>
+            <button onClick={() => setContentType('tiptap')} className={`px-2 py-1 rounded ${contentType === 'tiptap' ? 'bg-black/10 text-black' : 'text-gray-400 hover:text-black'}`}>Rich Text</button>
+          </div>
         </div>
       </div>
 
@@ -340,7 +458,13 @@ export default function AdminBlogCreate() {
 
               <div 
                 className="space-y-6 text-lg text-[#333] leading-relaxed prose prose-lg prose-headings:font-bold prose-a:text-blue-600 max-w-none"
-                dangerouslySetInnerHTML={{ __html: content ? marked(content) : '<p class="text-gray-300">Start writing to see preview...</p>' }}
+                dangerouslySetInnerHTML={{ 
+                  __html: content 
+                    ? (contentType === 'tiptap' && typeof content === 'object'
+                        ? generateHTML(content, extensions)
+                        : (typeof content === 'string' ? marked(content) : ''))
+                    : '<p class="text-gray-300">Start writing to see preview...</p>' 
+                }}
               />
             </div>
           </div>
