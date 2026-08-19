@@ -18,6 +18,7 @@ import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
 import Youtube from '@tiptap/extension-youtube';
 import CalloutNode from '../components/admin/editor-nodes/CalloutNode';
+import { getBlogExcerpt } from '../utils/blogUtils';
 
 import CTA from '../components/CTA';
 
@@ -102,7 +103,7 @@ export default function BlogArticle() {
     <>
       <SEO 
         title={post.metaTitle || post.title}
-        description={post.metaDescription || post.excerpt || (post.content ? post.content.substring(0, 150).replace(/<[^>]+>/g, '') + '...' : '')}
+        description={post.metaDescription || getBlogExcerpt(post, 150)}
         image={coverImage}
         canonical={post.canonicalUrl}
       >

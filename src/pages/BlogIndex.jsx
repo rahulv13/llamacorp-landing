@@ -4,6 +4,7 @@ import SEO from '../components/SEO';
 import { Search, ArrowRight, Clock, Calendar, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { getBlogExcerpt } from '../utils/blogUtils';
 
 import CTA from '../components/CTA';
 
@@ -143,7 +144,7 @@ export default function BlogIndex() {
                       </h2>
                       
                       <p className="text-[#555] text-lg mb-8 line-clamp-3">
-                        {featuredPost.excerpt || featuredPost.content?.substring(0, 150).replace(/<[^>]+>/g, '') + '...'}
+                        {getBlogExcerpt(featuredPost, 150)}
                       </p>
                       
                       <div className="flex items-center justify-between mt-auto">
@@ -188,7 +189,7 @@ export default function BlogIndex() {
                             {post.title}
                           </h4>
                           <p className="text-[#555] text-sm mb-6 line-clamp-2">
-                            {post.excerpt || post.content?.substring(0, 100).replace(/<[^>]+>/g, '') + '...'}
+                            {getBlogExcerpt(post, 100)}
                           </p>
                           
                           <div className="flex items-center justify-between text-xs text-[#777] pt-4 border-t border-black/5">
@@ -254,7 +255,7 @@ export default function BlogIndex() {
                       <div className="flex-1">
                         <div className="text-[10px] font-bold uppercase tracking-wider text-[#777] mb-2">{post.category?.name || post.category || 'Uncategorized'} • {new Date(post.createdAt).toLocaleDateString()}</div>
                         <h4 className="text-xl font-bold text-[#111] mb-2 group-hover:text-blue-600 transition-colors">{post.title}</h4>
-                        <p className="text-[#555] text-sm line-clamp-1">{post.excerpt || post.content?.substring(0, 100).replace(/<[^>]+>/g, '') + '...'}</p>
+                        <p className="text-[#555] text-sm line-clamp-1">{getBlogExcerpt(post, 100)}</p>
                       </div>
                       <div className="hidden md:flex items-center justify-center w-10 h-10 rounded-full border border-black/10 group-hover:border-black/30 group-hover:bg-white transition-all text-[#111]">
                         <ChevronRight size={20} />
