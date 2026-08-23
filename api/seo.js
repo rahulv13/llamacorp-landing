@@ -41,7 +41,11 @@ export default async function handler(req, res) {
       .replace(/<title>.*?<\/title>/gi, '')
       .replace(/<meta\s+name=["']description["'][^>]*>/gi, '')
       .replace(/<link\s+rel=["']canonical["'][^>]*>/gi, '')
-      .replace(/<meta\s+property=["']og:(url|title|description)["'][^>]*>/gi, '');
+      .replace(/<meta\s+property=["']og:(url|title|description|image|type)["'][^>]*>/gi, '');
+
+    let structuredData = null;
+    let ogType = 'website';
+    let ogImage = '';
 
     // Check if it's a dynamic blog post
     const blogMatch = urlPath.match(/^\/blog\/([^/]+)$/);
@@ -52,17 +56,91 @@ export default async function handler(req, res) {
         if (blogRes.ok) {
           const { data: blog } = await blogRes.json();
           if (blog) {
-            title = blog.metaTitle || `${blog.title} | Llamacorp`;
+            let baseTitle = blog.metaTitle || blog.title;
+            title = baseTitle.includes('| Llamacorp') ? baseTitle : `${baseTitle} | Llamacorp`;
             
             if (blog.canonicalUrl) {
               canonical = blog.canonicalUrl;
             }
 
             // create a short snippet from content if excerpt doesn't exist
-            description = blog.metaDescription || blog.excerpt || (blog.content ? blog.content.substring(0, 150).replace(/<[^>]+>/g, '') + '...' : description);
+            description = blog.metaDescription || blog.excerpt || (blog.content ? String(blog.content).substring(0, 150).replace(/<[^>]+>/g, '') + '...' : description);
             
             // Clean up description newlines and quotes
             description = description.replace(/[\n\r]+/g, ' ').replace(/"/g, '&quot;');
+            
+            ogType = 'article';
+            const coverImage = blog.coverImage && blog.coverImage !== 'no-photo.jpg' 
+              ? blog.coverImage 
+              : 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80';
+            ogImage = coverImage;
+
+            const escapeHtml = (unsafe) => {
+              if (!unsafe) return '';
+              return String(unsafe)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+            };
+
+            const authorName = blog.author?.name || 'Author';
+            const categoryName = blog.category?.name || blog.category || 'Uncategorized';
+            const publishDate = blog.createdAt ? new Date(blog.createdAt).toISOString() : '';
+            const modifiedDate = blog.updatedAt ? new Date(blog.updatedAt).toISOString() : publishDate;
+            
+            let rawContent = '';
+            if (typeof blog.content === 'object') {
+              try {
+                rawContent = JSON.stringify(blog.content);
+              } catch (e) {}
+            } else {
+              rawContent = String(blog.content || '');
+            }
+
+            const fallbackHtml = `
+              <div style="display:none;" id="seo-fallback">
+                <article>
+                  <h1>${escapeHtml(blog.title)}</h1>
+                  <p>By ${escapeHtml(authorName)} | Category: ${escapeHtml(categoryName)} | Published: ${escapeHtml(publishDate)}</p>
+                  <img src="${escapeHtml(coverImage)}" alt="${escapeHtml(blog.title)}" />
+                  <div>${escapeHtml(rawContent)}</div>
+                </article>
+              </div>
+            `;
+
+            cleanedHtml = cleanedHtml.replace(
+              '<div id="root"></div>', 
+              `<div id="root">${fallbackHtml}</div>`
+            );
+
+            structuredData = {
+              "@context": "https://schema.org",
+              "@type": "BlogPosting",
+              "headline": blog.title,
+              "description": description,
+              "url": canonical,
+              "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": canonical
+              },
+              "image": [ coverImage ],
+              "datePublished": publishDate,
+              "dateModified": modifiedDate,
+              "author": {
+                "@type": "Person",
+                "name": authorName
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": "Llamacorp",
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": `${siteUrl}/logo.png`
+                }
+              }
+            };
           }
         }
       } catch (err) {
@@ -77,19 +155,6 @@ export default async function handler(req, res) {
     } else if (urlPath === '/services') {
       title = 'Services | Llamacorp';
       description = 'Explore our web design, development, and SEO services.';
-    }
-
-    let structuredData = null;
-
-    if (blogMatch && urlPath !== '/blog') {
-      structuredData = {
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        "headline": title,
-        "description": description,
-        "url": canonical
-      };
-    } else if (urlPath === '/services') {
       structuredData = {
         "@context": "https://schema.org",
         "@type": "Service",
@@ -122,7 +187,8 @@ export default async function handler(req, res) {
     <link data-rh="true" rel="canonical" href="${canonical}" />
     <meta data-rh="true" property="og:url" content="${canonical}" />
     <meta data-rh="true" property="og:title" content="${title}" />
-    <meta data-rh="true" property="og:description" content="${description}" />${jsonLdTag}
+    <meta data-rh="true" property="og:description" content="${description}" />${ogImage ? `\n    <meta data-rh="true" property="og:image" content="${ogImage}" />` : ''}
+    <meta data-rh="true" property="og:type" content="${ogType}" />${jsonLdTag}
     `;
 
     // Inject tags into HTML by placing them right before the closing </head> tag

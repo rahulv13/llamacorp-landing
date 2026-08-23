@@ -58,9 +58,6 @@ export default function BlogArticle() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center text-center px-4">
-        <SEO 
-          title="Loading Article..."
-        />
         <h1 className="text-2xl font-semibold mb-4">Loading article...</h1>
       </div>
     );
