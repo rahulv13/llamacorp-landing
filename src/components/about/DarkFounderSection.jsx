@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { m } from 'framer-motion';
+import { VerifiedBadge } from '../ui/verified-badge';
 
 export default function DarkFounderSection() {
   useEffect(() => {
@@ -68,11 +69,8 @@ export default function DarkFounderSection() {
             <div className="flex flex-col gap-6 w-full max-w-[600px]">
               {bullets.map((bullet, idx) => (
                 <m.div key={idx} variants={itemVariants} className="flex items-start gap-4">
-                  <div className="mt-1 flex-shrink-0 flex items-center justify-center">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="opacity-90">
-                      <path d="M5 12h14"></path>
-                      <path d="m12 5 7 7-7 7"></path>
-                    </svg>
+                  <div className="mt-1 flex-shrink-0 flex items-center justify-center text-blue-400">
+                    <VerifiedBadge variant="shimmer" size={22} className="text-[#60A5FA]" />
                   </div>
                   <p className="text-[15px] md:text-[16px] text-white/60 leading-relaxed tracking-wide font-normal">
                     {bullet}
