@@ -6,7 +6,7 @@ import CTA from '../components/CTA';
 
 export default function ServicesPage() {
   return (
-    <div className="bg-[#F7F7F5] min-h-screen text-[#111] font-sans selection:bg-[#111] selection:text-white">
+    <div className="bg-[#fcfcfc] min-h-screen text-[#111] font-sans selection:bg-[#111] selection:text-white">
       <SEO 
         title="Our Services | LlamaCorp" 
         description="We help ambitious teams turn complex ideas into clear, high-performing digital experiences." 
@@ -36,7 +36,7 @@ export default function ServicesPage() {
           </div>
 
           {/* Headline */}
-          <h1 className="text-[clamp(3rem,8vw,6rem)] font-bold leading-[1.05] tracking-tight text-[#111] mb-8 relative z-10">
+          <h1 className="text-[clamp(3rem,8vw,6rem)] font-bold leading-[1.05] tracking-[-0.05em] text-[#111] mb-8 relative z-10">
             Strategy. Design. <br className="hidden sm:block" />
             <span className="relative inline-block mt-2 sm:mt-0">
               <span className="font-handwritten text-[clamp(4rem,10vw,7.5rem)] font-bold text-[#FF5A36] leading-[0.8] ml-2 transform -rotate-2 inline-block">
@@ -59,7 +59,7 @@ export default function ServicesPage() {
             <h2 className="text-xl md:text-2xl font-medium text-[#222] leading-snug">
               We help ambitious teams turn complex ideas into clear, high-performing digital experiences.
             </h2>
-            <p className="text-[16px] md:text-lg text-[#666] leading-relaxed">
+            <p className="text-[16px] md:text-lg text-[#555] leading-relaxed">
               From brand strategy and product design to development, automation, and growth, LlamaCorp brings the right expertise together to move your business forward.
             </p>
           </div>
@@ -144,10 +144,10 @@ export default function ServicesPage() {
           <div className="text-[13px] font-bold tracking-[0.15em] uppercase text-[#FF5A36] mb-4">
             The challenge
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[#111] mb-6">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-[-0.05em] text-[#111] mb-6">
             Growth shouldn’t feel this complicated
           </h2>
-          <p className="text-lg text-[#666] max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-[#555] max-w-2xl mx-auto leading-relaxed">
             Ambitious businesses lose momentum when strategy, creative, technology, and execution are disconnected.
           </p>
         </motion.div>
@@ -171,7 +171,7 @@ export default function ServicesPage() {
               />
               <div className="pt-8 px-8 pb-10 flex flex-col flex-1">
                 <h3 className="text-[22px] md:text-[24px] font-bold text-[#111] mb-3 leading-tight">Too many moving parts</h3>
-                <p className="text-[15px] md:text-[16px] text-[#666] leading-relaxed">
+                <p className="text-[15px] md:text-[16px] text-[#555] leading-relaxed">
                   Jumping between apps, different rules, endless settings—learning shouldn't be this complicated
                 </p>
               </div>
@@ -194,7 +194,7 @@ export default function ServicesPage() {
               />
               <div className="pt-8 px-8 pb-10 flex flex-col flex-1">
                 <h3 className="text-[22px] md:text-[24px] font-bold text-[#111] mb-3 leading-tight">Missed Lessons</h3>
-                <p className="text-[15px] md:text-[16px] text-[#666] leading-relaxed">
+                <p className="text-[15px] md:text-[16px] text-[#555] leading-relaxed">
                   You keep postponing, pushing deadlines, and losing focus—learning shouldn't be a struggle
                 </p>
               </div>
@@ -217,7 +217,7 @@ export default function ServicesPage() {
               />
               <div className="pt-8 px-8 pb-10 flex flex-col flex-1">
                 <h3 className="text-[22px] md:text-[24px] font-bold text-[#111] mb-3 leading-tight">Words overload</h3>
-                <p className="text-[15px] md:text-[16px] text-[#666] leading-relaxed">
+                <p className="text-[15px] md:text-[16px] text-[#555] leading-relaxed">
                   New words pop up daily without structure or repetition, making them hard to remember.
                 </p>
               </div>
@@ -282,7 +282,7 @@ export default function ServicesPage() {
             <div className="text-[13px] font-bold tracking-[0.15em] uppercase text-[#FF5A36] mb-6">
               The LlamaCorp difference
             </div>
-            <h2 className="text-3xl md:text-5xl lg:text-[56px] font-bold tracking-tight text-white mb-6 leading-tight">
+            <h2 className="text-3xl md:text-5xl lg:text-[56px] font-bold tracking-[-0.05em] text-white mb-6 leading-tight">
               One connected system <br className="hidden sm:block"/> for meaningful growth
             </h2>
             <p className="text-lg md:text-xl text-[#A0A0A0] leading-relaxed max-w-2xl mx-auto">
@@ -313,10 +313,10 @@ export default function ServicesPage() {
           className="text-center max-w-3xl mx-auto mb-20 md:mb-32"
         >
           <div className="text-[13px] font-bold tracking-[0.15em] uppercase text-[#FF5A36] mb-6">How we help</div>
-          <h2 className="text-3xl md:text-5xl lg:text-[56px] font-bold tracking-tight text-[#111] mb-6 leading-tight">
+          <h2 className="text-3xl md:text-5xl lg:text-[56px] font-bold tracking-[-0.05em] text-[#111] mb-6 leading-tight">
             Built around the work that moves you forward
           </h2>
-          <p className="text-lg md:text-xl text-[#666] leading-relaxed mb-10 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-[#555] leading-relaxed mb-10 max-w-2xl mx-auto">
             LlamaCorp combines the thinking, design, technology, and growth expertise needed to turn ambitious ideas into effective digital experiences.
           </p>
           <button className="bg-[#111] text-white px-8 py-4 rounded-full font-semibold hover:bg-[#FF5A36] hover:-translate-y-1 transition-all duration-300 shadow-md">
@@ -341,7 +341,7 @@ export default function ServicesPage() {
                 <Target size={16} /> Brand Strategy
               </div>
               <h3 className="text-3xl md:text-4xl font-bold text-[#111] mb-4 leading-tight">Find the story only your brand can tell</h3>
-              <p className="text-lg text-[#666] mb-8 leading-relaxed">We turn scattered ideas into a focused brand direction that gives your business clarity and distinction.</p>
+              <p className="text-lg text-[#555] mb-8 leading-relaxed">We turn scattered ideas into a focused brand direction that gives your business clarity and distinction.</p>
               <ul className="space-y-4">
                 <li className="flex items-start gap-3 group-hover:translate-x-1 transition-transform duration-300">
                   <div className="mt-1 bg-green-100 p-1 rounded-full text-green-600"><CheckCircle2 size={16} /></div>
@@ -390,7 +390,7 @@ export default function ServicesPage() {
                 <Layout size={16} /> Digital Experience Design
               </div>
               <h3 className="text-3xl md:text-4xl font-bold text-[#111] mb-4 leading-tight">Design experiences people want to use</h3>
-              <p className="text-lg text-[#666] mb-8 leading-relaxed">We create clear, memorable websites and digital products that balance brand expression with effortless usability.</p>
+              <p className="text-lg text-[#555] mb-8 leading-relaxed">We create clear, memorable websites and digital products that balance brand expression with effortless usability.</p>
               <ul className="space-y-4">
                 <li className="flex items-start gap-3 group-hover:translate-x-1 transition-transform duration-300">
                   <div className="mt-1 bg-green-100 p-1 rounded-full text-green-600"><CheckCircle2 size={16} /></div>
@@ -422,7 +422,7 @@ export default function ServicesPage() {
                 <Code size={16} /> Web Development
               </div>
               <h3 className="text-3xl md:text-4xl font-bold text-[#111] mb-4 leading-tight">Turn the right idea into the real thing</h3>
-              <p className="text-lg text-[#666] mb-8 leading-relaxed">LlamaCorp builds fast, scalable, and flexible websites that are made to perform long after launch.</p>
+              <p className="text-lg text-[#555] mb-8 leading-relaxed">LlamaCorp builds fast, scalable, and flexible websites that are made to perform long after launch.</p>
               <ul className="space-y-4">
                 <li className="flex items-start gap-3 group-hover:translate-x-1 transition-transform duration-300">
                   <div className="mt-1 bg-green-100 p-1 rounded-full text-green-600"><CheckCircle2 size={16} /></div>
@@ -471,7 +471,7 @@ export default function ServicesPage() {
                 <Workflow size={16} /> AI & Automation
               </div>
               <h3 className="text-3xl md:text-4xl font-bold text-[#111] mb-4 leading-tight">Remove the work that slows growth down</h3>
-              <p className="text-lg text-[#666] mb-8 leading-relaxed">We connect smart workflows and AI tools that give your team more time for the work that matters.</p>
+              <p className="text-lg text-[#555] mb-8 leading-relaxed">We connect smart workflows and AI tools that give your team more time for the work that matters.</p>
               <ul className="space-y-4">
                 <li className="flex items-start gap-3 group-hover:translate-x-1 transition-transform duration-300">
                   <div className="mt-1 bg-green-100 p-1 rounded-full text-green-600"><CheckCircle2 size={16} /></div>
@@ -503,7 +503,7 @@ export default function ServicesPage() {
                 <TrendingUp size={16} /> Growth & Conversion
               </div>
               <h3 className="text-3xl md:text-4xl font-bold text-[#111] mb-4 leading-tight">Make every interaction work harder</h3>
-              <p className="text-lg text-[#666] mb-8 leading-relaxed">We shape the journeys, campaigns, and experiments that turn interest into measurable business momentum.</p>
+              <p className="text-lg text-[#555] mb-8 leading-relaxed">We shape the journeys, campaigns, and experiments that turn interest into measurable business momentum.</p>
               <ul className="space-y-4">
                 <li className="flex items-start gap-3 group-hover:translate-x-1 transition-transform duration-300">
                   <div className="mt-1 bg-green-100 p-1 rounded-full text-green-600"><CheckCircle2 size={16} /></div>
@@ -552,7 +552,7 @@ export default function ServicesPage() {
                 <Compass size={16} /> Ongoing Partnership
               </div>
               <h3 className="text-3xl md:text-4xl font-bold text-[#111] mb-4 leading-tight">Keep improving after launch</h3>
-              <p className="text-lg text-[#666] mb-8 leading-relaxed">LlamaCorp stays close to the work, helping you evolve your product, site, and growth system as your business grows.</p>
+              <p className="text-lg text-[#555] mb-8 leading-relaxed">LlamaCorp stays close to the work, helping you evolve your product, site, and growth system as your business grows.</p>
               <ul className="space-y-4">
                 <li className="flex items-start gap-3 group-hover:translate-x-1 transition-transform duration-300">
                   <div className="mt-1 bg-green-100 p-1 rounded-full text-green-600"><CheckCircle2 size={16} /></div>
