@@ -601,7 +601,7 @@ export default function ServicesPage() {
               <div className="bg-white rounded-[28px] p-7 md:p-8 flex flex-col h-full shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
                 {/* Illustration */}
                 <img 
-                  src="/assets/Three simple step 1.png" 
+                  src="/assets/three-simple-step-1.png" 
                   alt="Plan and Strategy" 
                   className="w-full h-auto object-contain mb-8 max-h-[160px]"
                 />
@@ -633,7 +633,7 @@ export default function ServicesPage() {
               <div className="bg-white rounded-[28px] p-7 md:p-8 flex flex-col h-full shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
                 {/* Illustration */}
                 <img 
-                  src="/assets/Three simple step 2.png" 
+                  src="/assets/three-simple-step-2.png" 
                   alt="Design and Develop" 
                   className="w-full h-auto object-contain mb-8 max-h-[160px]"
                 />
@@ -665,7 +665,7 @@ export default function ServicesPage() {
               <div className="bg-white rounded-[28px] p-7 md:p-8 flex flex-col h-full shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
                 {/* Illustration */}
                 <img 
-                  src="/assets/Three simple step 3.png" 
+                  src="/assets/three-simple-step-3.png" 
                   alt="Launch and Grow" 
                   className="w-full h-auto object-contain mb-8 max-h-[160px]"
                 />
