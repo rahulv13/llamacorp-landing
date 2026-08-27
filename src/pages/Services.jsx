@@ -573,6 +573,122 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      {/* Three Steps Section */}
+      <section className="py-24 md:py-32 bg-[#F1F1F1] w-full">
+        <div className="max-w-[1100px] mx-auto px-4 md:px-8">
+          {/* Header */}
+          <div className="text-center max-w-3xl mx-auto mb-14 md:mb-16">
+            <h2 className="text-[32px] md:text-[44px] font-bold tracking-tight text-[#111] mb-5 leading-[1.15]">
+              Three Simple Steps <br className="hidden sm:block"/> to Digital Success
+            </h2>
+            <p className="text-[16px] md:text-[18px] text-[#666] leading-relaxed max-w-[600px] mx-auto">
+              Pick what you need, let our experts personalize your strategy, and launch effortlessly while enjoying long-term growth.
+            </p>
+          </div>
+
+          {/* Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+            
+            {/* Card 1 Wrapper */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.5 }}
+              className="p-2 md:p-[10px] rounded-[36px] bg-[#E4E4E4]/60 border border-[#DDDDDD] hover:-translate-y-1 transition-transform duration-300"
+            >
+              {/* Card 1 Inner */}
+              <div className="bg-white rounded-[28px] p-7 md:p-8 flex flex-col h-full shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
+                {/* Illustration */}
+                <img 
+                  src="/assets/Three simple step 1.png" 
+                  alt="Plan and Strategy" 
+                  className="w-full h-auto object-contain mb-8 max-h-[160px]"
+                />
+
+                {/* Text Content */}
+                <div className="flex flex-col flex-1">
+                  <div className="w-7 h-7 bg-[#111] text-white rounded-full flex items-center justify-center text-[13px] font-bold mb-4">
+                    1
+                  </div>
+                  <h3 className="text-[20px] md:text-[22px] font-bold text-[#111] mb-2 leading-tight tracking-[-0.01em]">
+                    Plan & Strategy
+                  </h3>
+                  <p className="text-[14px] md:text-[15px] text-[#555] leading-relaxed">
+                    Understand your goals, define the roadmap, and create the perfect strategy before development begins.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Card 2 Wrapper */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="p-2 md:p-[10px] rounded-[36px] bg-[#E4E4E4]/60 border border-[#DDDDDD] hover:-translate-y-1 transition-transform duration-300"
+            >
+              {/* Card 2 Inner */}
+              <div className="bg-white rounded-[28px] p-7 md:p-8 flex flex-col h-full shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
+                {/* Illustration */}
+                <img 
+                  src="/assets/Three simple step 2.png" 
+                  alt="Design and Develop" 
+                  className="w-full h-auto object-contain mb-8 max-h-[160px]"
+                />
+
+                {/* Text Content */}
+                <div className="flex flex-col flex-1">
+                  <div className="w-7 h-7 bg-[#111] text-white rounded-full flex items-center justify-center text-[13px] font-bold mb-4">
+                    2
+                  </div>
+                  <h3 className="text-[20px] md:text-[22px] font-bold text-[#111] mb-2 leading-tight tracking-[-0.01em]">
+                    Design & Develop
+                  </h3>
+                  <p className="text-[14px] md:text-[15px] text-[#555] leading-relaxed">
+                    Design and build fast, scalable websites and web applications using modern technologies.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Card 3 Wrapper */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="p-2 md:p-[10px] rounded-[36px] bg-[#E4E4E4]/60 border border-[#DDDDDD] hover:-translate-y-1 transition-transform duration-300"
+            >
+              {/* Card 3 Inner */}
+              <div className="bg-white rounded-[28px] p-7 md:p-8 flex flex-col h-full shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
+                {/* Illustration */}
+                <img 
+                  src="/assets/Three simple step 3.png" 
+                  alt="Launch and Grow" 
+                  className="w-full h-auto object-contain mb-8 max-h-[160px]"
+                />
+
+                {/* Text Content */}
+                <div className="flex flex-col flex-1">
+                  <div className="w-7 h-7 bg-[#111] text-white rounded-full flex items-center justify-center text-[13px] font-bold mb-4">
+                    3
+                  </div>
+                  <h3 className="text-[20px] md:text-[22px] font-bold text-[#111] mb-2 leading-tight tracking-[-0.01em]">
+                    Launch & Grow
+                  </h3>
+                  <p className="text-[14px] md:text-[15px] text-[#555] leading-relaxed">
+                    Launch confidently and continuously improve your website through optimization, AI, SEO, and ongoing support.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
       {/* Global CTA & Footer */}
       <CTA />
     </div>
