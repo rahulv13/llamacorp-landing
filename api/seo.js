@@ -1,3 +1,5 @@
+import { staticPages } from './routesConfig.js';
+
 export default async function handler(req, res) {
   try {
     const backendUrl = process.env.VITE_API_URL || 'https://llamacorp-backend-temp.onrender.com/api';
@@ -46,6 +48,10 @@ export default async function handler(req, res) {
     let structuredData = null;
     let ogType = 'website';
     let ogImage = '';
+    let is404 = false;
+
+    // Check if it's a known static route
+    const isStaticRoute = staticPages.some(page => page.path === urlPath);
 
     // Check if it's a dynamic blog post
     const blogMatch = urlPath.match(/^\/blog\/([^/]+)$/);
@@ -75,45 +81,9 @@ export default async function handler(req, res) {
               : 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80';
             ogImage = coverImage;
 
-            const escapeHtml = (unsafe) => {
-              if (!unsafe) return '';
-              return String(unsafe)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-            };
-
             const authorName = blog.author?.name || 'Author';
-            const categoryName = blog.category?.name || blog.category || 'Uncategorized';
             const publishDate = blog.createdAt ? new Date(blog.createdAt).toISOString() : '';
             const modifiedDate = blog.updatedAt ? new Date(blog.updatedAt).toISOString() : publishDate;
-            
-            let rawContent = '';
-            if (typeof blog.content === 'object') {
-              try {
-                rawContent = JSON.stringify(blog.content);
-              } catch (e) {}
-            } else {
-              rawContent = String(blog.content || '');
-            }
-
-            const fallbackHtml = `
-              <div style="display:none;" id="seo-fallback">
-                <article>
-                  <h1>${escapeHtml(blog.title)}</h1>
-                  <p>By ${escapeHtml(authorName)} | Category: ${escapeHtml(categoryName)} | Published: ${escapeHtml(publishDate)}</p>
-                  <img src="${escapeHtml(coverImage)}" alt="${escapeHtml(blog.title)}" />
-                  <div>${escapeHtml(rawContent)}</div>
-                </article>
-              </div>
-            `;
-
-            cleanedHtml = cleanedHtml.replace(
-              '<div id="root"></div>', 
-              `<div id="root">${fallbackHtml}</div>`
-            );
 
             structuredData = {
               "@context": "https://schema.org",
@@ -141,10 +111,15 @@ export default async function handler(req, res) {
                 }
               }
             };
+          } else {
+            is404 = true;
           }
+        } else {
+          is404 = true;
         }
       } catch (err) {
         console.error('Error fetching blog data for SEO:', err);
+        is404 = true; // Treating fetch error as 404 for SEO purposes
       }
     } else if (urlPath === '/blog') {
       title = 'Blog | Llamacorp';
@@ -175,13 +150,29 @@ export default async function handler(req, res) {
         "url": siteUrl,
         "description": description
       };
+    } else if (!isStaticRoute) {
+      // If it's not a valid static route and not a blog match, it's a 404
+      is404 = true;
     }
 
-    const jsonLdTag = structuredData 
-      ? `\n    <script type="application/ld+json">\n    ${JSON.stringify(structuredData)}\n    </script>` 
-      : '';
+    let seoTags = '';
+    let cacheControl = 'public, max-age=60, s-maxage=300';
+    let statusCode = 200;
 
-    const seoTags = `
+    if (is404) {
+      statusCode = 404;
+      cacheControl = 'public, max-age=0, must-revalidate';
+      title = '404 | Llamacorp';
+      seoTags = `
+    <title data-rh="true">${title}</title>
+    <meta data-rh="true" name="robots" content="noindex" />
+      `;
+    } else {
+      const jsonLdTag = structuredData 
+        ? `\n    <script type="application/ld+json">\n    ${JSON.stringify(structuredData)}\n    </script>` 
+        : '';
+
+      seoTags = `
     <title data-rh="true">${title}</title>
     <meta data-rh="true" name="description" content="${description}" />
     <link data-rh="true" rel="canonical" href="${canonical}" />
@@ -189,7 +180,8 @@ export default async function handler(req, res) {
     <meta data-rh="true" property="og:title" content="${title}" />
     <meta data-rh="true" property="og:description" content="${description}" />${ogImage ? `\n    <meta data-rh="true" property="og:image" content="${ogImage}" />` : ''}
     <meta data-rh="true" property="og:type" content="${ogType}" />${jsonLdTag}
-    `;
+      `;
+    }
 
     // Inject tags into HTML by placing them right before the closing </head> tag
     const modifiedHtml = cleanedHtml.replace(
@@ -198,8 +190,8 @@ export default async function handler(req, res) {
     );
 
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=300'); // Edge cache
-    res.status(200).send(modifiedHtml);
+    res.setHeader('Cache-Control', cacheControl);
+    res.status(statusCode).send(modifiedHtml);
   } catch (error) {
     console.error('Error serving SEO HTML:', error);
     res.status(500).send('Server Error generating page content');
