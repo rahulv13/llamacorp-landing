@@ -7,8 +7,12 @@ import Footer from '../components/Footer';
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 export const metadata: Metadata = {
-  title: 'LlamaCorp',
+  metadataBase: new URL('https://www.llamacorp.in'),
+  title: 'LlamaCorp | AI-Powered Web Design & Development Agency',
   description: 'AI-powered digital agency crafting intelligent, high-performance websites and digital products for ambitious businesses.',
+  alternates: {
+    canonical: '/',
+  },
 };
 
 export default function RootLayout({
