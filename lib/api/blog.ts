@@ -1,39 +1,74 @@
-// src/lib/api/blog.ts
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api';
 
+function normalizeArray(data: unknown): unknown[] {
+  // Handle both { data: [...] } and [...] response shapes
+  if (Array.isArray(data)) return data;
+  if (data && typeof data === 'object' && Array.isArray((data as Record<string, unknown>).data)) {
+    return (data as Record<string, unknown>).data as unknown[];
+  }
+  return [];
+}
+
+function normalizeSingle(data: unknown): unknown {
+  // Handle both { data: {...} } and {...} response shapes
+  if (data && typeof data === 'object' && !Array.isArray(data)) {
+    const obj = data as Record<string, unknown>;
+    // If it has a 'data' key that is an object (not array), unwrap it
+    if ('data' in obj && obj.data && typeof obj.data === 'object' && !Array.isArray(obj.data)) {
+      return obj.data;
+    }
+    // If it has a 'data' key that looks like a blog (has slug/title), unwrap it
+    if ('data' in obj) return obj.data;
+    // Otherwise return as-is (already the blog object)
+    return data;
+  }
+  return null;
+}
+
 export async function getBlogs(limit?: number) {
+  const url = limit ? `${API_URL}/blogs?limit=${limit}` : `${API_URL}/blogs`;
   try {
-    const url = limit ? `${API_URL}/blogs?limit=${limit}` : `${API_URL}/blogs`;
-    const res = await fetch(url, { next: { revalidate: 60 } }); // Cache for 60 seconds
-    if (!res.ok) throw new Error('Failed to fetch blogs');
+    const res = await fetch(url, { next: { revalidate: 60 } });
+    if (!res.ok) {
+      console.error(`[Blog API] GET ${url} → ${res.status} ${res.statusText}`);
+      return [];
+    }
     const data = await res.json();
-    return data.data || [];
+    return normalizeArray(data);
   } catch (error) {
-    console.error('Error fetching blogs:', error);
+    console.error(`[Blog API] GET ${url} failed:`, error);
     return [];
   }
 }
 
 export async function getCategories() {
+  const url = `${API_URL}/categories`;
   try {
-    const res = await fetch(`${API_URL}/categories`, { next: { revalidate: 3600 } }); // Cache for 1 hour
-    if (!res.ok) throw new Error('Failed to fetch categories');
+    const res = await fetch(url, { next: { revalidate: 3600 } });
+    if (!res.ok) {
+      console.error(`[Blog API] GET ${url} → ${res.status} ${res.statusText}`);
+      return [];
+    }
     const data = await res.json();
-    return data.data || [];
+    return normalizeArray(data);
   } catch (error) {
-    console.error('Error fetching categories:', error);
+    console.error(`[Blog API] GET ${url} failed:`, error);
     return [];
   }
 }
 
 export async function getBlogBySlug(slug: string) {
+  const url = `${API_URL}/blogs/${slug}`;
   try {
-    const res = await fetch(`${API_URL}/blogs/${slug}`, { next: { revalidate: 60 } });
-    if (!res.ok) return null;
+    const res = await fetch(url, { next: { revalidate: 60 } });
+    if (!res.ok) {
+      console.error(`[Blog API] GET ${url} → ${res.status} ${res.statusText}`);
+      return null;
+    }
     const data = await res.json();
-    return data.data || null;
+    return normalizeSingle(data);
   } catch (error) {
-    console.error(`Error fetching blog ${slug}:`, error);
+    console.error(`[Blog API] GET ${url} failed:`, error);
     return null;
   }
 }
