@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import MagneticTopNavbar from '../components/MagneticTopNavbar';
+import { PublicNavbar, PublicFooterWrapper } from '../components/PublicLayoutElements';
 import Footer from '../components/Footer';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
@@ -23,11 +23,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased font-sans flex flex-col min-h-screen`}>
-        <MagneticTopNavbar />
+        <PublicNavbar />
         <main className="flex-grow">
           {children}
         </main>
-        <Footer />
+        <PublicFooterWrapper>
+          <Footer />
+        </PublicFooterWrapper>
       </body>
     </html>
   );
