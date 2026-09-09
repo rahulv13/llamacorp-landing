@@ -54,7 +54,7 @@ export default function AdminLogin() {
                   autoComplete="email"
                   required
                   className="block w-full rounded-md border border-white/10 bg-black/50 py-2.5 px-3 text-white placeholder-white/30 focus:border-white/30 focus:outline-none focus:ring-1 focus:ring-white/30 sm:text-sm"
-                  placeholder="admin@llamacorp.in"
+                  placeholder="admin@llamacorp.com"
                 />
               </div>
             </div>
