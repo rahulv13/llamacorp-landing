@@ -3,9 +3,10 @@
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createAdminBlog, updateAdminBlog } from '@/lib/admin/blogs';
-import { Image as ImageIcon, Save, ArrowLeft, Upload, X } from 'lucide-react';
+import { Image as ImageIcon, Save, ArrowLeft, Upload, X, Eye, Edit2 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import TiptapEditor from '../editor/TiptapEditor';
 
 export default function BlogForm({ 
   initialData, 
@@ -16,11 +17,19 @@ export default function BlogForm({
 }) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isAutoSaving, setIsAutoSaving] = useState(false);
+  const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [error, setError] = useState('');
   
   const [title, setTitle] = useState(initialData?.title || '');
   const [slug, setSlug] = useState(initialData?.slug || '');
   const [slugEdited, setSlugEdited] = useState(!!initialData?.slug);
+  const [content, setContent] = useState(initialData?.content || '');
+  const [previewMode, setPreviewMode] = useState(false);
+  
+  // Track content changes for auto-save
+  const contentRef = useRef(content);
+  const autoSaveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
   const [imagePreview, setImagePreview] = useState<string | null>(initialData?.coverImage && initialData.coverImage !== 'no-photo.jpg' ? initialData.coverImage : null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -31,6 +40,57 @@ export default function BlogForm({
       setSlug(title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, ''));
     }
   }, [title, slugEdited]);
+
+  // Handle auto-save
+  useEffect(() => {
+    if (contentRef.current === content) return;
+    contentRef.current = content;
+
+    if (autoSaveTimeoutRef.current) {
+      clearTimeout(autoSaveTimeoutRef.current);
+    }
+
+    autoSaveTimeoutRef.current = setTimeout(async () => {
+      // Don't auto-save if we don't even have a title or we're currently submitting
+      if (!title || isSubmitting) return;
+      
+      setIsAutoSaving(true);
+      
+      try {
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('slug', slug);
+        formData.append('content', content);
+        formData.append('status', 'draft'); // Auto-saves are always drafts
+        
+        // Grab values from other inputs if possible, or just save partial
+        const form = document.getElementById('blog-form') as HTMLFormElement;
+        if (form) {
+           const category = (form.elements.namedItem('category') as HTMLSelectElement)?.value;
+           if (category) formData.append('category', category);
+        }
+
+        if (initialData?._id) {
+          await updateAdminBlog(initialData._id, formData);
+        } else {
+          // Note: Creating a new blog on auto-save might be tricky because we won't have the ID 
+          // to update next time without a page reload or state update.
+          // For safety, we only auto-save if it's already an existing blog (Edit mode).
+          // If you want to support auto-save on Create, you'd need to redirect to the Edit route upon first save.
+        }
+        
+        setLastSaved(new Date());
+      } catch (err) {
+        console.error('Autosave failed', err);
+      } finally {
+        setIsAutoSaving(false);
+      }
+    }, 3000);
+
+    return () => {
+      if (autoSaveTimeoutRef.current) clearTimeout(autoSaveTimeoutRef.current);
+    };
+  }, [content, title, slug, initialData, isSubmitting]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -58,6 +118,9 @@ export default function BlogForm({
     if (!formData.get('slug')) {
         formData.append('slug', slug);
     }
+    
+    // Explicitly add tiptap content
+    formData.append('content', content);
 
     // Handle empty image removal on update
     if (initialData && !imagePreview && !formData.get('coverImage')) {
@@ -77,19 +140,32 @@ export default function BlogForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8 max-w-5xl">
+    <form id="blog-form" onSubmit={handleSubmit} className="space-y-8 max-w-5xl">
       {/* Header Actions */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Link href="/admin/blogs" className="text-white/40 hover:text-white transition-colors">
             <ArrowLeft className="h-5 w-5" />
           </Link>
-          <h1 className="text-2xl font-bold tracking-tight text-white">
-            {initialData ? 'Edit Blog' : 'Create Blog'}
-          </h1>
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight text-white">
+              {initialData ? 'Edit Blog' : 'Create Blog'}
+            </h1>
+            <div className="text-xs text-white/40 mt-1 h-4">
+              {isAutoSaving ? 'Saving...' : lastSaved ? `Last saved at ${lastSaved.toLocaleTimeString()}` : ''}
+            </div>
+          </div>
         </div>
         
         <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => setPreviewMode(!previewMode)}
+            className="px-4 py-2 flex items-center gap-2 text-sm font-medium text-white/80 hover:bg-white/5 rounded-md transition-colors"
+          >
+            {previewMode ? <><Edit2 className="h-4 w-4" /> Edit Mode</> : <><Eye className="h-4 w-4" /> Preview</>}
+          </button>
+          
           <Link
             href="/admin/blogs"
             className="px-4 py-2 text-sm font-medium text-white/80 hover:text-white transition-colors"
@@ -174,21 +250,22 @@ export default function BlogForm({
               />
             </div>
 
-            {/* Content (Temporary) */}
+            {/* Content Editor */}
             <div>
-              <label htmlFor="content" className="block text-sm font-medium text-white/80 mb-2 flex items-center justify-between">
+              <label className="block text-sm font-medium text-white/80 mb-2 flex items-center justify-between">
                 <span>Content <span className="text-red-400">*</span></span>
-                <span className="text-xs text-white/40 bg-white/5 px-2 py-1 rounded">Markdown / Text</span>
               </label>
-              <textarea
-                id="content"
-                name="content"
-                required
-                rows={15}
-                defaultValue={initialData?.content}
-                className="w-full rounded-md border border-white/10 bg-black/50 py-3 px-4 text-white focus:border-white/30 focus:outline-none focus:ring-1 focus:ring-white/30 font-mono text-sm leading-relaxed"
-                placeholder="Write your blog content here... (Rich text editor coming in Phase 3)"
-              />
+              
+              {previewMode ? (
+                <div className="prose prose-invert prose-blue max-w-none min-h-[400px] p-6 rounded-xl border border-white/10 bg-black/50"
+                     dangerouslySetInnerHTML={{ __html: content }} 
+                />
+              ) : (
+                <TiptapEditor 
+                  content={content} 
+                  onChange={setContent}
+                />
+              )}
             </div>
 
           </div>
