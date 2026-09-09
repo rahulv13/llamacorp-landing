@@ -28,10 +28,11 @@ export async function loginAction(formData: FormData) {
       return { error: data.message || 'Invalid credentials' };
     }
 
-    if (data.token) {
+    if (data.accessToken || data.token) {
+      const token = data.accessToken || data.token;
       // Set HTTP-only cookie using the newer Next.js 15 async cookies() API
       const cookieStore = await cookies();
-      cookieStore.set('admin_token', data.token, {
+      cookieStore.set('admin_token', token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
