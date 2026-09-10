@@ -45,6 +45,7 @@ app.use('/api/media', require('./routes/media'));
 app.use('/api/categories', require('./routes/categories'));
 app.use('/api/tags', require('./routes/tags'));
 app.use('/api/authors', require('./routes/authors'));
+app.use('/api/users', require('./routes/users'));
 
 // Basic Route for Uptime Monitoring
 app.get('/', (req, res) => {

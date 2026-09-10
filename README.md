@@ -92,6 +92,21 @@ No extra configuration is needed. Simply push to `main` and Vercel handles the r
 
 ## Tech Stack
 
+### Full-Stack Architecture
+- **Frontend**: Next.js 16.3.4 (App Router)
+- **Backend**: Express.js + MongoDB (RESTful API)
+- **Authentication**: JWT-based secure sessions
+- **Storage**: Cloudinary for optimized media management
+
+### Modern Content Management System (CMS)
+- **Rich Editor**: Tiptap-based block editor with slash commands
+- **SEO Engine**: Dynamic metadata, Open Graph, Twitter Cards, and canonical URLs
+- **Media Library**: Centralized asset management and image optimization
+- **Publishing Pipeline**: Drafts, Scheduling, Checklists, and Bulk Actions
+- **Admin Dashboard**: Analytics, activity tracking, and system health
+- **User Management**: Role-based access control (Admin, Editor, Author)
+- **Command Palette**: Rapid global navigation via Cmd/Ctrl + K
+
 | Layer | Technology |
 |---|---|
 | Framework | Next.js 15 (App Router) |

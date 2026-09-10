@@ -7,7 +7,9 @@ import {
   FileText, 
   Tags, 
   Image as ImageIcon, 
-  Settings
+  Settings,
+  Users,
+  Activity
 } from 'lucide-react';
 import Image from 'next/image';
 
@@ -16,11 +18,19 @@ const navigation = [
   { name: 'Blogs', href: '/admin/blogs', icon: FileText },
   { name: 'Categories', href: '/admin/categories', icon: Tags },
   { name: 'Media', href: '/admin/media', icon: ImageIcon },
-  { name: 'Settings', href: '/admin/settings', icon: Settings },
+  { name: 'Users', href: '/admin/users', icon: Users, roles: ['Admin'] },
+  { name: 'Settings', href: '/admin/settings', icon: Settings, roles: ['Admin'] },
+  { name: 'System Health', href: '/admin/health', icon: Activity, roles: ['Admin'] },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ userRole = 'Author' }: { userRole?: string }) {
   const pathname = usePathname();
+
+  // Filter navigation based on role
+  const visibleNav = navigation.filter(item => {
+    if (!item.roles) return true;
+    return item.roles.includes(userRole);
+  });
 
   return (
     <div className="flex h-full w-64 flex-col bg-[#0a0a0a] border-r border-white/10">
@@ -33,7 +43,7 @@ export default function Sidebar() {
       
       <div className="flex flex-1 flex-col overflow-y-auto pt-6 pb-4">
         <nav className="flex-1 space-y-1 px-4">
-          {navigation.map((item) => {
+          {visibleNav.map((item) => {
             const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
             return (
               <Link

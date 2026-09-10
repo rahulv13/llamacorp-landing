@@ -55,3 +55,25 @@ export async function logoutAction() {
   cookieStore.delete('admin_token');
   redirect('/admin/login');
 }
+
+export async function getCurrentUser() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get('admin_token')?.value;
+
+  if (!token) return null;
+
+  try {
+    const res = await fetch(`${API_URL}/auth/me`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.data; // The user object
+  } catch (error) {
+    console.error('Failed to fetch user:', error);
+    return null;
+  }
+}

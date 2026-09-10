@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import AdminShell from '@/components/admin/layout/AdminShell';
+import { getCurrentUser } from '@/lib/admin/auth';
 
 export const metadata: Metadata = {
   title: 'LlamaCorp Admin',
@@ -10,10 +11,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AdminLayout({
+export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <AdminShell>{children}</AdminShell>;
+  const user = await getCurrentUser();
+  
+  return <AdminShell userRole={user?.role}>{children}</AdminShell>;
 }

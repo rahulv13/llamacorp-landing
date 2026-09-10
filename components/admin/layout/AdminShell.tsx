@@ -3,8 +3,9 @@
 import { usePathname } from 'next/navigation';
 import Sidebar from './Sidebar';
 import Header from './Header';
+import CommandPalette from '../dashboard/CommandPalette';
 
-export default function AdminShell({ children }: { children: React.ReactNode }) {
+export default function AdminShell({ children, userRole }: { children: React.ReactNode, userRole?: string }) {
   const pathname = usePathname();
   const isLoginPage = pathname === '/admin/login';
 
@@ -14,9 +15,11 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
 
   return (
     <div className="flex h-screen bg-[#0a0a0a] text-white">
+      <CommandPalette />
+      
       {/* Desktop Sidebar */}
       <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
-        <Sidebar />
+        <Sidebar userRole={userRole} />
       </div>
 
       {/* Main Content Area */}

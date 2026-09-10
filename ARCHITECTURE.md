@@ -70,6 +70,42 @@ All entry animations use a shared `<FadeIn>` Server-Compatible wrapper (`compone
 
 This pattern allows parent components to remain **Server Components** while still getting smooth viewport-triggered fade-in animations.
 
+## Admin CMS Architecture
+
+The `app/admin` directory houses a complete headless CMS designed to manage the website content. It integrates directly with the existing Express backend and handles authentication via JWT cookies.
+
+### Structure
+- `/admin/dashboard`: Global analytics, recent activity, system health, and scheduled publishing calendar.
+- `/admin/blogs`: Blog CRUD with bulk actions.
+  - `/admin/blogs/new`: Integrated Tiptap Block Editor and SEO suite.
+- `/admin/media`: Centralized Media Library and Asset Manager backed by Cloudinary.
+- `/admin/users`: Role-based User Management (Admin, Editor, Author).
+- `/admin/settings`: Global configurations and brand settings.
+- `/admin/health`: Real-time system diagnostics.
+
+### Role-Based Access Control (RBAC)
+- **Admin**: Full access to all modules, including Users, Settings, and System Health.
+- **Editor**: Can publish and manage all content, but cannot access Users or Settings.
+- **Author**: Can draft content, but cannot publish directly.
+
+### Admin Components (`components/admin/`)
+- `layout/`: `AdminShell`, `Sidebar`, `Header`.
+- `blogs/`: `BlogList`, `BlogForm`, `CategoryManager`.
+- `editor/`: `TiptapEditor`, `Toolbar`, `BubbleMenu`, `SlashMenu`.
+- `seo/`: `SearchPreview`, `TagManager`, `PublishScheduler`, `PublishChecklist`, `RevisionHistory`.
+- `media/`: `MediaLibrary`, `MediaGrid`, `UploadDropzone`, `MediaPicker`.
+- `dashboard/`: `StatCard`, `ActivityFeed`, `AnalyticsChart`, `CalendarView`, `CommandPalette`.
+
+### Server Actions (`lib/admin/`)
+All backend interactions from the Admin UI are securely routed through Next.js Server Actions:
+- `auth.ts`: JWT login/logout and user retrieval.
+- `api.ts`: Central wrapper ensuring `admin_token` is forwarded.
+- `blogs.ts`: Blog fetching, creating, updating, deleting.
+- `categories.ts`: Category management.
+- `media.ts`: Asset uploading and library operations.
+- `users.ts`: User management.
+- `dashboard.ts`: Analytics and health monitoring.
+
 ---
 
 ## Data Fetching

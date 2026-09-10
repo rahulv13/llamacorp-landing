@@ -1,43 +1,97 @@
-import { FileText, Tags, CheckCircle, Clock } from 'lucide-react';
+import React from 'react';
+import StatCard from '@/components/admin/dashboard/StatCard';
+import ActivityFeed from '@/components/admin/dashboard/ActivityFeed';
+import AnalyticsChart from '@/components/admin/dashboard/AnalyticsChart';
+import CalendarView from '@/components/admin/dashboard/CalendarView';
+import { getDashboardStats } from '@/lib/admin/dashboard';
+import { FileText, Eye, Edit3, Calendar } from 'lucide-react';
 
-const stats = [
-  { name: 'Total Blogs', value: '42', icon: FileText },
-  { name: 'Published', value: '38', icon: CheckCircle },
-  { name: 'Drafts', value: '4', icon: Clock },
-  { name: 'Categories', value: '6', icon: Tags },
-];
+export default async function AdminDashboard() {
+  const res = await getDashboardStats();
+  const stats = res?.data || {
+    totalBlogs: 0,
+    published: 0,
+    drafts: 0,
+    scheduled: 0,
+    views: 0,
+    recentBlogs: []
+  };
 
-export default function AdminDashboard() {
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold tracking-tight text-white">Dashboard</h1>
+    <div className="space-y-8">
+      <div>
+        <h1 className="text-2xl font-bold tracking-tight text-white">Dashboard Overview</h1>
+        <p className="text-sm text-white/40 mt-1">Welcome back. Here is what is happening with your content today.</p>
       </div>
 
-      <div className="rounded-2xl border border-white/10 bg-[#111] p-6">
-        <h2 className="text-lg font-medium text-white">Welcome back!</h2>
-        <p className="mt-1 text-sm text-white/60">
-          Here&apos;s what&apos;s happening with your content today.
-        </p>
+      {/* KPI Cards */}
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <StatCard 
+          title="Total Posts" 
+          value={stats.totalBlogs} 
+          icon={FileText} 
+        />
+        <StatCard 
+          title="Published" 
+          value={stats.published} 
+          icon={Eye} 
+          trend="+3 this week"
+          trendDirection="up"
+        />
+        <StatCard 
+          title="Drafts" 
+          value={stats.drafts} 
+          icon={Edit3} 
+        />
+        <StatCard 
+          title="Scheduled" 
+          value={stats.scheduled} 
+          icon={Calendar} 
+        />
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {stats.map((stat) => (
-          <div
-            key={stat.name}
-            className="overflow-hidden rounded-2xl border border-white/10 bg-[#111] p-6"
-          >
-            <div className="flex items-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/5">
-                <stat.icon className="h-6 w-6 text-white/80" aria-hidden="true" />
-              </div>
-              <div className="ml-4">
-                <p className="text-sm font-medium text-white/60">{stat.name}</p>
-                <p className="text-2xl font-semibold text-white">{stat.value}</p>
-              </div>
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-7">
+        
+        {/* Main Content Area */}
+        <div className="lg:col-span-4 space-y-6">
+          <div className="rounded-xl border border-white/10 bg-[#111] p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-lg font-semibold text-white">Content Status Distribution</h2>
             </div>
+            <AnalyticsChart stats={{
+              published: stats.published,
+              drafts: stats.drafts,
+              scheduled: stats.scheduled
+            }} />
           </div>
-        ))}
+
+          <div className="rounded-xl border border-white/10 bg-[#111] p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-lg font-semibold text-white">Recent Activity</h2>
+            </div>
+            <ActivityFeed recentBlogs={stats.recentBlogs} />
+          </div>
+        </div>
+
+        {/* Sidebar Area */}
+        <div className="lg:col-span-3 space-y-6">
+          <div className="rounded-xl border border-white/10 bg-[#111] p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-lg font-semibold text-white">Publishing Calendar</h2>
+            </div>
+            <CalendarView recentBlogs={stats.recentBlogs} />
+          </div>
+
+          <div className="rounded-xl border border-white/10 bg-gradient-to-br from-blue-900/20 to-purple-900/20 p-6 relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-4 opacity-10">
+              <Eye size={100} />
+            </div>
+            <h2 className="text-sm font-medium text-blue-400 mb-2 uppercase tracking-wider relative z-10">Total Page Views</h2>
+            <div className="text-4xl font-bold text-white relative z-10">{stats.views.toLocaleString()}</div>
+            <p className="text-sm text-white/60 mt-2 relative z-10">Across all published articles</p>
+          </div>
+        </div>
+
       </div>
     </div>
   );
