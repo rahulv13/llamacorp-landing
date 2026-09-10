@@ -131,3 +131,45 @@ export async function deleteAdminBlog(id: string) {
     return { error: 'Server connection failed' };
   }
 }
+
+export async function bulkUpdateBlogStatus(ids: string[], status: string) {
+  try {
+    let successCount = 0;
+    for (const id of ids) {
+      // Create FormData with just the status
+      const formData = new FormData();
+      formData.append('status', status);
+      
+      const res = await fetchWithAuth(`/blogs/${id}`, {
+        method: 'PUT',
+        body: formData,
+      });
+      if (res.ok) successCount++;
+    }
+    
+    revalidatePath('/admin/blogs');
+    return { success: true, count: successCount };
+  } catch (error) {
+    console.error(error);
+    return { error: 'Failed to process bulk status update' };
+  }
+}
+
+export async function bulkDeleteBlogs(ids: string[]) {
+  try {
+    let successCount = 0;
+    for (const id of ids) {
+      const res = await fetchWithAuth(`/blogs/${id}`, {
+        method: 'DELETE',
+      });
+      if (res.ok) successCount++;
+    }
+    
+    revalidatePath('/admin/blogs');
+    revalidatePath('/admin/dashboard');
+    return { success: true, count: successCount };
+  } catch (error) {
+    console.error(error);
+    return { error: 'Failed to process bulk deletion' };
+  }
+}
