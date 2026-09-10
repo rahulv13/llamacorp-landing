@@ -62,14 +62,23 @@ exports.getMedia = async (req, res) => {
         const page = parseInt(req.query.page, 10) || 1;
         const limit = parseInt(req.query.limit, 10) || 20;
         const startIndex = (page - 1) * limit;
+        const search = req.query.search || '';
 
-        const media = await Media.find()
+        const query = {};
+        if (search) {
+            query.$or = [
+                { filename: { $regex: search, $options: 'i' } },
+                { alt: { $regex: search, $options: 'i' } }
+            ];
+        }
+
+        const media = await Media.find(query)
             .sort({ createdAt: -1 })
             .skip(startIndex)
             .limit(limit)
             .populate('createdBy', 'name');
 
-        const total = await Media.countDocuments();
+        const total = await Media.countDocuments(query);
 
         res.status(200).json({
             success: true,
@@ -99,6 +108,28 @@ exports.deleteMedia = async (req, res) => {
         await media.deleteOne();
 
         res.status(200).json({ success: true, data: {} });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Server Error', error: err.message });
+    }
+};
+// @desc    Update media metadata (alt, filename)
+// @route   PUT /api/media/:id
+// @access  Private/Admin
+exports.updateMedia = async (req, res) => {
+    try {
+        const { alt, filename } = req.body;
+        const media = await Media.findById(req.params.id);
+        
+        if (!media) {
+            return res.status(404).json({ success: false, message: 'Media not found' });
+        }
+
+        if (alt !== undefined) media.alt = alt;
+        if (filename !== undefined) media.filename = filename;
+
+        await media.save();
+
+        res.status(200).json({ success: true, data: media });
     } catch (err) {
         res.status(500).json({ success: false, message: 'Server Error', error: err.message });
     }

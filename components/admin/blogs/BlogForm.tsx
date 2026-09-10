@@ -13,6 +13,7 @@ import TagManager from '../seo/TagManager';
 import PublishScheduler from '../seo/PublishScheduler';
 import RevisionHistory from '../seo/RevisionHistory';
 import PublishChecklist from '../seo/PublishChecklist';
+import MediaPicker from '../media/MediaPicker';
 
 export default function BlogForm({ 
   initialData, 
@@ -26,6 +27,7 @@ export default function BlogForm({
   const [isAutoSaving, setIsAutoSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [error, setError] = useState('');
+  const [showMediaPicker, setShowMediaPicker] = useState(false);
   
   // Tabs
   const [activeTab, setActiveTab] = useState<'editor' | 'seo' | 'preview'>('editor');
@@ -467,11 +469,18 @@ export default function BlogForm({
               {imagePreview ? (
                 <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-white/10 bg-black group">
                   <Image src={imagePreview} alt="Preview" fill className="object-cover" />
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowMediaPicker(true)}
+                      className="flex items-center gap-2 bg-blue-500/90 text-white px-3 py-1.5 rounded-md text-sm font-medium hover:bg-blue-500 transition-colors"
+                    >
+                      Replace
+                    </button>
                     <button
                       type="button"
                       onClick={removeImage}
-                      className="flex items-center gap-2 bg-red-500/90 text-white px-3 py-1.5 rounded-md text-sm font-medium hover:bg-red-500"
+                      className="flex items-center gap-2 bg-red-500/90 text-white px-3 py-1.5 rounded-md text-sm font-medium hover:bg-red-500 transition-colors"
                     >
                       <X className="h-4 w-4" /> Remove
                     </button>
@@ -480,21 +489,14 @@ export default function BlogForm({
               ) : (
                 <div 
                   className="w-full aspect-video rounded-lg border-2 border-dashed border-white/10 flex flex-col items-center justify-center cursor-pointer hover:border-white/30 hover:bg-white/5 transition-colors"
-                  onClick={() => fileInputRef.current?.click()}
+                  onClick={() => setShowMediaPicker(true)}
                 >
                   <Upload className="h-6 w-6 text-white/40 mb-2" />
-                  <span className="text-xs text-white/60 font-medium">Click to upload image</span>
+                  <span className="text-xs text-white/60 font-medium">Click to select image</span>
                 </div>
               )}
               
-              <input
-                ref={fileInputRef}
-                type="file"
-                name="coverImage"
-                accept="image/*"
-                onChange={handleImageChange}
-                className="hidden"
-              />
+              <input type="hidden" name="coverImage" value={imagePreview || ''} />
             </div>
           </div>
 
@@ -507,6 +509,17 @@ export default function BlogForm({
           
         </div>
       </div>
+      
+      {showMediaPicker && (
+        <MediaPicker 
+          title="Select Featured Image"
+          onClose={() => setShowMediaPicker(false)}
+          onSelect={(item) => {
+            setImagePreview(item.secureUrl);
+            setShowMediaPicker(false);
+          }}
+        />
+      )}
     </form>
   );
 }
