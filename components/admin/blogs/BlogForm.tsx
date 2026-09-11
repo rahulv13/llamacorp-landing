@@ -337,11 +337,15 @@ export default function BlogForm({
                 <div>
                   <label htmlFor="excerpt" className="block text-sm font-medium text-white/80 mb-2">
                     Excerpt
+                    <span className="text-xs text-white/40 ml-2 font-normal">
+                      ({excerpt.length}/500)
+                    </span>
                   </label>
                   <textarea
                     id="excerpt"
                     rows={2}
                     value={excerpt}
+                    maxLength={500}
                     onChange={(e) => setExcerpt(e.target.value)}
                     className="w-full rounded-md border border-white/10 bg-black/50 py-2.5 px-4 text-white focus:border-white/30 focus:outline-none focus:ring-1 focus:ring-white/30 text-sm"
                     placeholder="A brief summary for the blog listing page..."

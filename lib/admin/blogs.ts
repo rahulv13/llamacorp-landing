@@ -92,11 +92,13 @@ export async function createAdminBlog(data: any) {
 
     if (!res.ok) {
       console.error('--- BACKEND RETURNED !OK ---');
-      console.error('Status:', res.status, res.statusText);
-      console.error('Headers:', Object.fromEntries(res.headers.entries()));
       const text = await res.text();
-      console.error('Response body:', text);
-      throw new Error(`Backend Error ${res.status}: ${text}`);
+      try {
+        const json = JSON.parse(text);
+        return { error: json.error || json.message || 'Failed to create blog' };
+      } catch (e) {
+        return { error: `Backend Error ${res.status}: ${text}` };
+      }
     }
 
     console.log("6. Saving to MongoDB (backend already did this)");
@@ -125,8 +127,13 @@ export async function updateAdminBlog(id: string, data: any) {
     });
 
     if (!res.ok) {
-      const respData = await res.json();
-      return { error: respData.message || 'Failed to update blog' };
+      const text = await res.text();
+      try {
+        const json = JSON.parse(text);
+        return { error: json.error || json.message || 'Failed to update blog' };
+      } catch (e) {
+        return { error: `Backend Error ${res.status}: ${text}` };
+      }
     }
 
     revalidatePath('/admin/blogs');
