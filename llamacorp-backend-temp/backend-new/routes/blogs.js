@@ -1,5 +1,5 @@
 const express = require('express');
-const { getBlogs, getBlogBySlug, createBlog, updateBlog, deleteBlog, publishBlog, draftBlog, featureBlog } = require('../controllers/blogController');
+const { getBlogs, getBlogBySlug, getBlogById, createBlog, updateBlog, deleteBlog, publishBlog, draftBlog, featureBlog } = require('../controllers/blogController');
 const { protect, authorize } = require('../middleware/auth');
 const { body } = require('express-validator');
 const jwt = require('jsonwebtoken');
@@ -29,6 +29,7 @@ const blogValidation = [
 
 router.get('/', optionalAuth, getBlogs);
 router.get('/:slug', getBlogBySlug);
+router.get('/id/:id', protect, authorize('Admin', 'Editor', 'Author'), getBlogById);
 
 router.post('/', protect, authorize('Admin', 'Editor', 'Author'), blogValidation, createBlog);
 router.put('/:id', protect, authorize('Admin', 'Editor', 'Author'), blogValidation, updateBlog);

@@ -45,9 +45,10 @@ function getAdminIdFromToken(token: string): string | null {
 
 export async function getAdminBlogs() {
   try {
-    const res = await fetchWithAuth('/blogs/admin', { cache: 'no-store' });
+    const res = await fetchWithAuth('/blogs', { cache: 'no-store' });
     if (!res.ok) throw new Error('Failed to fetch blogs');
-    return await res.json();
+    const json = await res.json();
+    return json.data || [];
   } catch (error) {
     console.error(error);
     return [];
@@ -56,9 +57,12 @@ export async function getAdminBlogs() {
 
 export async function getAdminBlog(id: string) {
   try {
-    const res = await fetchWithAuth(`/blogs/admin/${id}`, { cache: 'no-store' });
-    if (!res.ok) throw new Error('Failed to fetch blog');
-    return await res.json();
+    const res = await fetchWithAuth(`/blogs/id/${id}`, { cache: 'no-store' });
+    if (!res.ok) {
+      throw new Error('Failed to fetch blog');
+    }
+    const json = await res.json();
+    return json.data || null;
   } catch (error) {
     console.error(error);
     return null;

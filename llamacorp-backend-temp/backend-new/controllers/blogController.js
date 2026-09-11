@@ -66,6 +66,23 @@ exports.getBlogBySlug = async (req, res) => {
     }
 };
 
+// @desc    Get single blog by id
+// @route   GET /api/blogs/id/:id
+// @access  Private
+exports.getBlogById = async (req, res) => {
+    try {
+        const blog = await Blog.findById(req.params.id)
+            .populate('author', 'name avatar bio')
+            .populate('category', 'name slug color');
+        if (!blog || blog.deleted) {
+            return res.status(404).json({ success: false, message: 'Blog not found' });
+        }
+        res.status(200).json({ success: true, data: blog });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Server Error', error: err.message });
+    }
+};
+
 // @desc    Create new blog
 // @route   POST /api/blogs
 // @access  Private
