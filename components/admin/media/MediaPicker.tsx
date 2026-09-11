@@ -90,20 +90,20 @@ export default function MediaPicker({ onSelect, onClose, title = "Select Media" 
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-white/10 bg-[#0a0a0a]">
           <h2 className="text-lg font-semibold text-white">{title}</h2>
-          <button onClick={onClose} className="p-1 rounded-md hover:bg-white/10 text-white/60 hover:text-white transition-colors">
+          <button type="button" onClick={onClose} className="p-1 rounded-md hover:bg-white/10 text-white/60 hover:text-white transition-colors">
             <X size={20} />
           </button>
         </div>
 
         {/* Tabs */}
         <div className="flex items-center gap-6 px-6 border-b border-white/10 bg-[#0a0a0a]">
-          <button
+          <button type="button"
             onClick={() => setActiveTab('library')}
             className={`pb-3 pt-4 text-sm font-medium transition-colors border-b-2 ${activeTab === 'library' ? 'border-white text-white' : 'border-transparent text-white/50 hover:text-white/80'}`}
           >
             Media Library
           </button>
-          <button
+          <button type="button"
             onClick={() => setActiveTab('upload')}
             className={`pb-3 pt-4 text-sm font-medium transition-colors border-b-2 ${activeTab === 'upload' ? 'border-white text-white' : 'border-transparent text-white/50 hover:text-white/80'}`}
           >
@@ -200,7 +200,7 @@ export default function MediaPicker({ onSelect, onClose, title = "Select Media" 
                 
                 {hasMore && !loading && (
                   <div className="flex justify-center pt-8 pb-4">
-                    <button
+                    <button type="button"
                       onClick={loadMore}
                       className="px-6 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-md text-sm font-medium text-white transition-colors"
                     >
@@ -219,13 +219,13 @@ export default function MediaPicker({ onSelect, onClose, title = "Select Media" 
             {selectedItem ? `Selected: ${selectedItem.filename}` : 'No image selected'}
           </div>
           <div className="flex items-center gap-3">
-            <button
+            <button type="button"
               onClick={onClose}
               className="px-4 py-2 text-sm font-medium text-white/60 hover:text-white transition-colors"
             >
               Cancel
             </button>
-            <button
+            <button type="button"
               onClick={() => {
                 if (selectedItem) onSelect(selectedItem);
               }}
