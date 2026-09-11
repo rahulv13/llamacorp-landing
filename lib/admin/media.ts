@@ -22,6 +22,7 @@ async function fetchWithAuth(endpoint: string, options: RequestInit = {}) {
 }
 
 export async function uploadAdminImage(formData: FormData) {
+  
   try {
     const file = formData.get('image') as File;
     if (!file) {
@@ -48,7 +49,20 @@ export async function uploadAdminImage(formData: FormData) {
 
     const data = await res.json();
     revalidatePath('/admin/media');
-    return { url: data.url, media: data.data };
+    
+    // Explicitly destructure to ensure we only return a plain, serializable object to the client
+    // This prevents React Error #441 (Serialization error) in Server Actions
+    const mediaItem = {
+      _id: data.data._id?.toString() || '',
+      secureUrl: data.data.secureUrl || '',
+      filename: data.data.filename || '',
+      alt: data.data.alt || '',
+      format: data.data.format || '',
+      bytes: data.data.bytes || 0,
+      createdAt: data.data.createdAt?.toString() || new Date().toISOString(),
+    };
+
+    return { url: data.url, media: mediaItem };
   } catch (error) {
     console.error('Image upload error:', error);
     return { error: 'Failed to connect to media server' };
