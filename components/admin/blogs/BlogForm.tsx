@@ -95,8 +95,12 @@ export default function BlogForm({
         formData.append('canonicalUrl', canonicalUrl);
         formData.append('featured', String(featured));
 
-        if (initialData?._id) {
-          await updateAdminBlog(initialData._id, formData);
+      if (initialData?._id) {
+          const dataObj = Object.fromEntries(formData.entries());
+          if (dataObj.tags && typeof dataObj.tags === 'string') {
+            dataObj.tags = JSON.parse(dataObj.tags);
+          }
+          await updateAdminBlog(initialData._id, dataObj);
           setLastSaved(new Date());
         }
       } catch (err) {
@@ -130,18 +134,19 @@ export default function BlogForm({
     if (!initialData) return;
     setIsSubmitting(true);
     try {
-      const formData = new FormData();
-      formData.append('title', `Copy of ${title}`);
-      formData.append('slug', `copy-of-${slug}-${Date.now()}`);
-      formData.append('content', content);
-      formData.append('excerpt', excerpt);
-      formData.append('status', 'draft');
-      if (category) formData.append('category', category);
-      formData.append('tags', JSON.stringify(tags));
-      formData.append('metaTitle', metaTitle);
-      formData.append('metaDescription', metaDescription);
+      const dataObj: any = {
+        title: `Copy of ${title}`,
+        slug: `copy-of-${slug}-${Date.now()}`,
+        content,
+        excerpt,
+        status: 'draft',
+        tags,
+        metaTitle,
+        metaDescription
+      };
+      if (category) dataObj.category = category;
       
-      const res = await createAdminBlog(formData);
+      const res = await createAdminBlog(dataObj);
       if (!res.error) {
         router.push('/admin/blogs');
       } else {
@@ -180,9 +185,16 @@ export default function BlogForm({
       // Empty image handling
     }
 
+    const dataObj = Object.fromEntries(formData.entries());
+    if (dataObj.tags && typeof dataObj.tags === 'string') {
+      try { dataObj.tags = JSON.parse(dataObj.tags); } catch(e){}
+    }
+    if (dataObj.featured === 'true') dataObj.featured = true;
+    if (dataObj.featured === 'false') dataObj.featured = false;
+
     const result = initialData 
-      ? await updateAdminBlog(initialData._id, formData)
-      : await createAdminBlog(formData);
+      ? await updateAdminBlog(initialData._id, dataObj)
+      : await createAdminBlog(dataObj);
 
     if (result.error) {
       setError(result.error);

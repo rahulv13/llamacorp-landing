@@ -65,7 +65,7 @@ export async function getAdminBlog(id: string) {
   }
 }
 
-export async function createAdminBlog(formData: FormData) {
+export async function createAdminBlog(data: any) {
   try {
     console.log("1. Publish button clicked");
     console.log("2. Server Action entered");
@@ -76,7 +76,7 @@ export async function createAdminBlog(formData: FormData) {
     const authorId = getAdminIdFromToken(token);
     if (!authorId) return { error: 'Could not resolve author from token' };
 
-    formData.append('author', authorId);
+    data.author = authorId;
 
     console.log("3. Payload validated");
     
@@ -84,7 +84,8 @@ export async function createAdminBlog(formData: FormData) {
     console.log("Before await fetchWithAuth");
     const res = await fetchWithAuth('/blogs', {
       method: 'POST',
-      body: formData, 
+      body: JSON.stringify(data), 
+      headers: { 'Content-Type': 'application/json' }
     });
     console.log("After await fetchWithAuth");
     console.log("5. Backend responded");
@@ -111,20 +112,21 @@ export async function createAdminBlog(formData: FormData) {
   } catch (error) {
     console.error('--- CAUGHT ERROR IN createAdminBlog ---');
     console.error(error);
-    throw error;
+    return { error: error instanceof Error ? error.message : 'Server connection failed' };
   }
 }
 
-export async function updateAdminBlog(id: string, formData: FormData) {
+export async function updateAdminBlog(id: string, data: any) {
   try {
     const res = await fetchWithAuth(`/blogs/${id}`, {
       method: 'PUT',
-      body: formData,
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' }
     });
 
     if (!res.ok) {
-      const data = await res.json();
-      return { error: data.message || 'Failed to update blog' };
+      const respData = await res.json();
+      return { error: respData.message || 'Failed to update blog' };
     }
 
     revalidatePath('/admin/blogs');
