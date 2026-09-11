@@ -70,13 +70,24 @@ exports.getBlogBySlug = async (req, res) => {
 // @route   POST /api/blogs
 // @access  Private
 exports.createBlog = async (req, res) => {
+    console.log("Backend: createBlog entered");
     const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(400).json({ success: false, errors: errors.array() });
+    if (!errors.isEmpty()) {
+        console.log("Backend: Validation failed");
+        return res.status(400).json({ success: false, errors: errors.array() });
+    }
 
     try {
+        console.log("Backend: Before await Blog.create");
         const blog = await Blog.create(req.body);
+        console.log("Backend: After await Blog.create");
+        
+        console.log("Backend: Before seoService.invalidateCache");
         seoService.invalidateCache();
+        console.log("Backend: After seoService.invalidateCache");
+        
         res.status(201).json({ success: true, data: blog });
+        console.log("Backend: Response sent");
     } catch (err) {
         console.error('Error creating blog:', err);
         res.status(500).json({ success: false, message: 'Server Error', error: err.message });
