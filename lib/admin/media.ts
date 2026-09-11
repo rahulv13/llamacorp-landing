@@ -23,9 +23,22 @@ async function fetchWithAuth(endpoint: string, options: RequestInit = {}) {
 
 export async function uploadAdminImage(formData: FormData) {
   try {
+    const file = formData.get('image') as File;
+    if (!file) {
+      return { error: 'No image provided' };
+    }
+
+    // Reconstruct FormData to prevent Next.js File polyfill from hanging Node's native fetch
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    const blob = new Blob([buffer], { type: file.type });
+    
+    const newFormData = new FormData();
+    newFormData.append('image', blob, file.name);
+
     const res = await fetchWithAuth('/media/upload', {
       method: 'POST',
-      body: formData,
+      body: newFormData,
     });
 
     if (!res.ok) {

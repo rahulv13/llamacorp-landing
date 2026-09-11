@@ -63,16 +63,24 @@ export default function MediaPicker({ onSelect, onClose, title = "Select Media" 
     const formData = new FormData();
     formData.append('image', file);
     
-    const res = await uploadAdminImage(formData);
-    
-    if (!res.error && res.media) {
-      setMedia(prev => [res.media, ...prev]);
-      setActiveTab('library');
-      setSelectedItem(res.media);
-    } else {
-      alert(`Upload failed: ${res.error}`);
+    try {
+      const res = await uploadAdminImage(formData);
+      
+      if (!res.error && res.media) {
+        setMedia(prev => [res.media, ...prev]);
+        setActiveTab('library');
+        setSelectedItem(res.media);
+      } else {
+        alert(`Upload failed: ${res.error}`);
+      }
+    } catch (err: any) {
+      console.error(err);
+      alert(`Upload failed: ${err.message || 'Unknown error'}`);
+    } finally {
+      setIsUploading(false);
+      // Reset input value to allow re-uploading the same file if needed
+      e.target.value = '';
     }
-    setIsUploading(false);
   };
 
   return (

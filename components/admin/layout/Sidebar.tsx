@@ -36,7 +36,7 @@ export default function Sidebar({ userRole = 'Author' }: { userRole?: string }) 
     <div className="flex h-full w-64 flex-col bg-[#0a0a0a] border-r border-white/10">
       <div className="flex h-16 shrink-0 items-center px-6 border-b border-white/10">
         <Link href="/admin/dashboard" className="flex items-center gap-3">
-          <Image src="/logo2.svg" alt="LlamaCorp Logo" width={24} height={24} className="filter brightness-0 invert" />
+          <Image src="/logo2.svg" alt="LlamaCorp Logo" width={24} height={24} className="rounded-sm object-contain" />
           <span className="font-semibold text-lg text-white tracking-tight">Admin</span>
         </Link>
       </div>

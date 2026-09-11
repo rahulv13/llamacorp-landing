@@ -58,13 +58,19 @@ export default function UploadDropzone({ onUploadComplete }: UploadDropzoneProps
       const formData = new FormData();
       formData.append('image', file);
       
-      const res = await uploadAdminImage(formData);
-      
-      if (!res.error) {
-        successCount++;
-        setUploadingFiles(prev => prev.map((f, idx) => idx === i ? { ...f, progress: 100 } : f));
-      } else {
-        alert(`Failed to upload ${file.name}: ${res.error}`);
+      try {
+        const res = await uploadAdminImage(formData);
+        
+        if (!res.error) {
+          successCount++;
+          setUploadingFiles(prev => prev.map((f, idx) => idx === i ? { ...f, progress: 100 } : f));
+        } else {
+          alert(`Failed to upload ${file.name}: ${res.error}`);
+          setUploadingFiles(prev => prev.filter((_, idx) => idx !== i));
+        }
+      } catch (err: any) {
+        console.error(err);
+        alert(`Failed to upload ${file.name}: ${err.message || 'Unknown error'}`);
         setUploadingFiles(prev => prev.filter((_, idx) => idx !== i));
       }
     }
