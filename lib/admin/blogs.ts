@@ -21,6 +21,10 @@ async function fetchWithAuth(endpoint: string, options: RequestInit = {}) {
     headers.set('Content-Type', 'application/json');
   }
 
+  console.log('--- fetchWithAuth ---');
+  console.log('URL:', `${API_URL}${endpoint}`);
+  console.log('Headers:', Object.fromEntries(headers.entries()));
+
   return fetch(`${API_URL}${endpoint}`, {
     ...options,
     headers,
@@ -72,22 +76,30 @@ export async function createAdminBlog(formData: FormData) {
 
     formData.append('author', authorId);
 
+    console.log('--- createAdminBlog INCOMING FORM DATA ---');
+    formData.forEach((value, key) => console.log(key, typeof value === 'string' ? value.substring(0, 100) : value));
+
     const res = await fetchWithAuth('/blogs', {
       method: 'POST',
-      body: formData, // passing FormData natively handles multipart and boundaries
+      body: formData, 
     });
 
     if (!res.ok) {
-      const data = await res.json();
-      return { error: data.message || 'Failed to create blog' };
+      console.error('--- BACKEND RETURNED !OK ---');
+      console.error('Status:', res.status, res.statusText);
+      console.error('Headers:', Object.fromEntries(res.headers.entries()));
+      const text = await res.text();
+      console.error('Response body:', text);
+      throw new Error(`Backend Error ${res.status}: ${text}`);
     }
 
     revalidatePath('/admin/blogs');
     revalidatePath('/admin/dashboard');
     return { success: true };
   } catch (error) {
+    console.error('--- CAUGHT ERROR IN createAdminBlog ---');
     console.error(error);
-    return { error: 'Server connection failed' };
+    throw error;
   }
 }
 
