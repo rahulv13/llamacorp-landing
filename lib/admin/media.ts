@@ -21,53 +21,6 @@ async function fetchWithAuth(endpoint: string, options: RequestInit = {}) {
   return fetch(`${API_URL}${endpoint}`, { ...options, headers });
 }
 
-export async function uploadAdminImage(formData: FormData) {
-  
-  try {
-    const file = formData.get('image') as File;
-    if (!file) {
-      return { error: 'No image provided' };
-    }
-
-    // Reconstruct FormData to prevent Next.js File polyfill from hanging Node's native fetch
-    const arrayBuffer = await file.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-    const blob = new Blob([buffer], { type: file.type });
-    
-    const newFormData = new FormData();
-    newFormData.append('image', blob, file.name);
-
-    const res = await fetchWithAuth('/media/upload', {
-      method: 'POST',
-      body: newFormData,
-    });
-
-    if (!res.ok) {
-      const data = await res.json();
-      return { error: data.message || 'Failed to upload image' };
-    }
-
-    const data = await res.json();
-    revalidatePath('/admin/media');
-    
-    // Explicitly destructure to ensure we only return a plain, serializable object to the client
-    // This prevents React Error #441 (Serialization error) in Server Actions
-    const mediaItem = {
-      _id: data.data._id?.toString() || '',
-      secureUrl: data.data.secureUrl || '',
-      filename: data.data.filename || '',
-      alt: data.data.alt || '',
-      format: data.data.format || '',
-      bytes: data.data.bytes || 0,
-      createdAt: data.data.createdAt?.toString() || new Date().toISOString(),
-    };
-
-    return { url: data.url, media: mediaItem };
-  } catch (error) {
-    console.error('Image upload error:', error);
-    return { error: 'Failed to connect to media server' };
-  }
-}
 
 export async function getAdminMedia(page = 1, limit = 20, search = '') {
   try {

@@ -64,14 +64,18 @@ export default function MediaPicker({ onSelect, onClose, title = "Select Media" 
     formData.append('image', file);
     
     try {
-      const res = await uploadAdminImage(formData);
+      const response = await fetch('/api/admin/media/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      const res = await response.json();
       
-      if (!res.error && res.media) {
+      if (response.ok && res.media) {
         setMedia(prev => [res.media, ...prev]);
         setActiveTab('library');
         setSelectedItem(res.media);
       } else {
-        alert(`Upload failed: ${res.error}`);
+        alert(`Upload failed: ${res.error || 'Unknown error'}`);
       }
     } catch (err: any) {
       console.error(err);
