@@ -67,6 +67,8 @@ export async function getAdminBlog(id: string) {
 
 export async function createAdminBlog(formData: FormData) {
   try {
+    console.log("1. Publish button clicked");
+    console.log("2. Server Action entered");
     const cookieStore = await cookies();
     const token = cookieStore.get('admin_token')?.value;
     if (!token) return { error: 'Not authenticated' };
@@ -76,13 +78,16 @@ export async function createAdminBlog(formData: FormData) {
 
     formData.append('author', authorId);
 
-    console.log('--- createAdminBlog INCOMING FORM DATA ---');
-    formData.forEach((value, key) => console.log(key, typeof value === 'string' ? value.substring(0, 100) : value));
-
+    console.log("3. Payload validated");
+    
+    console.log("4. Sending request to backend");
+    console.log("Before await fetchWithAuth");
     const res = await fetchWithAuth('/blogs', {
       method: 'POST',
       body: formData, 
     });
+    console.log("After await fetchWithAuth");
+    console.log("5. Backend responded");
 
     if (!res.ok) {
       console.error('--- BACKEND RETURNED !OK ---');
@@ -93,8 +98,15 @@ export async function createAdminBlog(formData: FormData) {
       throw new Error(`Backend Error ${res.status}: ${text}`);
     }
 
+    console.log("6. Saving to MongoDB (backend already did this)");
+    console.log("7. Cloudinary upload complete (handled separately by media picker)");
+    
+    console.log("Before await revalidatePath");
     revalidatePath('/admin/blogs');
     revalidatePath('/admin/dashboard');
+    console.log("After await revalidatePath");
+
+    console.log("8. Returning response");
     return { success: true };
   } catch (error) {
     console.error('--- CAUGHT ERROR IN createAdminBlog ---');
