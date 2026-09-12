@@ -77,11 +77,6 @@ export async function createAdminBlog(data: any) {
     const token = cookieStore.get('admin_token')?.value;
     if (!token) return { error: 'Not authenticated' };
 
-    const authorId = getAdminIdFromToken(token);
-    if (!authorId) return { error: 'Could not resolve author from token' };
-
-    data.author = authorId;
-
     console.log("3. Payload validated");
     
     console.log("4. Sending request to backend");

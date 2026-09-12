@@ -101,8 +101,8 @@ export default async function BlogIndexPage(props: { searchParams: Promise<{ [ke
                       <div className="flex items-center justify-between mt-auto">
                         <div className="flex items-center gap-3">
                           { }
-                          <img src={featuredPost.author?.avatar || 'https://ui-avatars.com/api/?name=' + (featuredPost.author?.name || 'Author')} alt={featuredPost.author?.name || 'Author'} className="w-10 h-10 rounded-full object-cover" />
-                          <span className="font-medium text-[#111] text-sm">{featuredPost.author?.name || 'Author'}</span>
+                          <img src={featuredPost.author?.avatar || 'https://ui-avatars.com/api/?name=' + (featuredPost.author?.fullName || featuredPost.author?.name || 'Llamacorp Team')} alt={featuredPost.author?.fullName || 'Llamacorp Team'} className="w-10 h-10 rounded-full object-cover" />
+                          <span className="font-medium text-[#111] text-sm">{featuredPost.author?.fullName || featuredPost.author?.name || 'Llamacorp Team'}</span>
                         </div>
                         <div className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center group-hover:bg-[#111] group-hover:text-white transition-colors">
                           <ArrowRight size={18} />
@@ -140,7 +140,7 @@ export default async function BlogIndexPage(props: { searchParams: Promise<{ [ke
                           </p>
                           
                           <div className="flex items-center justify-between text-xs text-[#777] pt-4 border-t border-black/5">
-                            <span className="font-medium text-[#111]">{post.author?.name || 'Author'}</span>
+                            <span className="font-medium text-[#111]">{post.author?.fullName || post.author?.name || 'Llamacorp Team'}</span>
                             <span>{post.readingTime || '5 min read'}</span>
                           </div>
                         </div>

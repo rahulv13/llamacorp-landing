@@ -2,7 +2,9 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, Clock, Calendar } from 'lucide-react';
+import { ArrowLeft, Clock, Calendar, Check, Twitter, Linkedin, Facebook, Link as LinkIcon, ArrowRight, Github, Instagram, Globe } from 'lucide-react';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
 import { marked } from 'marked';
 import { generateHTML } from '@tiptap/html';
 import StarterKit from '@tiptap/starter-kit';
@@ -58,7 +60,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
       description: post.metaDescription || getBlogExcerpt(post, 150),
       type: 'article',
       publishedTime: new Date(post.createdAt).toISOString(),
-      authors: [post.author?.name || 'Author'],
+      authors: [post.author?.fullName || post.author?.name || 'Llamacorp Team'],
       images: [{ url: coverImage }],
     },
     twitter: {
@@ -103,8 +105,8 @@ export default async function BlogArticlePage(props: { params: Promise<{ slug: s
     "datePublished": new Date(post.createdAt).toISOString(),
     "author": [{
         "@type": "Person",
-        "name": post.author?.name || 'Author',
-        "url": `https://llamacorp.com/blog/author/${post.author?.name?.toLowerCase().replace(/\s+/g, '-') || 'author'}`
+        "name": post.author?.fullName || post.author?.name || 'Llamacorp Team',
+        "url": `https://llamacorp.com/authors/${post.author?.slug || 'llamacorp-team'}`
     }]
   };
 
@@ -143,11 +145,14 @@ export default async function BlogArticlePage(props: { params: Promise<{ slug: s
 
           <div className="flex items-center justify-between border-y border-black/5 py-6">
             <div className="flex items-center gap-4">
-              { }
-              <img src={post.author?.avatar || 'https://ui-avatars.com/api/?name=' + (post.author?.name || 'Author')} alt={post.author?.name || 'Author'} className="w-12 h-12 rounded-full object-cover" />
+              <img src={post.author?.avatar || 'https://ui-avatars.com/api/?name=' + (post.author?.fullName || post.author?.name || 'Llamacorp Team')} alt={post.author?.fullName || 'Llamacorp Team'} className="w-12 h-12 rounded-full object-cover" />
               <div>
-                <div className="font-semibold text-[#111]">{post.author?.name || 'Author'}</div>
-                <div className="text-xs text-[#777]">{post.author?.role || 'Contributor'} @ Llamacorp</div>
+                <div className="font-semibold text-[#111]">
+                  <Link href={`/authors/${post.author?.slug || 'llamacorp-team'}`} className="hover:underline">
+                    {post.author?.fullName || post.author?.name || 'Llamacorp Team'}
+                  </Link>
+                </div>
+                <div className="text-xs text-[#777]">{post.author?.jobTitle || post.author?.role || 'Contributor'} @ Llamacorp</div>
               </div>
             </div>
 
@@ -202,6 +207,78 @@ export default async function BlogArticlePage(props: { params: Promise<{ slug: s
           </div>
         </div>
 
+        {/* Author Card */}
+        <div className="max-w-4xl mx-auto px-4 md:px-8 mt-16 lg:pl-[19rem]">
+          <div className="bg-[#f8f9fa] rounded-3xl p-8 md:p-10 border border-black/5 flex flex-col md:flex-row gap-8 items-start md:items-center">
+            <img 
+              src={post.author?.avatar || 'https://ui-avatars.com/api/?name=' + (post.author?.fullName || post.author?.name || 'Llamacorp Team')} 
+              alt={post.author?.fullName || 'Llamacorp Team'} 
+              className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover border border-black/10 shrink-0" 
+            />
+            <div className="flex-1">
+              <div className="flex items-center gap-4 text-xs font-medium text-[#777] mb-3 uppercase tracking-wider">
+                <span>{new Date(post.publishedAt || post.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                <span className="w-1 h-1 rounded-full bg-black/20"></span>
+                <span>{post.readingTime || '5 min read'}</span>
+              </div>
+              <h3 className="text-2xl font-bold text-[#111] mb-1">
+                {post.author?.fullName || post.author?.name || 'Llamacorp Team'}
+              </h3>
+              <p className="text-sm font-medium text-[#555] mb-4">
+                {post.author?.jobTitle || 'Contributor'}
+              </p>
+              
+              {post.author?.bio && (
+                <p className="text-[#555] text-sm leading-relaxed mb-6 line-clamp-3">
+                  {post.author.bio.replace(/<[^>]*>?/gm, '')}
+                </p>
+              )}
+
+              <div className="flex flex-col sm:flex-row sm:items-center gap-6 justify-between">
+                <div className="flex items-center gap-4">
+                  {post.author?.x && (
+                    <a href={post.author.x} target="_blank" rel="noopener noreferrer" className="text-[#777] hover:text-[#111] transition-colors">
+                      <Twitter className="w-4 h-4" />
+                    </a>
+                  )}
+                  {post.author?.linkedin && (
+                    <a href={post.author.linkedin} target="_blank" rel="noopener noreferrer" className="text-[#777] hover:text-[#111] transition-colors">
+                      <Linkedin className="w-4 h-4" />
+                    </a>
+                  )}
+                  {post.author?.github && (
+                    <a href={post.author.github} target="_blank" rel="noopener noreferrer" className="text-[#777] hover:text-[#111] transition-colors">
+                      <Github className="w-4 h-4" />
+                    </a>
+                  )}
+                  {post.author?.instagram && (
+                    <a href={post.author.instagram} target="_blank" rel="noopener noreferrer" className="text-[#777] hover:text-[#111] transition-colors">
+                      <Instagram className="w-4 h-4" />
+                    </a>
+                  )}
+                  {post.author?.youtube && (
+                    <a href={post.author.youtube} target="_blank" rel="noopener noreferrer" className="text-[#777] hover:text-[#111] transition-colors">
+                      <Youtube className="w-4 h-4" />
+                    </a>
+                  )}
+                  {post.author?.website && (
+                    <a href={post.author.website} target="_blank" rel="noopener noreferrer" className="text-[#777] hover:text-[#111] transition-colors">
+                      <Globe className="w-4 h-4" />
+                    </a>
+                  )}
+                </div>
+                
+                <Link 
+                  href={`/authors/${post.author?.slug || 'llamacorp-team'}`}
+                  className="inline-flex items-center gap-2 text-sm font-bold text-[#111] hover:opacity-70 transition-opacity"
+                >
+                  View all articles by this author <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Divider */}
         <div className="max-w-4xl mx-auto px-4 md:px-8 mt-16 mb-16">
           <div className="w-full h-px bg-black/10"></div>
@@ -226,7 +303,7 @@ export default async function BlogArticlePage(props: { params: Promise<{ slug: s
                       {relatedPost.title}
                     </h4>
                     <div className="flex items-center justify-between text-xs text-[#777]">
-                      <span className="font-medium text-[#111]">{relatedPost.author?.name || 'Author'}</span>
+                      <span className="font-medium text-[#111]">{relatedPost.author?.fullName || relatedPost.author?.name || 'Llamacorp Team'}</span>
                       <span>{relatedPost.readingTime || '5 min read'}</span>
                     </div>
                   </div>

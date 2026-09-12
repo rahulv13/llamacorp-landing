@@ -44,7 +44,6 @@ const blogSchema = new mongoose.Schema(
         author: {
             type: mongoose.Schema.ObjectId,
             ref: 'Author',
-            required: true,
         },
         status: {
             type: String,

@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createAdminBlog, updateAdminBlog } from '@/lib/admin/blogs';
+import { getAdminAuthors } from '@/lib/admin/authors';
 import { Save, ArrowLeft, Upload, X, Eye, Edit2, Copy } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -42,9 +43,15 @@ export default function BlogForm({
   // Organization
   const [status, setStatus] = useState(initialData?.status || 'draft');
   const [category, setCategory] = useState(initialData?.category?._id || initialData?.category || '');
+  const [author, setAuthor] = useState(initialData?.author?._id || initialData?.author || '');
+  const [authors, setAuthors] = useState<any[]>([]);
   const [tags, setTags] = useState<string[]>(initialData?.tags || []);
   const [publishedDate, setPublishedDate] = useState(initialData?.publishedDate || '');
   const [featured, setFeatured] = useState(initialData?.featured || false);
+
+  useEffect(() => {
+    getAdminAuthors().then(setAuthors);
+  }, []);
   
   // SEO
   const [metaTitle, setMetaTitle] = useState(initialData?.metaTitle || '');
@@ -87,6 +94,7 @@ export default function BlogForm({
         formData.append('excerpt', excerpt);
         formData.append('status', 'draft'); 
         if (category) formData.append('category', category);
+        if (author) formData.append('author', author);
         
         formData.append('tags', JSON.stringify(tags));
         formData.append('metaTitle', metaTitle);
@@ -113,7 +121,7 @@ export default function BlogForm({
     return () => {
       if (autoSaveTimeoutRef.current) clearTimeout(autoSaveTimeoutRef.current);
     };
-  }, [content, title, slug, excerpt, category, tags, metaTitle, metaDescription, metaKeywords, canonicalUrl, featured, initialData, isSubmitting]);
+  }, [content, title, slug, excerpt, category, author, tags, metaTitle, metaDescription, metaKeywords, canonicalUrl, featured, initialData, isSubmitting]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -145,6 +153,7 @@ export default function BlogForm({
         metaDescription
       };
       if (category) dataObj.category = category;
+      if (author) dataObj.author = author;
       
       const res = await createAdminBlog(dataObj);
       if (!res.error) {
@@ -173,6 +182,7 @@ export default function BlogForm({
     formData.set('excerpt', excerpt);
     formData.set('status', status);
     formData.set('category', category);
+    formData.set('author', author);
     formData.set('tags', JSON.stringify(tags));
     formData.set('publishedDate', publishedDate);
     formData.set('featured', String(featured));
@@ -467,6 +477,23 @@ export default function BlogForm({
                 <option value="" disabled>Select a category</option>
                 {categories.map((cat: any) => (
                   <option key={cat._id} value={cat._id}>{cat.name}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label htmlFor="author" className="block text-xs font-medium text-white/60 mb-2">Author <span className="text-red-400">*</span></label>
+              <select
+                id="author"
+                value={author}
+                onChange={(e) => setAuthor(e.target.value)}
+                className="w-full rounded-md border border-white/10 bg-black/50 py-2.5 px-3 text-sm text-white focus:border-white/30 focus:outline-none focus:ring-1 focus:ring-white/30"
+              >
+                <option value="">Llamacorp Team (Default)</option>
+                {authors.map((auth: any) => (
+                  <option key={auth._id} value={auth._id}>
+                    {auth.fullName} {auth.jobTitle ? `- ${auth.jobTitle}` : ''}
+                  </option>
                 ))}
               </select>
             </div>
