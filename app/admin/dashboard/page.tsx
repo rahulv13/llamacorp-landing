@@ -6,6 +6,8 @@ import CalendarView from '@/components/admin/dashboard/CalendarView';
 import { getDashboardStats } from '@/lib/admin/dashboard';
 import { FileText, Eye, Edit3, Calendar } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminDashboard() {
   const res = await getDashboardStats();
   const stats = res?.data || {

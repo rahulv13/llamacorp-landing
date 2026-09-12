@@ -2,6 +2,8 @@ import React from 'react';
 import { Activity, Server, Database, Cloud, Clock, CheckCircle, AlertCircle } from 'lucide-react';
 import { getSystemHealth } from '@/lib/admin/dashboard';
 
+export const dynamic = 'force-dynamic';
+
 export default async function HealthPage() {
   const health = await getSystemHealth();
   const isHealthy = health?.status === 'ok';
