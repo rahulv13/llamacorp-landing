@@ -2,7 +2,8 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, Clock, Calendar, Check, Twitter, Linkedin, Facebook, Link as LinkIcon, ArrowRight, Github, Instagram, Globe } from 'lucide-react';
+import { ArrowLeft, Clock, Calendar, Check, Facebook, Link as LinkIcon, ArrowRight } from 'lucide-react';
+import { Twitter, Linkedin, Github, Instagram, Globe, Youtube as YoutubeIcon } from '@/components/SocialIcons';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { marked } from 'marked';
@@ -258,7 +259,7 @@ export default async function BlogArticlePage(props: { params: Promise<{ slug: s
                   )}
                   {post.author?.youtube && (
                     <a href={post.author.youtube} target="_blank" rel="noopener noreferrer" className="text-[#777] hover:text-[#111] transition-colors">
-                      <Youtube className="w-4 h-4" />
+                      <YoutubeIcon className="w-4 h-4" />
                     </a>
                   )}
                   {post.author?.website && (

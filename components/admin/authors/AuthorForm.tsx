@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Save, Image as ImageIcon } from 'lucide-react';
 import { createAdminAuthor, updateAdminAuthor } from '@/lib/admin/authors';
-import MediaPicker from '@/components/admin/MediaPicker';
+import MediaPicker from '../media/MediaPicker';
 
 export default function AuthorForm({ initialData }: { initialData?: any }) {
   const router = useRouter();

@@ -3,7 +3,8 @@ import { getPublicAuthorBySlug, getPublicAuthors } from '@/lib/authors';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, Twitter, Linkedin, Github, Globe, Instagram, Youtube } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { Twitter, Linkedin, Github, Globe, Instagram, Youtube } from '@/components/SocialIcons';
 import Footer from '@/components/Footer';
 
 type Props = {

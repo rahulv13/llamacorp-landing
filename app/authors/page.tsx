@@ -1,7 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { getPublicAuthors } from '@/lib/authors';
-import { ArrowRight, Twitter, Linkedin, Github, Globe } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { Twitter, Linkedin, Github, Globe } from '@/components/SocialIcons';
 import Footer from '@/components/Footer';
 
 export const metadata = {
